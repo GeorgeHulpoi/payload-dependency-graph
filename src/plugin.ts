@@ -1,77 +1,68 @@
-import type { Config } from 'payload/config'
+import type { Config, Plugin } from 'payload/config';
 
-import { onInitExtension } from './onInitExtension'
-import type { PluginTypes } from './types'
-import { extendWebpackConfig } from './webpack'
-import AfterDashboard from './components/AfterDashboard'
-import newCollection from './newCollection'
+import { InMemoryDependenciesGraph } from './dependencies-graph/in-memory';
+import afterCollectionChange from './hooks/afterCollectionChange';
+import afterCollectionDelete from './hooks/afterCollectionDelete';
+import afterGlobalChange from './hooks/afterGlobalChange';
+import dependenciesGraphObserver from './observer';
+import { SchemaBuilder } from './schema-builder/schema-builder';
+import type { PluginConfig } from './types';
 
-export const samplePlugin =
-  (pluginOptions: PluginTypes) =>
-  (incomingConfig: Config): Config => {
-    let config = { ...incomingConfig }
+const DependenciesGraphObserverPlugin: (pluginConfig?: PluginConfig) => Plugin =
+	(
+		pluginConfig: PluginConfig = {
+			factory: (schema, payload) => new InMemoryDependenciesGraph(schema, payload),
+		},
+	) =>
+	(incomingConfig: Config): Config => {
+		const { globals, collections, onInit, ...restOfConfig } = incomingConfig;
 
-    // If you need to add a webpack alias, use this function to extend the webpack config
-    const webpack = extendWebpackConfig(incomingConfig)
+		const builder = new SchemaBuilder(collections || [], globals || []);
+		const schema = builder.build();
+		dependenciesGraphObserver.schema = schema;
 
-    config.admin = {
-      ...(config.admin || {}),
-      // If you extended the webpack config, add it back in here
-      // If you did not extend the webpack config, you can remove this line
-      webpack,
+		return {
+			globals: (globals || []).map((global) => {
+				const { hooks, ...restOfGlobal } = global;
+				const { afterChange, ...restOfHooks } = hooks || {};
 
-      // Add additional admin config here
+				return {
+					hooks: {
+						afterChange: [afterGlobalChange, ...(afterChange || [])],
+						...restOfHooks,
+					},
+					...restOfGlobal,
+				};
+			}),
+			collections: (collections || []).map((collection) => {
+				const { hooks, ...restOfCollection } = collection;
+				const { afterChange, afterDelete, ...restOfHooks } = hooks || {};
 
-      components: {
-        ...(config.admin?.components || {}),
-        // Add additional admin components here
-        afterDashboard: [
-          ...(config.admin?.components?.afterDashboard || []),
-          AfterDashboard,
-        ],
-      },
-    }
+				return {
+					hooks: {
+						afterChange: [
+							afterCollectionChange(collection.slug),
+							...(afterChange || []),
+						],
+						afterDelete: [
+							afterCollectionDelete(collection.slug),
+							...(afterDelete || []),
+						],
+						...restOfHooks,
+					},
+					...restOfCollection,
+				};
+			}),
+			onInit: async (payload) => {
+				if (incomingConfig.onInit) {
+					await incomingConfig.onInit(payload);
+				}
 
-    // If the plugin is disabled, return the config without modifying it
-    // The order of this check is important, we still want any webpack extensions to be applied even if the plugin is disabled
-    if (pluginOptions.enabled === false) {
-      return config
-    }
+				dependenciesGraphObserver.dependenciesGraph = pluginConfig.factory(schema, payload);
+				await dependenciesGraphObserver.dependenciesGraph.populate();
+			},
+			...restOfConfig,
+		};
+	};
 
-    config.collections = [
-      ...(config.collections || []),
-      // Add additional collections here
-      newCollection, // delete this line to remove the example collection
-    ]
-
-    config.endpoints = [
-      ...(config.endpoints || []),
-      {
-        path: '/custom-endpoint',
-        method: 'get',
-        root: true,
-        handler: (req, res): void => {
-          res.json({ message: 'Here is a custom endpoint' });
-        },
-      },
-      // Add additional endpoints here
-    ]
-
-    config.globals = [
-      ...(config.globals || []),
-      // Add additional globals here
-    ]
-
-    config.hooks = {
-      ...(config.hooks || {}),
-      // Add additional hooks here
-    }
-
-    config.onInit = async payload => {
-      if (incomingConfig.onInit) await incomingConfig.onInit(payload)
-      // Add additional onInit code by using the onInitExtension function
-      onInitExtension(pluginOptions, payload)
-    }
-
-    return config
-  }
+export default DependenciesGraphObserverPlugin;
