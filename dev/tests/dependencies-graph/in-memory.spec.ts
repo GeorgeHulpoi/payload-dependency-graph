@@ -167,6 +167,57 @@ describe('InMemoryDependenciesGraph', () => {
 			);
 		});
 
+		it('should prevent creating duplicates', () => {
+			graph.addDependency(
+				{
+					collection: 'people',
+					id: 'george',
+				},
+				{
+					collection: 'cats',
+					id: 'tom',
+				},
+			);
+
+			graph.addDependency(
+				{
+					collection: 'people',
+					id: 'george',
+				},
+				{
+					collection: 'cats',
+					id: 'tom',
+				},
+			);
+
+			expect((graph as any).collections).toEqual(
+				expect.objectContaining({
+					people: {
+						'george': {
+							dependentOn: [
+								{
+									collection: 'cats',
+									id: 'tom',
+								},
+							],
+							dependencyFor: [],
+						}
+					},
+					cats: {
+						tom: {
+							dependentOn: [],
+							dependencyFor: [
+								{
+									collection: 'people',
+									id: 'george'
+								}
+							],
+						}
+					} 
+				})
+			);
+		});
+
 		it('should add multiple dependencies', () => {
 			graph.addDependency(
 				{
