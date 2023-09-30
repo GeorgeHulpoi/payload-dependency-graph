@@ -23,7 +23,7 @@ export abstract class DependenciesGraphBase {
 	abstract deleteResource(resource: DependencyGraphResource): void | Promise<void>;
 
 	/**
-	 * Add target as a direct dependency of source
+	 * Add target as a direct dependency of source.
 	 *
 	 * @param source
 	 * @param target
@@ -33,6 +33,12 @@ export abstract class DependenciesGraphBase {
 		target: DependencyGraphResource,
 	): void | Promise<void>;
 
+	/**
+	 * The function purges the dependentsOn for a resource and removes for that
+	 * dependencies the dependencyFor.
+	 *
+	 * @param resource
+	 */
 	abstract purgeDependentOn(resource: DependencyGraphResource): void | Promise<void>;
 
 	/**
