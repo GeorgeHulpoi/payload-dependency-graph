@@ -28,8 +28,8 @@ import { buildConfig } from 'payload/config';
 import { DependenciesGraphPlugin } from 'payload-dependencies-graph';
 
 const config = buildConfig({
-	// ... rest of your config
-	plugins: [DependenciesGraphPlugin()],
+    // ... rest of your config
+    plugins: [DependenciesGraphPlugin()],
 });
 
 export default config;
@@ -52,13 +52,13 @@ import { buildConfig } from 'payload/config';
 import { DependenciesGraphPlugin, DependenciesGraphService } from 'payload-dependencies-graph';
 
 const config = buildConfig({
-	// ... rest of your config
-	plugins: [DependenciesGraphPlugin()],
-	onInit: (payload) => {
-		DependenciesGraphService.subscribe((event) => {
-			// write your own logic
-		});
-	},
+    // ... rest of your config
+    plugins: [DependenciesGraphPlugin()],
+    onInit: (payload) => {
+        DependenciesGraphService.subscribe((event) => {
+            // write your own logic
+        });
+    },
 });
 
 export default config;
@@ -71,35 +71,35 @@ import { buildConfig } from 'payload/config';
 import { DependenciesGraphPlugin, DependenciesGraphService } from 'payload-dependencies-graph';
 
 const config = buildConfig({
-	// ... rest of your config
-	plugins: [DependenciesGraphPlugin()],
-	onInit: (payload) => {
-		DependenciesGraphService.subscribe((event) => {
-			if (event.type === 'update' && event.collection) {
-				const graph = DependenciesGraphService.dependenciesGraph;
-				const resource = {
-					collection: event.collection,
-					id: doc.id,
-				};
+    // ... rest of your config
+    plugins: [DependenciesGraphPlugin()],
+    onInit: (payload) => {
+        DependenciesGraphService.subscribe((event) => {
+            if (event.type === 'update' && event.collection) {
+                const graph = DependenciesGraphService.dependenciesGraph;
+                const resource = {
+                    collection: event.collection,
+                    id: doc.id,
+                };
 
-				if (event.collection === 'pages' && doc.id === 'home') {
-					// regenerate home page
-				} else {
-					if (
-						graph.isDependency(
-							{
-								collection: 'pages',
-								id: 'home',
-							},
-							resource,
-						)
-					) {
-						// regenerate home page
-					}
-				}
-			}
-		});
-	},
+                if (event.collection === 'pages' && doc.id === 'home') {
+                    // regenerate home page
+                } else {
+                    if (
+                        graph.isDependency(
+                            {
+                                collection: 'pages',
+                                id: 'home',
+                            },
+                            resource,
+                        )
+                    ) {
+                        // regenerate home page
+                    }
+                }
+            }
+        });
+    },
 });
 
 export default config;
