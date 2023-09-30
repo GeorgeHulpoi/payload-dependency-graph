@@ -30,10 +30,30 @@ export class InMemoryDependenciesGraph extends DependenciesGraphBase {
 		};
 	}
 
-	static compareResources(a: DependencyGraphResource, b: DependencyGraphResource): boolean {
-		return a.global === b.global && a.collection === b.collection && a.id === b.id;
+	/**
+	 * Compares two resources with each other
+	 *
+	 * @param first
+	 * @param second
+	 * @returns `true` if the resources are the same, `false` otherwise
+	 */
+	static compareResources(
+		first: DependencyGraphResource,
+		second: DependencyGraphResource,
+	): boolean {
+		return (
+			first.global === second.global &&
+			first.collection === second.collection &&
+			first.id === second.id
+		);
 	}
 
+	/**
+	 * Extracts the node from the dependencies graph.
+	 *
+	 * @param resource
+	 * @returns `DependencyGraphNode`, if doesn't exists it will be `undefined`
+	 */
 	getDependencyGraphNode(resource: DependencyGraphResource): DependencyGraphNode | undefined {
 		if (resource.global === undefined && resource.collection === undefined) {
 			throw new Error('You have to provide a global or a collection for the resource.');
@@ -122,12 +142,6 @@ export class InMemoryDependenciesGraph extends DependenciesGraphBase {
 		}
 	}
 
-	/**
-	 * Add target as a dependency to source
-	 *
-	 * @param source
-	 * @param target
-	 */
 	addDependency(source: DependencyGraphResource, target: DependencyGraphResource): void {
 		const sourceNode = this.safeGetDependencyGraphNode(source);
 

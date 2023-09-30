@@ -3,6 +3,9 @@ import type { Payload } from 'payload';
 import type { DependenciesSchema, DependencyGraphResource, DependencySchema } from '../types';
 import getValuesFromPath from '../utils/get-values-from-path';
 
+/**
+ * Represents the base class for implementing a concrete dependencies graph.
+ */
 export abstract class DependenciesGraphBase {
 	protected readonly schema: DependenciesSchema;
 	protected readonly payload: Payload;
@@ -12,8 +15,19 @@ export abstract class DependenciesGraphBase {
 		this.payload = payload;
 	}
 
+	/**
+	 * Deletes a resource from the dependencies graph.
+	 *
+	 * @param resource
+	 */
 	abstract deleteResource(resource: DependencyGraphResource): void | Promise<void>;
 
+	/**
+	 * Add target as a direct dependency of source
+	 *
+	 * @param source
+	 * @param target
+	 */
 	abstract addDependency(
 		source: DependencyGraphResource,
 		target: DependencyGraphResource,
@@ -62,6 +76,10 @@ export abstract class DependenciesGraphBase {
 		};
 	}
 
+	/**
+	 * Used at Payload initialization to populate the dependencies graph.
+	 * You shouldn't call this function by yourself.
+	 */
 	async populate(): Promise<void> {
 		this.payload.logger.info('Starting to populate Dependencies Graph');
 
@@ -107,6 +125,13 @@ export abstract class DependenciesGraphBase {
 		this.payload.logger.info('Dependencies Graph have been populated successfully.');
 	}
 
+	/**
+	 * Used to extract dependencies from a document based on schemas. The function will automatically populate the dependencies graph.
+	 *
+	 * @param source
+	 * @param doc
+	 * @param schemas
+	 */
 	extractDependenciesFromDoc(
 		source: DependencyGraphResource,
 		doc: any,
