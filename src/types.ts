@@ -2,7 +2,7 @@ import type { Payload } from 'payload';
 
 import type { DependenciesGraphBase } from './dependencies-graph/base';
 
-export interface PluginConfig {
+export interface DependenciesGraphPluginConfig {
 	factory: (schema: DependenciesSchema, payload: Payload) => DependenciesGraphBase;
 }
 

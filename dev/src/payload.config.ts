@@ -1,7 +1,7 @@
 import path from 'path';
 import { buildConfig } from 'payload/config';
 
-import { DependenciesGraphObserverPlugin } from '../../src';
+import { DependenciesGraphPlugin } from '../../src';
 import collections from './collections';
 import globals from './globals';
 
@@ -33,5 +33,5 @@ export default buildConfig({
 	graphQL: {
 		schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
 	},
-	plugins: [DependenciesGraphObserverPlugin()],
+	plugins: [DependenciesGraphPlugin()],
 });

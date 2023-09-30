@@ -4,13 +4,13 @@ import { InMemoryDependenciesGraph } from './dependencies-graph/in-memory';
 import afterCollectionChange from './hooks/afterCollectionChange';
 import afterCollectionDelete from './hooks/afterCollectionDelete';
 import afterGlobalChange from './hooks/afterGlobalChange';
-import dependenciesGraphObserver from './observer';
+import service from './service';
 import { SchemaBuilder } from './schema-builder/schema-builder';
-import type { PluginConfig } from './types';
+import type { DependenciesGraphPluginConfig } from './types';
 
-const DependenciesGraphObserverPlugin: (pluginConfig?: PluginConfig) => Plugin =
+const DependenciesGraphPlugin: (pluginConfig?: DependenciesGraphPluginConfig) => Plugin =
 	(
-		pluginConfig: PluginConfig = {
+		pluginConfig: DependenciesGraphPluginConfig = {
 			factory: (schema, payload) => new InMemoryDependenciesGraph(schema, payload),
 		},
 	) =>
@@ -19,7 +19,7 @@ const DependenciesGraphObserverPlugin: (pluginConfig?: PluginConfig) => Plugin =
 
 		const builder = new SchemaBuilder(collections || [], globals || []);
 		const schema = builder.build();
-		dependenciesGraphObserver.schema = schema;
+		service.schema = schema;
 
 		return {
 			globals: (globals || []).map((global) => {
@@ -58,11 +58,11 @@ const DependenciesGraphObserverPlugin: (pluginConfig?: PluginConfig) => Plugin =
 					await incomingConfig.onInit(payload);
 				}
 
-				dependenciesGraphObserver.dependenciesGraph = pluginConfig.factory(schema, payload);
-				await dependenciesGraphObserver.dependenciesGraph.populate();
+				service.dependenciesGraph = pluginConfig.factory(schema, payload);
+				await service.dependenciesGraph.populate();
 			},
 			...restOfConfig,
 		};
 	};
 
-export default DependenciesGraphObserverPlugin;
+export default DependenciesGraphPlugin;

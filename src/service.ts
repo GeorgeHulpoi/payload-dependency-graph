@@ -7,7 +7,7 @@ import type {
 	OnGlobalChangeArgs,
 } from './types';
 
-class DependenciesGraphObserver extends Subject {
+class DependenciesGraphService extends Subject {
 	schema?: DependenciesSchema;
 	dependenciesGraph?: DependenciesGraphBase;
 
@@ -94,4 +94,4 @@ class DependenciesGraphObserver extends Subject {
 	}
 }
 
-export default new DependenciesGraphObserver();
+export default new DependenciesGraphService();

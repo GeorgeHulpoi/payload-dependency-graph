@@ -1,11 +1,11 @@
 import type { CollectionAfterChangeHook } from 'payload/types';
 
-import DependenciesGraphObserver from '../observer';
+import DependenciesGraphService from '../service';
 
 const afterCollectionChange: (collection: string) => CollectionAfterChangeHook =
 	(collection: string) =>
 	({ doc, previousDoc, operation }) => {
-		return DependenciesGraphObserver.onCollectionChange({
+		return DependenciesGraphService.onCollectionChange({
 			doc,
 			previousDoc,
 			operation,

@@ -1,7 +1,7 @@
 import plugin from './plugin';
-import observer from './observer';
+import service from './service';
 
 export { Subject } from './subject';
 export { Subscription } from './subscription';
-export const DependenciesGraphObserver = observer;
-export const DependenciesGraphObserverPlugin = plugin;
+export const DependenciesGraphService = service;
+export const DependenciesGraphPlugin = plugin;

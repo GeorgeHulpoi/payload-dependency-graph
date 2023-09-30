@@ -1,6 +1,6 @@
 import type { Server } from 'http';
 import mongoose from 'mongoose';
-import { DependenciesGraphObserver } from '../../../src';
+import { DependenciesGraphService } from '../../../src';
 import { start } from '../../src/server';
 import payload from 'payload';
 
@@ -15,13 +15,13 @@ describe('In Memory Tests', () => {
 		server = await start({ local: true });
 		// Need to populate again, it's because that the seeding it's executing
 		// after graph population.
-		graph = DependenciesGraphObserver.dependenciesGraph;
+		graph = DependenciesGraphService.dependenciesGraph;
 		graph.collections = {};
 		graph.globals = {};
-		await DependenciesGraphObserver.dependenciesGraph.populate();
+		await DependenciesGraphService.dependenciesGraph.populate();
 		globals = graph.globals;
 		collections = graph.collections;
-		DependenciesGraphObserver.subscribe(callback);
+		DependenciesGraphService.subscribe(callback);
 	});
 
 	afterAll(async () => {
