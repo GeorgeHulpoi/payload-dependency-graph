@@ -1,3 +1,10 @@
+/**
+ * Used to extract values from a given path within `doc`.
+ *
+ * @param path
+ * @param doc
+ * @returns a list of values, because the path accepts array.
+ */
 export default function getValuesFromPath(path: string, doc: any): any[] {
 	const pathArr = path.split('.');
 
