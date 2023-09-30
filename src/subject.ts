@@ -1,6 +1,9 @@
 import { Subscription } from './subscription';
 import type { Event, SubscriptionCallback } from './types';
 
+/**
+ * A simplistic implementation of the Observer design pattern. You can understand more reading {@link https://refactoring.guru/design-patterns/observer}.
+ */
 export class Subject {
 	subscriptions: Subscription[] = [];
 

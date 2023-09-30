@@ -1,6 +1,10 @@
 import type { Subject } from './subject';
 import type { Event, SubscriptionCallback } from './types';
 
+/**
+ * Represents a wrapper of a calling function. Used by {@link Subject | Subject}.
+ * Very similar to {@link https://rxjs.dev/guide/subscription | RxJS Subscription}
+ */
 export class Subscription {
 	private readonly callback: SubscriptionCallback;
 	private readonly subject: Subject;
