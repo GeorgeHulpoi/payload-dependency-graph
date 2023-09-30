@@ -1,6 +1,9 @@
 import type { Block, CollectionConfig, Field, GlobalConfig } from 'payload/types';
 import type { DependenciesSchema, DependencySchema } from '../types';
 
+/**
+ * It is the class used to extract the dependency schema from collections, globals and blocks. It is a way of saying 'I know there's an dependency in that place'.
+ */
 export class SchemaBuilder {
 	private readonly collections: CollectionConfig[];
 	private readonly globals: GlobalConfig[];
@@ -11,6 +14,13 @@ export class SchemaBuilder {
 		this.globals = globals;
 	}
 
+	/**
+	 * Formats the path based on the field type and base. Used exclusively by {@link build | build method}
+	 *
+	 * @param base
+	 * @param field
+	 * @returns a string representing the path to the field
+	 */
 	static formatFieldPath(base: string, field: { name?: string; type?: string }): string {
 		let newBaseName = base;
 
@@ -29,6 +39,9 @@ export class SchemaBuilder {
 		return newBaseName;
 	}
 
+	/**
+	 * Build the Dependencies Schema
+	 */
 	build(): DependenciesSchema {
 		const schema: DependenciesSchema = {
 			collections: {},
@@ -62,6 +75,14 @@ export class SchemaBuilder {
 		return schema;
 	}
 
+	/**
+	 * Used to extract all available blocks rather than extracting dependencies.
+	 * It doesn't make sense to extract the dependencies for each block at a time,
+	 * because the process will most likely repeat itself, so it's better to
+	 * extract a list of all the available blocks and analyze it later.
+	 *
+	 * @param fields
+	 */
 	exploreBlockFields(fields: Field[]): void {
 		fields.forEach((field) => {
 			if (field.type === 'array') {
@@ -81,6 +102,13 @@ export class SchemaBuilder {
 		});
 	}
 
+	/**
+	 * Recursively traverse each field until it reaches a Block or a RelationshipField.
+	 *
+	 * @param fields
+	 * @param baseName
+	 * @returns Extracts a list of dependencies
+	 */
 	getDependencies(fields: Field[], baseName = ''): DependencySchema[] {
 		const dependencies: DependencySchema[] = [];
 
