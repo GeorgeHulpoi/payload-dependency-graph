@@ -193,7 +193,7 @@ describe('InMemoryDependenciesGraph', () => {
 			expect((graph as any).collections).toEqual(
 				expect.objectContaining({
 					people: {
-						'george': {
+						george: {
 							dependentOn: [
 								{
 									collection: 'cats',
@@ -201,7 +201,7 @@ describe('InMemoryDependenciesGraph', () => {
 								},
 							],
 							dependencyFor: [],
-						}
+						},
 					},
 					cats: {
 						tom: {
@@ -209,12 +209,12 @@ describe('InMemoryDependenciesGraph', () => {
 							dependencyFor: [
 								{
 									collection: 'people',
-									id: 'george'
-								}
+									id: 'george',
+								},
 							],
-						}
-					} 
-				})
+						},
+					},
+				}),
 			);
 		});
 

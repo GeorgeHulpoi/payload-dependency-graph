@@ -3,32 +3,12 @@ import type {
 	DependenciesGraphGlobals,
 	DependencyGraphNode,
 	DependencyGraphResource,
-	DependencySchema,
 } from '../types';
 import { DependenciesGraphBase } from './base';
 
 export class InMemoryDependenciesGraph extends DependenciesGraphBase {
 	private collections: DependenciesGraphCollections = {};
 	private globals: DependenciesGraphGlobals = {};
-
-	static getProjection(schemas?: DependencySchema[]): Record<string, number> {
-		return {
-			_id: 1,
-			...(schemas || []).reduce((acc, dep) => {
-				/**
-				 * Projections in MongoDB doesn't need the
-				 * asterisk character.
-				 */
-				let path = dep.path.replaceAll('.*.', '.');
-				path = path.replaceAll('.*', '');
-
-				return {
-					...acc,
-					[path]: 1,
-				};
-			}, {}),
-		};
-	}
 
 	/**
 	 * Compares two resources with each other

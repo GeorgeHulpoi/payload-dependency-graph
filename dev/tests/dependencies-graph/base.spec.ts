@@ -34,50 +34,6 @@ describe('DependenciesGraphBase', () => {
 		jest.restoreAllMocks();
 	});
 
-	describe('getProjection', () => {
-		it('should generate projection for simple schema', () => {
-			const schemas: any = [
-				{
-					path: 'menus',
-				},
-				{
-					path: 'category',
-				},
-			];
-
-			const projection = DependenciesGraphBase.getProjection(schemas);
-
-			expect(projection).toEqual(
-				expect.objectContaining({
-					_id: 1,
-					menus: 1,
-					category: 1,
-				}),
-			);
-		});
-
-		it('should generate projection for complex schema', () => {
-			const schemas: any = [
-				{
-					path: 'nav.menus.*.menus.*.page',
-				},
-				{
-					path: 'nav.categories.*',
-				},
-			];
-
-			const projection = DependenciesGraphBase.getProjection(schemas);
-
-			expect(projection).toEqual(
-				expect.objectContaining({
-					_id: 1,
-					'nav.menus.menus.page': 1,
-					'nav.categories': 1,
-				}),
-			);
-		});
-	});
-
 	describe('extractDependenciesFromDoc', () => {
 		const builder = new SchemaBuilder(collections, globals);
 		const schema = builder.build();

@@ -57,25 +57,6 @@ export abstract class DependenciesGraphBase {
 		target: DependencyGraphResource,
 	): boolean | Promise<boolean>;
 
-	static getProjection(schemas?: DependencySchema[]): Record<string, number> {
-		return {
-			_id: 1,
-			...(schemas || []).reduce((acc, dep) => {
-				/**
-				 * Projections in MongoDB doesn't need the
-				 * asterisk character.
-				 */
-				let path = dep.path.replaceAll('.*.', '.');
-				path = path.replaceAll('.*', '');
-
-				return {
-					...acc,
-					[path]: 1,
-				};
-			}, {}),
-		};
-	}
-
 	/**
 	 * Used at Payload initialization to populate the dependencies graph.
 	 * You shouldn't call this function by yourself.
