@@ -133,7 +133,7 @@ export class InMemoryDependenciesGraph extends DependenciesGraphBase {
 
 		if (
 			!sourceNode.dependentOn.find((r) =>
-				InMemoryDependenciesGraph.compareResources(r, source),
+				InMemoryDependenciesGraph.compareResources(r, target),
 			)
 		) {
 			sourceNode.dependentOn.push(target);
