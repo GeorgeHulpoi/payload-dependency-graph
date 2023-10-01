@@ -29,7 +29,7 @@ export class InMemoryDependencyGraph extends DependencyGraphBase {
 	}
 
 	/**
-	 * Extracts the node from the dependencies graph.
+	 * Extracts the node from the dependency graph.
 	 *
 	 * @param resource
 	 * @returns `DependencyGraphNode`, if doesn't exists it will be `undefined`

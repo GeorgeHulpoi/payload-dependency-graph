@@ -1,6 +1,6 @@
-# Payload Dependencies Graph Plugin
+# Payload Dependency Graph Plugin
 
-[![CI](https://github.com/GeorgeHulpoi/payload-dependencies-graph/workflows/Test/badge.svg?branch=main)](https://github.com/GeorgeHulpoi/payload-dependencies-graph/actions?query=workflow%3ATest)
+[![Test](https://github.com/GeorgeHulpoi/payload-dependency-graph/actions/workflows/test.yml/badge.svg)](https://github.com/GeorgeHulpoi/payload-dependency-graph/actions/workflows/test.yml)
 
 This plugin creates a dependency graph between collections and globals. The graph updates automatically, because the plugin observes the changes made on any collection or globals.
 
@@ -14,9 +14,9 @@ The plugin is useful when it comes to cached content or relationship-based chang
 ## Installation
 
 ```shell
-yarn add payload-dependencies-graph
+yarn add payload-dependency-graph
 # OR
-npm i payload-dependencies-graph
+npm i payload-dependency-graph
 ```
 
 ## Usage
@@ -25,11 +25,11 @@ npm i payload-dependencies-graph
 
 ```ts
 import { buildConfig } from 'payload/config';
-import { DependenciesGraphPlugin } from 'payload-dependencies-graph';
+import { DependencyGraphPlugin } from 'payload-dependency-graph';
 
 const config = buildConfig({
     // ... rest of your config
-    plugins: [DependenciesGraphPlugin()],
+    plugins: [DependencyGraphPlugin()],
 });
 
 export default config;
@@ -37,25 +37,25 @@ export default config;
 
 ### Plugin Options
 
-By default, the plugin uses the `InMemoryDependenciesGraph`, but you can use another way to manage dependencies as long as you extend the `DependenciesGraphBase` class. You can do this using the `factory` property.
+By default, the plugin uses the `InMemoryDependencyGraph`, but you can use another way to manage dependencies as long as you extend the `DependencyGraphBase` class. You can do this using the `factory` property.
 
-| Property               | Type                                                                        |
-| ---------------------- | --------------------------------------------------------------------------- |
-| factory `(optional)` | `(schema: DependenciesSchema, payload: Payload) => DependenciesGraphBase` |
+| Property               | Type                                                                      |
+| ---------------------- | ------------------------------------------------------------------------- |
+| factory `(optional)` | `(schema: DependenciesSchema, payload: Payload) => DependencyGraphBase` |
 
 If you're dealing with a lot of documents, a better approach is to use a database-oriented implementation because the in-memory approach will increase the RAM. In the next versions, the plugin will provide it by default for MongoDB and PostgreSQL.
 
-2. If you want to listen for changes, call the `subscribe` function from `DependenciesGraphService`. The `DependenciesGraphService` is a singletone instance.
+2. If you want to listen for changes, call the `subscribe` function from `DependencyGraphService`. The `DependencyGraphService` is a singletone instance.
 
 ```ts
 import { buildConfig } from 'payload/config';
-import { DependenciesGraphPlugin, DependenciesGraphService } from 'payload-dependencies-graph';
+import { DependencyGraphPlugin, DependencyGraphService } from 'payload-dependency-graph';
 
 const config = buildConfig({
     // ... rest of your config
-    plugins: [DependenciesGraphPlugin()],
+    plugins: [DependencyGraphPlugin()],
     onInit: (payload) => {
-        DependenciesGraphService.subscribe((event) => {
+        DependencyGraphService.subscribe((event) => {
             // write your own logic
         });
     },
@@ -64,19 +64,19 @@ const config = buildConfig({
 export default config;
 ```
 
-3. To check if a resource is a dependency for another resource use the `dependenciesGraph` from `DependenciesGraphService`:
+3. To check if a resource is a dependency for another resource use the `dependencyGraph` from `DependencyGraphService`:
 
 ```ts
 import { buildConfig } from 'payload/config';
-import { DependenciesGraphPlugin, DependenciesGraphService } from 'payload-dependencies-graph';
+import { DependencyGraphPlugin, DependencyGraphService } from 'payload-dependency-graph';
 
 const config = buildConfig({
     // ... rest of your config
-    plugins: [DependenciesGraphPlugin()],
+    plugins: [DependencyGraphPlugin()],
     onInit: (payload) => {
-        DependenciesGraphService.subscribe((event) => {
+        DependencyGraphService.subscribe((event) => {
             if (event.type === 'update' && event.collection) {
-                const graph = DependenciesGraphService.dependenciesGraph;
+                const graph = DependencyGraphService.dependencyGraph;
                 const resource = {
                     collection: event.collection,
                     id: doc.id,
@@ -115,39 +115,39 @@ npm run test
 
 ## API
 
-### DependenciesGraphBase
+### DependencyGraphBase
 
-Represents the base class for implementing a concrete dependencies graph.
+Represents the base class for implementing a concrete dependency graph.
 
 #### Properties
 
-| Property Name | Type                   | Description                                         |
-| ------------- | ---------------------- | --------------------------------------------------- |
-| `schema`    | `DependenciesSchema` | Schema of dependencies generated by SchemaBuilder.  |
-| `payload`   | `Payload`            | The payload associated with the dependencies graph. |
+| Property Name | Type                   | Description                                        |
+| ------------- | ---------------------- | -------------------------------------------------- |
+| `schema`    | `DependenciesSchema` | Schema of dependencies generated by SchemaBuilder. |
+| `payload`   | `Payload`            | The payload associated with the dependency graph.  |
 
 #### Methods
 
-| Method Name                    | Description                                                                                                                     | Parameters                                                                         | Returns                             |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------- |
-| `deleteResource`             | Deletes a resource from the dependencies graph.                                                                                 | `resource: DependencyGraphResource`                                              | `void` \| `Promise<void>`       |
-| `addDependency`              | Add target as a direct dependency of source.                                                                                    | `source: DependencyGraphResource`, `target: DependencyGraphResource`           | `void` \| `Promise<void>`       |
-| `purgeDependentOn`           | Removes dependencies on resource and removes them as dependencyFor.                                                             | `resource: DependencyGraphResource`                                              | `void` \| `Promise<void>`       |
-| `isDirectDependency`         | Checks if target is a direct dependency for source.                                                                             | `source: DependencyGraphResource`, `target: DependencyGraphResource`           | `boolean` \| `Promise<boolean>` |
-| `isDependency`               | Checks if target is a dependency for source.                                                                                    | `source: DependencyGraphResource`, `target: DependencyGraphResource`           | `boolean` \| `Promise<boolean>` |
-| `populate`                   | Used at Payload initialization to populate the dependencies graph. You shouldn't call this function by yourself.                | None                                                                               | `Promise<void>`                   |
-| `extractDependenciesFromDoc` | Used to extract dependencies from a document based on schemas. The function will automatically populate the dependencies graph. | `source: DependencyGraphResource`, `doc: any`, `schemas: DependencySchema[]` | `void` \| `Promise<void>`       |
+| Method Name                    | Description                                                                                                                               | Parameters                                                                         | Returns                             |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------- |
+| `deleteResource`             | Deletes a resource from the dependency graph.                                                                                             | `resource: DependencyGraphResource`                                              | `void` \| `Promise<void>`       |
+| `addDependency`              | Add target as a direct dependency of source.                                                                                              | `source: DependencyGraphResource`, `target: DependencyGraphResource`           | `void` \| `Promise<void>`       |
+| `purgeDependentOn`           | Removes dependency on resource and removes <br />them as dependencyFor.                                                                   | `resource: DependencyGraphResource`                                              | `void` \| `Promise<void>`       |
+| `isDirectDependency`         | Checks if target is a direct dependency for source.                                                                                       | `source: DependencyGraphResource`, `target: DependencyGraphResource`           | `boolean` \| `Promise<boolean>` |
+| `isDependency`               | Checks if target is a dependency for source.                                                                                              | `source: DependencyGraphResource`, `target: DependencyGraphResource`           | `boolean` \| `Promise<boolean>` |
+| `populate`                   | Used at Payload initialization to populate the <br />dependency graph. You shouldn't call this <br />function by yourself.                | None                                                                               | `Promise<void>`                   |
+| `extractDependenciesFromDoc` | Used to extract dependencies from a document <br />based on schemas. The function will automatically <br />populate the dependency graph. | `source: DependencyGraphResource`, `doc: any`, `schemas: DependencySchema[]` | `void` \| `Promise<void>`       |
 
-### DependenciesGraphService
+### DependencyGraphService
 
 This class is an implementation for the service that is a singleton instance. Through this class, you interact with the plugin.
 
 #### Properties
 
-| Property Name         | Description                                        | Type                      |
-| --------------------- | -------------------------------------------------- | ------------------------- |
-| `schema`            | Schema of dependencies generated by SchemaBuilder. | `DependenciesSchema`    |
-| `dependenciesGraph` | The concrete instance of the dependencies graph.   | `DependenciesGraphBase` |
+| Property Name       | Description                                        | Type                    |
+| ------------------- | -------------------------------------------------- | ----------------------- |
+| `schema`          | Schema of dependencies generated by SchemaBuilder. | `DependenciesSchema`  |
+| `dependencyGraph` | The concrete instance of `DependencyGraphBase`.  | `DependencyGraphBase` |
 
 #### Methods
 
