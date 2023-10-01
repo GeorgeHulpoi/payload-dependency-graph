@@ -131,11 +131,17 @@ export abstract class DependencyGraphBase {
 				const blocks = values[0];
 
 				for (const block of blocks) {
-					await this.extractDependenciesFromDoc(
-						source,
-						block,
-						this.schema.blocks[block.blockType],
-					);
+					/**
+					 * If the block doesn't have any relationship,
+					 * it will not be included in schema
+					 */
+					if (this.schema.blocks[block.blockType]) {
+						await this.extractDependenciesFromDoc(
+							source,
+							block,
+							this.schema.blocks[block.blockType],
+						);
+					}
 				}
 			} else if (schema.type === 'relationship') {
 				if (schema.type === 'relationship') {
