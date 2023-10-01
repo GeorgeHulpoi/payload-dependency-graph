@@ -11,14 +11,5 @@ module.exports = {
 				'no-plusplus': 'off',
 			},
 		},
-		{
-			files: ['dev/**/*.ts', 'src/**/*.spec.ts'],
-			rules: {
-				'import/no-relative-packages': 'off',
-				'no-process-env': 'off',
-				'@typescript-eslint/explicit-function-return-type': 'off',
-				'@typescript-eslint/no-unused-vars': 'off',
-			},
-		},
 	],
 };

@@ -1,4 +1,4 @@
-import getValuesFromPath from '../../../src/utils/get-values-from-path';
+import getValuesFromPath from '../../src/utils/get-values-from-path';
 
 describe('getValuesFromPath', () => {
 	it('should get value from a simple object', () => {

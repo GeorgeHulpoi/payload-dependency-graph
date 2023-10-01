@@ -1,4 +1,4 @@
-import { InMemoryDependencyGraph } from '../../../src/dependency-graph/in-memory';
+import { InMemoryDependencyGraph } from '../../src/dependency-graph/in-memory';
 
 describe('InMemoryDependencyGraph', () => {
 	describe('compareResources', () => {

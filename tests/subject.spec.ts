@@ -1,4 +1,4 @@
-import { Subject } from '../../src';
+import { Subject } from '../src';
 
 describe('Subject', () => {
 	const subject: Subject = new Subject();

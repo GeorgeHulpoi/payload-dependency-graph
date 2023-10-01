@@ -1,13 +1,13 @@
-import { CatsSectionBlock } from '../../src/blocks/cats-section';
-import { DogsSectionBlock } from '../../src/blocks/dogs-section';
-import { PeopleSectionBlock } from '../../src/blocks/people-section';
-import collections from '../../src/collections';
-import globals from '../../src/globals';
-import { Cats } from '../../src/collections/Cats';
-import { Pages } from '../../src/collections/Pages';
-import { People } from '../../src/collections/People';
-import { SchemaBuilder } from '../../../src/schema-builder/schema-builder';
-import { DiscoverMeBlock } from '../../src/blocks/discover-me';
+import { CatsSectionBlock } from '../dev/blocks/cats-section';
+import { DogsSectionBlock } from '../dev/blocks/dogs-section';
+import { PeopleSectionBlock } from '../dev/blocks/people-section';
+import collections from '../dev/collections';
+import globals from '../dev/globals';
+import { Cats } from '../dev/collections/Cats';
+import { Pages } from '../dev/collections/Pages';
+import { People } from '../dev/collections/People';
+import { SchemaBuilder } from '../../src/schema-builder/schema-builder';
+import { DiscoverMeBlock } from '../dev/blocks/discover-me';
 
 describe('DependencySchemaBuilder', () => {
 	describe('formatBaseName', () => {

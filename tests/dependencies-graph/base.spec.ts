@@ -1,8 +1,8 @@
-import collections from '../../src/collections';
-import globals from '../../src/globals';
-import { SchemaBuilder } from '../../../src/schema-builder/schema-builder';
-import type { DependencyGraphResource } from '../../../src/types';
-import { DependencyGraphBase } from '../../../src/dependency-graph/base';
+import collections from '../dev/collections';
+import globals from '../dev/globals';
+import { SchemaBuilder } from '../../src/schema-builder/schema-builder';
+import type { DependencyGraphResource } from '../../src/types';
+import { DependencyGraphBase } from '../../src/dependency-graph/base';
 
 class DummyDependencyGraph extends DependencyGraphBase {
 	deleteResource(resource: DependencyGraphResource): void | Promise<void> {}

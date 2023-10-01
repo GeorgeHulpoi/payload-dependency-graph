@@ -1,18 +1,27 @@
 import type { Server } from 'http';
-import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import path from 'path';
 import payload from 'payload';
-import { DependencyGraphService } from '../../../src';
-import { start } from '../../src/server';
+
+import { DependencyGraphService } from '../../src';
+import { start } from '../dev/server';
 
 describe('InMemoryDependencyGraph e2e', () => {
+	let mongod: MongoMemoryServer;
 	let server: Server;
+
 	let graph: any;
 	let globals: any;
 	let collections: any;
 	const callback = jest.fn();
 
 	beforeAll(async () => {
-		server = await start({ local: true });
+		mongod = await MongoMemoryServer.create();
+
+		process.env.PAYLOAD_CONFIG_PATH = path.join(__dirname, '..', 'dev', 'payload.config.ts');
+		process.env.MONGODB_URI = mongod.getUri();
+
+		server = await start();
 		// Need to populate again, it's because that the seeding it's executing
 		// after graph population.
 		graph = DependencyGraphService.dependencyGraph;
@@ -25,8 +34,7 @@ describe('InMemoryDependencyGraph e2e', () => {
 	});
 
 	afterAll(async () => {
-		await mongoose.connection.dropDatabase();
-		await mongoose.connection.close();
+		await mongod.stop();
 		server.close();
 	});
 
