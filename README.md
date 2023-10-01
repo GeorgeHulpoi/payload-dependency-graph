@@ -79,10 +79,10 @@ const config = buildConfig({
                 const graph = DependencyGraphService.dependencyGraph;
                 const resource = {
                     collection: event.collection,
-                    id: doc.id,
+                    id: event.doc.id,
                 };
 
-                if (event.collection === 'pages' && doc.id === 'home') {
+                if (event.collection === 'pages' && event.doc.id === 'home') {
                     // regenerate home page
                 } else {
                     if (
