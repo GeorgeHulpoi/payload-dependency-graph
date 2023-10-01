@@ -1,5 +1,5 @@
 {
-	"name": "payload-dependencies-graph",
+	"name": "payload-dependency-graph",
 	"description": "This plugin creates a dependency graph between collections and globals. The graph updates automatically, because the plugin observes the changes made on any collection or globals.",
 	"version": "1.0.0",
 	"main": "dist/server.js",

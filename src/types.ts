@@ -1,9 +1,9 @@
 import type { Payload } from 'payload';
 
-import type { DependenciesGraphBase } from './dependencies-graph/base';
+import type { DependencyGraphBase } from './dependency-graph/base';
 
-export interface DependenciesGraphPluginConfig {
-	factory: (schema: DependenciesSchema, payload: Payload) => DependenciesGraphBase;
+export interface DependencyGraphPluginConfig {
+	factory: (schema: DependenciesSchema, payload: Payload) => DependencyGraphBase;
 }
 
 export interface OnCollectionChangeArgs<T = any> {
@@ -63,13 +63,13 @@ export interface DependencyGraphNode {
 	dependencyFor: DependencyGraphResource[];
 }
 
-export interface DependenciesGraphCollections {
+export interface DependencyGraphCollections {
 	[slug: string]: {
 		[id: string]: DependencyGraphNode;
 	};
 }
 
-export interface DependenciesGraphGlobals {
+export interface DependencyGraphGlobals {
 	[slug: string]: DependencyGraphNode;
 }
 

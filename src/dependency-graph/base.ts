@@ -4,9 +4,9 @@ import type { DependenciesSchema, DependencyGraphResource, DependencySchema } fr
 import getValuesFromPath from '../utils/get-values-from-path';
 
 /**
- * Represents the base class for implementing a concrete dependencies graph.
+ * Represents the base class for implementing a concrete dependency graph.
  */
-export abstract class DependenciesGraphBase {
+export abstract class DependencyGraphBase {
 	protected readonly schema: DependenciesSchema;
 	protected readonly payload: Payload;
 
@@ -16,7 +16,7 @@ export abstract class DependenciesGraphBase {
 	}
 
 	/**
-	 * Deletes a resource from the dependencies graph.
+	 * Deletes a resource from the dependency graph.
 	 *
 	 * @param resource
 	 */
@@ -64,11 +64,11 @@ export abstract class DependenciesGraphBase {
 	): boolean | Promise<boolean>;
 
 	/**
-	 * Used at Payload initialization to populate the dependencies graph.
+	 * Used at Payload initialization to populate the dependency graph.
 	 * You shouldn't call this function by yourself.
 	 */
 	async populate(): Promise<void> {
-		this.payload.logger.info('Starting to populate Dependencies Graph');
+		this.payload.logger.info('Starting to populate the Dependency Graph');
 
 		for (const collection of Object.keys(this.payload.collections)) {
 			const collectionSchemas = this.schema.collections[collection] || [];
@@ -109,11 +109,11 @@ export abstract class DependenciesGraphBase {
 			);
 		}
 
-		this.payload.logger.info('Dependencies Graph have been populated successfully.');
+		this.payload.logger.info('The Dependency Graph have been populated successfully.');
 	}
 
 	/**
-	 * Used to extract dependencies from a document based on schemas. The function will automatically populate the dependencies graph.
+	 * Used to extract dependencies from a document based on schemas. The function will automatically populate the dependency graph.
 	 *
 	 * @param source
 	 * @param doc

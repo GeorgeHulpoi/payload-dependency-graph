@@ -1,14 +1,14 @@
 import type {
-	DependenciesGraphCollections,
-	DependenciesGraphGlobals,
+	DependencyGraphCollections,
+	DependencyGraphGlobals,
 	DependencyGraphNode,
 	DependencyGraphResource,
 } from '../types';
-import { DependenciesGraphBase } from './base';
+import { DependencyGraphBase } from './base';
 
-export class InMemoryDependenciesGraph extends DependenciesGraphBase {
-	private collections: DependenciesGraphCollections = {};
-	private globals: DependenciesGraphGlobals = {};
+export class InMemoryDependencyGraph extends DependencyGraphBase {
+	private collections: DependencyGraphCollections = {};
+	private globals: DependencyGraphGlobals = {};
 
 	/**
 	 * Compares two resources with each other
@@ -101,7 +101,7 @@ export class InMemoryDependenciesGraph extends DependenciesGraphBase {
 			const depNode = this.getDependencyGraphNode(dep);
 			if (depNode) {
 				depNode.dependencyFor = depNode.dependencyFor.filter(
-					(item) => !InMemoryDependenciesGraph.compareResources(item, resource),
+					(item) => !InMemoryDependencyGraph.compareResources(item, resource),
 				);
 			}
 		}
@@ -110,7 +110,7 @@ export class InMemoryDependenciesGraph extends DependenciesGraphBase {
 			const depNode = this.getDependencyGraphNode(dep);
 			if (depNode) {
 				depNode.dependentOn = depNode.dependentOn.filter(
-					(item) => !InMemoryDependenciesGraph.compareResources(item, resource),
+					(item) => !InMemoryDependencyGraph.compareResources(item, resource),
 				);
 			}
 		}
@@ -126,9 +126,7 @@ export class InMemoryDependenciesGraph extends DependenciesGraphBase {
 		const sourceNode = this.safeGetDependencyGraphNode(source);
 
 		if (
-			!sourceNode.dependentOn.find((r) =>
-				InMemoryDependenciesGraph.compareResources(r, target),
-			)
+			!sourceNode.dependentOn.find((r) => InMemoryDependencyGraph.compareResources(r, target))
 		) {
 			sourceNode.dependentOn.push(target);
 		}
@@ -137,7 +135,7 @@ export class InMemoryDependenciesGraph extends DependenciesGraphBase {
 
 		if (
 			targetNode.dependencyFor.find((r) =>
-				InMemoryDependenciesGraph.compareResources(r, source),
+				InMemoryDependencyGraph.compareResources(r, source),
 			) === undefined
 		) {
 			targetNode.dependencyFor.push(source);
@@ -158,7 +156,7 @@ export class InMemoryDependenciesGraph extends DependenciesGraphBase {
 			const depNode = this.getDependencyGraphNode(dep);
 			if (depNode) {
 				depNode.dependencyFor = depNode.dependencyFor.filter(
-					(item) => !InMemoryDependenciesGraph.compareResources(item, resource),
+					(item) => !InMemoryDependencyGraph.compareResources(item, resource),
 				);
 			}
 		}
@@ -173,7 +171,7 @@ export class InMemoryDependenciesGraph extends DependenciesGraphBase {
 
 		return sourceNode.dependentOn.reduce(
 			(result, resource) =>
-				result || InMemoryDependenciesGraph.compareResources(resource, target),
+				result || InMemoryDependencyGraph.compareResources(resource, target),
 			false,
 		);
 	}

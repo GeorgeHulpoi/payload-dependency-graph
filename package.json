@@ -1,8 +1,7 @@
 {
-	"name": "payload-dependencies-graph",
+	"name": "payload-dependency-graph",
 	"version": "1.0.0",
-	"homepage:": "https://payloadcms.com",
-	"repository": "git@github.com:GeorgeHulpoi/payload-dependencies-graph.git",
+	"repository": "git@github.com:GeorgeHulpoi/payload-dependency-graph.git",
 	"description": "This plugin creates a dependency graph between collections and globals. The graph updates automatically, because the plugin observes the changes made on any collection or globals.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -12,6 +11,7 @@
 		"plugin",
 		"typescript",
 		"dependencies",
+		"dependency",
 		"graph"
 	],
 	"scripts": {

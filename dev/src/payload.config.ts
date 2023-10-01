@@ -1,7 +1,7 @@
 import path from 'path';
 import { buildConfig } from 'payload/config';
 
-import { DependenciesGraphPlugin } from '../../src';
+import { DependencyGraphPlugin } from '../../src';
 import collections from './collections';
 import globals from './globals';
 
@@ -25,13 +25,13 @@ export default buildConfig({
 			return newConfig;
 		},
 	},
-	collections: collections,
-	globals: globals,
+	collections,
+	globals,
 	typescript: {
 		outputFile: path.resolve(__dirname, 'payload-types.ts'),
 	},
 	graphQL: {
 		schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
 	},
-	plugins: [DependenciesGraphPlugin()],
+	plugins: [DependencyGraphPlugin()],
 });

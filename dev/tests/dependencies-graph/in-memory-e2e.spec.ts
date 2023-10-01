@@ -1,27 +1,27 @@
 import type { Server } from 'http';
 import mongoose from 'mongoose';
-import { DependenciesGraphService } from '../../../src';
-import { start } from '../../src/server';
 import payload from 'payload';
+import { DependencyGraphService } from '../../../src';
+import { start } from '../../src/server';
 
-describe('In Memory Tests', () => {
+describe('InMemoryDependencyGraph e2e', () => {
 	let server: Server;
 	let graph: any;
 	let globals: any;
 	let collections: any;
-	let callback = jest.fn();
+	const callback = jest.fn();
 
 	beforeAll(async () => {
 		server = await start({ local: true });
 		// Need to populate again, it's because that the seeding it's executing
 		// after graph population.
-		graph = DependenciesGraphService.dependenciesGraph;
+		graph = DependencyGraphService.dependencyGraph;
 		graph.collections = {};
 		graph.globals = {};
-		await DependenciesGraphService.dependenciesGraph.populate();
+		await DependencyGraphService.dependencyGraph.populate();
 		globals = graph.globals;
 		collections = graph.collections;
-		DependenciesGraphService.subscribe(callback);
+		DependencyGraphService.subscribe(callback);
 	});
 
 	afterAll(async () => {
@@ -125,7 +125,7 @@ describe('In Memory Tests', () => {
 		});
 
 		it('should populate toys', () => {
-			for (let toy of ['rubber_ball', 'dog_bone', 'feathers_wand']) {
+			for (const toy of ['rubber_ball', 'dog_bone', 'feathers_wand']) {
 				expect(collections.toys[toy].dependentOn).toHaveLength(0);
 				expect(collections.toys[toy].dependencyFor).toHaveLength(4);
 				expect(collections.toys[toy].dependencyFor).toContainEqual({
@@ -148,228 +148,228 @@ describe('In Memory Tests', () => {
 		});
 
 		it('should populate cat coco', () => {
-			expect(collections.cats['cat_coco'].dependentOn).toHaveLength(3);
-			expect(collections.cats['cat_coco'].dependentOn).toContainEqual({
+			expect(collections.cats.cat_coco.dependentOn).toHaveLength(3);
+			expect(collections.cats.cat_coco.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'rubber_ball',
 			});
-			expect(collections.cats['cat_coco'].dependentOn).toContainEqual({
+			expect(collections.cats.cat_coco.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'dog_bone',
 			});
-			expect(collections.cats['cat_coco'].dependentOn).toContainEqual({
+			expect(collections.cats.cat_coco.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'feathers_wand',
 			});
-			expect(collections.cats['cat_coco'].dependencyFor).toHaveLength(3);
-			expect(collections.cats['cat_coco'].dependencyFor).toContainEqual({
+			expect(collections.cats.cat_coco.dependencyFor).toHaveLength(3);
+			expect(collections.cats.cat_coco.dependencyFor).toContainEqual({
 				collection: 'pages',
 				id: 'cats_page',
 			});
-			expect(collections.cats['cat_coco'].dependencyFor).toContainEqual({
+			expect(collections.cats.cat_coco.dependencyFor).toContainEqual({
 				collection: 'pages',
 				id: 'home',
 			});
-			expect(collections.cats['cat_coco'].dependencyFor).toContainEqual({
+			expect(collections.cats.cat_coco.dependencyFor).toContainEqual({
 				collection: 'people',
 				id: 'val_gabby',
 			});
 		});
 
 		it('should populate cat luna', () => {
-			expect(collections.cats['cat_luna'].dependentOn).toHaveLength(3);
-			expect(collections.cats['cat_luna'].dependentOn).toContainEqual({
+			expect(collections.cats.cat_luna.dependentOn).toHaveLength(3);
+			expect(collections.cats.cat_luna.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'rubber_ball',
 			});
-			expect(collections.cats['cat_luna'].dependentOn).toContainEqual({
+			expect(collections.cats.cat_luna.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'dog_bone',
 			});
-			expect(collections.cats['cat_luna'].dependentOn).toContainEqual({
+			expect(collections.cats.cat_luna.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'feathers_wand',
 			});
-			expect(collections.cats['cat_luna'].dependencyFor).toHaveLength(3);
-			expect(collections.cats['cat_luna'].dependencyFor).toContainEqual({
+			expect(collections.cats.cat_luna.dependencyFor).toHaveLength(3);
+			expect(collections.cats.cat_luna.dependencyFor).toContainEqual({
 				collection: 'pages',
 				id: 'cats_page',
 			});
-			expect(collections.cats['cat_luna'].dependencyFor).toContainEqual({
+			expect(collections.cats.cat_luna.dependencyFor).toContainEqual({
 				collection: 'pages',
 				id: 'home',
 			});
-			expect(collections.cats['cat_luna'].dependencyFor).toContainEqual({
+			expect(collections.cats.cat_luna.dependencyFor).toContainEqual({
 				collection: 'people',
 				id: 'elsa_brylee',
 			});
 		});
 
 		it('should populate dog max', () => {
-			expect(collections.dogs['dog_max'].dependentOn).toHaveLength(3);
-			expect(collections.dogs['dog_max'].dependentOn).toContainEqual({
+			expect(collections.dogs.dog_max.dependentOn).toHaveLength(3);
+			expect(collections.dogs.dog_max.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'rubber_ball',
 			});
-			expect(collections.dogs['dog_max'].dependentOn).toContainEqual({
+			expect(collections.dogs.dog_max.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'dog_bone',
 			});
-			expect(collections.dogs['dog_max'].dependentOn).toContainEqual({
+			expect(collections.dogs.dog_max.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'feathers_wand',
 			});
-			expect(collections.dogs['dog_max'].dependencyFor).toHaveLength(3);
-			expect(collections.dogs['dog_max'].dependencyFor).toContainEqual({
+			expect(collections.dogs.dog_max.dependencyFor).toHaveLength(3);
+			expect(collections.dogs.dog_max.dependencyFor).toContainEqual({
 				collection: 'pages',
 				id: 'dogs_page',
 			});
-			expect(collections.dogs['dog_max'].dependencyFor).toContainEqual({
+			expect(collections.dogs.dog_max.dependencyFor).toContainEqual({
 				collection: 'pages',
 				id: 'home',
 			});
-			expect(collections.dogs['dog_max'].dependencyFor).toContainEqual({
+			expect(collections.dogs.dog_max.dependencyFor).toContainEqual({
 				collection: 'people',
 				id: 'theobald_beverley',
 			});
 		});
 
 		it('should populate dog charlie', () => {
-			expect(collections.dogs['dog_charlie'].dependentOn).toHaveLength(3);
-			expect(collections.dogs['dog_charlie'].dependentOn).toContainEqual({
+			expect(collections.dogs.dog_charlie.dependentOn).toHaveLength(3);
+			expect(collections.dogs.dog_charlie.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'rubber_ball',
 			});
-			expect(collections.dogs['dog_charlie'].dependentOn).toContainEqual({
+			expect(collections.dogs.dog_charlie.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'dog_bone',
 			});
-			expect(collections.dogs['dog_charlie'].dependentOn).toContainEqual({
+			expect(collections.dogs.dog_charlie.dependentOn).toContainEqual({
 				collection: 'toys',
 				id: 'feathers_wand',
 			});
-			expect(collections.dogs['dog_charlie'].dependencyFor).toHaveLength(3);
-			expect(collections.dogs['dog_charlie'].dependencyFor).toContainEqual({
+			expect(collections.dogs.dog_charlie.dependencyFor).toHaveLength(3);
+			expect(collections.dogs.dog_charlie.dependencyFor).toContainEqual({
 				collection: 'pages',
 				id: 'dogs_page',
 			});
-			expect(collections.dogs['dog_charlie'].dependencyFor).toContainEqual({
+			expect(collections.dogs.dog_charlie.dependencyFor).toContainEqual({
 				collection: 'pages',
 				id: 'home',
 			});
-			expect(collections.dogs['dog_charlie'].dependencyFor).toContainEqual({
+			expect(collections.dogs.dog_charlie.dependencyFor).toContainEqual({
 				collection: 'people',
 				id: 'val_gabby',
 			});
 		});
 
 		it('should populate val gabby', () => {
-			expect(collections.people['val_gabby'].dependentOn).toHaveLength(2);
-			expect(collections.people['val_gabby'].dependentOn).toContainEqual({
+			expect(collections.people.val_gabby.dependentOn).toHaveLength(2);
+			expect(collections.people.val_gabby.dependentOn).toContainEqual({
 				collection: 'cats',
 				id: 'cat_coco',
 			});
-			expect(collections.people['val_gabby'].dependentOn).toContainEqual({
+			expect(collections.people.val_gabby.dependentOn).toContainEqual({
 				collection: 'dogs',
 				id: 'dog_charlie',
 			});
-			expect(collections.people['val_gabby'].dependencyFor).toHaveLength(1);
-			expect(collections.people['val_gabby'].dependencyFor).toContainEqual({
+			expect(collections.people.val_gabby.dependencyFor).toHaveLength(1);
+			expect(collections.people.val_gabby.dependencyFor).toContainEqual({
 				collection: 'pages',
 				id: 'home',
 			});
 		});
 
 		it('should populate elsa brylee', () => {
-			expect(collections.people['elsa_brylee'].dependentOn).toHaveLength(1);
-			expect(collections.people['elsa_brylee'].dependentOn).toContainEqual({
+			expect(collections.people.elsa_brylee.dependentOn).toHaveLength(1);
+			expect(collections.people.elsa_brylee.dependentOn).toContainEqual({
 				collection: 'cats',
 				id: 'cat_luna',
 			});
-			expect(collections.people['elsa_brylee'].dependencyFor).toHaveLength(1);
-			expect(collections.people['elsa_brylee'].dependencyFor).toContainEqual({
+			expect(collections.people.elsa_brylee.dependencyFor).toHaveLength(1);
+			expect(collections.people.elsa_brylee.dependencyFor).toContainEqual({
 				collection: 'pages',
 				id: 'home',
 			});
 		});
 
 		it('should populate theobald beverley', () => {
-			expect(collections.people['theobald_beverley'].dependentOn).toHaveLength(1);
-			expect(collections.people['theobald_beverley'].dependentOn).toContainEqual({
+			expect(collections.people.theobald_beverley.dependentOn).toHaveLength(1);
+			expect(collections.people.theobald_beverley.dependentOn).toContainEqual({
 				collection: 'dogs',
 				id: 'dog_max',
 			});
-			expect(collections.people['theobald_beverley'].dependencyFor).toHaveLength(1);
-			expect(collections.people['theobald_beverley'].dependencyFor).toContainEqual({
+			expect(collections.people.theobald_beverley.dependencyFor).toHaveLength(1);
+			expect(collections.people.theobald_beverley.dependencyFor).toContainEqual({
 				collection: 'pages',
 				id: 'home',
 			});
 		});
 
 		it('should populate cats page', () => {
-			expect(collections.pages['cats_page'].dependentOn).toHaveLength(2);
-			expect(collections.pages['cats_page'].dependentOn).toContainEqual({
+			expect(collections.pages.cats_page.dependentOn).toHaveLength(2);
+			expect(collections.pages.cats_page.dependentOn).toContainEqual({
 				collection: 'cats',
 				id: 'cat_luna',
 			});
-			expect(collections.pages['cats_page'].dependentOn).toContainEqual({
+			expect(collections.pages.cats_page.dependentOn).toContainEqual({
 				collection: 'cats',
 				id: 'cat_coco',
 			});
-			expect(collections.pages['cats_page'].dependencyFor).toHaveLength(1);
-			expect(collections.pages['cats_page'].dependencyFor).toContainEqual({
+			expect(collections.pages.cats_page.dependencyFor).toHaveLength(1);
+			expect(collections.pages.cats_page.dependencyFor).toContainEqual({
 				global: 'layout',
 			});
 		});
 
 		it('should populate dogs page', () => {
-			expect(collections.pages['dogs_page'].dependentOn).toHaveLength(2);
-			expect(collections.pages['dogs_page'].dependentOn).toContainEqual({
+			expect(collections.pages.dogs_page.dependentOn).toHaveLength(2);
+			expect(collections.pages.dogs_page.dependentOn).toContainEqual({
 				collection: 'dogs',
 				id: 'dog_max',
 			});
-			expect(collections.pages['dogs_page'].dependentOn).toContainEqual({
+			expect(collections.pages.dogs_page.dependentOn).toContainEqual({
 				collection: 'dogs',
 				id: 'dog_charlie',
 			});
-			expect(collections.pages['dogs_page'].dependencyFor).toHaveLength(1);
-			expect(collections.pages['dogs_page'].dependencyFor).toContainEqual({
+			expect(collections.pages.dogs_page.dependencyFor).toHaveLength(1);
+			expect(collections.pages.dogs_page.dependencyFor).toContainEqual({
 				global: 'layout',
 			});
 		});
 
 		it('should populate home page', () => {
-			expect(collections.pages['home'].dependentOn).toHaveLength(7);
-			expect(collections.pages['home'].dependentOn).toContainEqual({
+			expect(collections.pages.home.dependentOn).toHaveLength(7);
+			expect(collections.pages.home.dependentOn).toContainEqual({
 				collection: 'dogs',
 				id: 'dog_max',
 			});
-			expect(collections.pages['home'].dependentOn).toContainEqual({
+			expect(collections.pages.home.dependentOn).toContainEqual({
 				collection: 'dogs',
 				id: 'dog_charlie',
 			});
-			expect(collections.pages['home'].dependentOn).toContainEqual({
+			expect(collections.pages.home.dependentOn).toContainEqual({
 				collection: 'cats',
 				id: 'cat_luna',
 			});
-			expect(collections.pages['home'].dependentOn).toContainEqual({
+			expect(collections.pages.home.dependentOn).toContainEqual({
 				collection: 'cats',
 				id: 'cat_coco',
 			});
-			expect(collections.pages['home'].dependentOn).toContainEqual({
+			expect(collections.pages.home.dependentOn).toContainEqual({
 				collection: 'people',
 				id: 'val_gabby',
 			});
-			expect(collections.pages['home'].dependentOn).toContainEqual({
+			expect(collections.pages.home.dependentOn).toContainEqual({
 				collection: 'people',
 				id: 'theobald_beverley',
 			});
-			expect(collections.pages['home'].dependentOn).toContainEqual({
+			expect(collections.pages.home.dependentOn).toContainEqual({
 				collection: 'people',
 				id: 'elsa_brylee',
 			});
-			expect(collections.pages['home'].dependencyFor).toHaveLength(1);
-			expect(collections.pages['home'].dependencyFor).toContainEqual({
+			expect(collections.pages.home.dependencyFor).toHaveLength(1);
+			expect(collections.pages.home.dependencyFor).toContainEqual({
 				global: 'layout',
 			});
 		});
@@ -521,37 +521,37 @@ describe('In Memory Tests', () => {
 			}),
 		);
 
-		expect(collections.cats['cat_rex'].dependentOn).toHaveLength(1);
-		expect(collections.cats['cat_rex'].dependentOn).toContainEqual({
+		expect(collections.cats.cat_rex.dependentOn).toHaveLength(1);
+		expect(collections.cats.cat_rex.dependentOn).toContainEqual({
 			collection: 'toys',
 			id: 'feathers_wand',
 		});
-		expect(collections.cats['cat_rex'].dependencyFor).toHaveLength(0);
+		expect(collections.cats.cat_rex.dependencyFor).toHaveLength(0);
 
-		expect(collections.toys['feathers_wand'].dependentOn).toHaveLength(0);
-		expect(collections.toys['feathers_wand'].dependencyFor).toHaveLength(5);
-		expect(collections.toys['feathers_wand'].dependencyFor).toContainEqual({
+		expect(collections.toys.feathers_wand.dependentOn).toHaveLength(0);
+		expect(collections.toys.feathers_wand.dependencyFor).toHaveLength(5);
+		expect(collections.toys.feathers_wand.dependencyFor).toContainEqual({
 			collection: 'cats',
 			id: 'cat_coco',
 		});
-		expect(collections.toys['feathers_wand'].dependencyFor).toContainEqual({
+		expect(collections.toys.feathers_wand.dependencyFor).toContainEqual({
 			collection: 'cats',
 			id: 'cat_luna',
 		});
-		expect(collections.toys['feathers_wand'].dependencyFor).toContainEqual({
+		expect(collections.toys.feathers_wand.dependencyFor).toContainEqual({
 			collection: 'cats',
 			id: 'cat_rex',
 		});
-		expect(collections.toys['feathers_wand'].dependencyFor).toContainEqual({
+		expect(collections.toys.feathers_wand.dependencyFor).toContainEqual({
 			collection: 'dogs',
 			id: 'dog_charlie',
 		});
-		expect(collections.toys['feathers_wand'].dependencyFor).toContainEqual({
+		expect(collections.toys.feathers_wand.dependencyFor).toContainEqual({
 			collection: 'dogs',
 			id: 'dog_max',
 		});
 
-		for (let toy of ['rubber_ball', 'dog_bone']) {
+		for (const toy of ['rubber_ball', 'dog_bone']) {
 			expect(collections.toys[toy].dependentOn).toHaveLength(0);
 			expect(collections.toys[toy].dependencyFor).toHaveLength(4);
 			expect(collections.toys[toy].dependencyFor).toContainEqual({
@@ -593,48 +593,48 @@ describe('In Memory Tests', () => {
 			}),
 		);
 
-		expect(collections.pages['home'].dependentOn).toHaveLength(6);
-		expect(collections.pages['home'].dependentOn).toContainEqual({
+		expect(collections.pages.home.dependentOn).toHaveLength(6);
+		expect(collections.pages.home.dependentOn).toContainEqual({
 			collection: 'dogs',
 			id: 'dog_max',
 		});
-		expect(collections.pages['home'].dependentOn).toContainEqual({
+		expect(collections.pages.home.dependentOn).toContainEqual({
 			collection: 'dogs',
 			id: 'dog_charlie',
 		});
-		expect(collections.pages['home'].dependentOn).toContainEqual({
+		expect(collections.pages.home.dependentOn).toContainEqual({
 			collection: 'cats',
 			id: 'cat_luna',
 		});
-		expect(collections.pages['home'].dependentOn).toContainEqual({
+		expect(collections.pages.home.dependentOn).toContainEqual({
 			collection: 'cats',
 			id: 'cat_coco',
 		});
-		expect(collections.pages['home'].dependentOn).toContainEqual({
+		expect(collections.pages.home.dependentOn).toContainEqual({
 			collection: 'people',
 			id: 'theobald_beverley',
 		});
-		expect(collections.pages['home'].dependentOn).toContainEqual({
+		expect(collections.pages.home.dependentOn).toContainEqual({
 			collection: 'people',
 			id: 'elsa_brylee',
 		});
 
-		expect(collections.cats['cat_coco'].dependencyFor).toHaveLength(2);
-		expect(collections.cats['cat_coco'].dependencyFor).toContainEqual({
+		expect(collections.cats.cat_coco.dependencyFor).toHaveLength(2);
+		expect(collections.cats.cat_coco.dependencyFor).toContainEqual({
 			collection: 'pages',
 			id: 'cats_page',
 		});
-		expect(collections.cats['cat_coco'].dependencyFor).toContainEqual({
+		expect(collections.cats.cat_coco.dependencyFor).toContainEqual({
 			collection: 'pages',
 			id: 'home',
 		});
 
-		expect(collections.dogs['dog_charlie'].dependencyFor).toHaveLength(2);
-		expect(collections.dogs['dog_charlie'].dependencyFor).toContainEqual({
+		expect(collections.dogs.dog_charlie.dependencyFor).toHaveLength(2);
+		expect(collections.dogs.dog_charlie.dependencyFor).toContainEqual({
 			collection: 'pages',
 			id: 'dogs_page',
 		});
-		expect(collections.dogs['dog_charlie'].dependencyFor).toContainEqual({
+		expect(collections.dogs.dog_charlie.dependencyFor).toContainEqual({
 			collection: 'pages',
 			id: 'home',
 		});
@@ -671,44 +671,44 @@ describe('In Memory Tests', () => {
 			}),
 		);
 
-		expect(collections.people['elsa_brylee'].dependentOn).toHaveLength(3);
-		expect(collections.people['elsa_brylee'].dependentOn).toContainEqual({
+		expect(collections.people.elsa_brylee.dependentOn).toHaveLength(3);
+		expect(collections.people.elsa_brylee.dependentOn).toContainEqual({
 			collection: 'cats',
 			id: 'cat_luna',
 		});
-		expect(collections.people['elsa_brylee'].dependentOn).toContainEqual({
+		expect(collections.people.elsa_brylee.dependentOn).toContainEqual({
 			collection: 'cats',
 			id: 'cat_coco',
 		});
-		expect(collections.people['elsa_brylee'].dependentOn).toContainEqual({
+		expect(collections.people.elsa_brylee.dependentOn).toContainEqual({
 			collection: 'dogs',
 			id: 'dog_charlie',
 		});
 
-		expect(collections.dogs['dog_charlie'].dependencyFor).toHaveLength(3);
-		expect(collections.dogs['dog_charlie'].dependencyFor).toContainEqual({
+		expect(collections.dogs.dog_charlie.dependencyFor).toHaveLength(3);
+		expect(collections.dogs.dog_charlie.dependencyFor).toContainEqual({
 			collection: 'pages',
 			id: 'dogs_page',
 		});
-		expect(collections.dogs['dog_charlie'].dependencyFor).toContainEqual({
+		expect(collections.dogs.dog_charlie.dependencyFor).toContainEqual({
 			collection: 'pages',
 			id: 'home',
 		});
-		expect(collections.dogs['dog_charlie'].dependencyFor).toContainEqual({
+		expect(collections.dogs.dog_charlie.dependencyFor).toContainEqual({
 			collection: 'people',
 			id: 'elsa_brylee',
 		});
 
-		expect(collections.cats['cat_coco'].dependencyFor).toHaveLength(3);
-		expect(collections.cats['cat_coco'].dependencyFor).toContainEqual({
+		expect(collections.cats.cat_coco.dependencyFor).toHaveLength(3);
+		expect(collections.cats.cat_coco.dependencyFor).toContainEqual({
 			collection: 'pages',
 			id: 'cats_page',
 		});
-		expect(collections.cats['cat_coco'].dependencyFor).toContainEqual({
+		expect(collections.cats.cat_coco.dependencyFor).toContainEqual({
 			collection: 'pages',
 			id: 'home',
 		});
-		expect(collections.cats['cat_coco'].dependencyFor).toContainEqual({
+		expect(collections.cats.cat_coco.dependencyFor).toContainEqual({
 			collection: 'people',
 			id: 'elsa_brylee',
 		});

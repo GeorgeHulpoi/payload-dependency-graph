@@ -1,17 +1,17 @@
 import type { Config, Plugin } from 'payload/config';
 
-import { InMemoryDependenciesGraph } from './dependencies-graph/in-memory';
+import { InMemoryDependencyGraph } from './dependency-graph/in-memory';
 import afterCollectionChange from './hooks/afterCollectionChange';
 import afterCollectionDelete from './hooks/afterCollectionDelete';
 import afterGlobalChange from './hooks/afterGlobalChange';
 import service from './service';
 import { SchemaBuilder } from './schema-builder/schema-builder';
-import type { DependenciesGraphPluginConfig } from './types';
+import type { DependencyGraphPluginConfig } from './types';
 
-const DependenciesGraphPlugin: (pluginConfig?: DependenciesGraphPluginConfig) => Plugin =
+const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig) => Plugin =
 	(
-		pluginConfig: DependenciesGraphPluginConfig = {
-			factory: (schema, payload) => new InMemoryDependenciesGraph(schema, payload),
+		pluginConfig: DependencyGraphPluginConfig = {
+			factory: (schema, payload) => new InMemoryDependencyGraph(schema, payload),
 		},
 	) =>
 	(incomingConfig: Config): Config => {
@@ -58,11 +58,11 @@ const DependenciesGraphPlugin: (pluginConfig?: DependenciesGraphPluginConfig) =>
 					await incomingConfig.onInit(payload);
 				}
 
-				service.dependenciesGraph = pluginConfig.factory(schema, payload);
-				await service.dependenciesGraph.populate();
+				service.dependencyGraph = pluginConfig.factory(schema, payload);
+				await service.dependencyGraph.populate();
 			},
 			...restOfConfig,
 		};
 	};
 
-export default DependenciesGraphPlugin;
+export default DependencyGraphPlugin;

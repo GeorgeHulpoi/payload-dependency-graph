@@ -1,11 +1,11 @@
 import type { CollectionAfterDeleteHook } from 'payload/types';
 
-import DependenciesGraphService from '../service';
+import DependencyGraphService from '../service';
 
 const afterCollectionDelete: (collection: string) => CollectionAfterDeleteHook =
 	(collection: string) =>
 	({ doc, id }) => {
-		return DependenciesGraphService.onCollectionDelete({
+		return DependencyGraphService.onCollectionDelete({
 			doc,
 			id,
 			collection,

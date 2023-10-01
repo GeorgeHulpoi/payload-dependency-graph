@@ -1,9 +1,9 @@
-import { InMemoryDependenciesGraph } from '../../../src/dependencies-graph/in-memory';
+import { InMemoryDependencyGraph } from '../../../src/dependency-graph/in-memory';
 
-describe('InMemoryDependenciesGraph', () => {
+describe('InMemoryDependencyGraph', () => {
 	describe('compareResources', () => {
 		it('should return true', () => {
-			const result = InMemoryDependenciesGraph.compareResources(
+			const result = InMemoryDependencyGraph.compareResources(
 				{
 					collection: 'pages',
 					id: '1',
@@ -18,7 +18,7 @@ describe('InMemoryDependenciesGraph', () => {
 		});
 
 		it('should return false', () => {
-			const result = InMemoryDependenciesGraph.compareResources(
+			const result = InMemoryDependencyGraph.compareResources(
 				{
 					global: 'layout',
 				},
@@ -33,7 +33,7 @@ describe('InMemoryDependenciesGraph', () => {
 	});
 
 	describe('safeGetDependencyGraphNode', () => {
-		const graph = new InMemoryDependenciesGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
 
 		afterEach(() => {
 			(graph as any).collections = {};
@@ -120,7 +120,7 @@ describe('InMemoryDependenciesGraph', () => {
 	});
 
 	describe('addDependency', () => {
-		const graph = new InMemoryDependenciesGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
 
 		afterEach(() => {
 			(graph as any).collections = {};
@@ -375,7 +375,7 @@ describe('InMemoryDependenciesGraph', () => {
 	});
 
 	describe('purgeDependentOn', () => {
-		const graph = new InMemoryDependenciesGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
 
 		afterEach(() => {
 			(graph as any).collections = {};
@@ -527,7 +527,7 @@ describe('InMemoryDependenciesGraph', () => {
 	});
 
 	describe('isDirectDependency', () => {
-		const graph = new InMemoryDependenciesGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
 
 		afterEach(() => {
 			(graph as any).collections = {};
@@ -625,7 +625,7 @@ describe('InMemoryDependenciesGraph', () => {
 	});
 
 	describe('isDependency', () => {
-		const graph = new InMemoryDependenciesGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
 
 		afterEach(() => {
 			(graph as any).collections = {};
@@ -868,7 +868,7 @@ describe('InMemoryDependenciesGraph', () => {
 	});
 
 	describe('deleteResource', () => {
-		const graph = new InMemoryDependenciesGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
 
 		afterEach(() => {
 			(graph as any).collections = {};

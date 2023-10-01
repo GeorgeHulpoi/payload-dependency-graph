@@ -2,9 +2,9 @@ import collections from '../../src/collections';
 import globals from '../../src/globals';
 import { SchemaBuilder } from '../../../src/schema-builder/schema-builder';
 import type { DependencyGraphResource } from '../../../src/types';
-import { DependenciesGraphBase } from '../../../src/dependencies-graph/base';
+import { DependencyGraphBase } from '../../../src/dependency-graph/base';
 
-class DummyDependenciesGraph extends DependenciesGraphBase {
+class DummyDependenciesGraph extends DependencyGraphBase {
 	deleteResource(resource: DependencyGraphResource): void | Promise<void> {}
 
 	addDependency(
@@ -29,7 +29,7 @@ class DummyDependenciesGraph extends DependenciesGraphBase {
 	}
 }
 
-describe('DependenciesGraphBase', () => {
+describe('DependencyGraphBase', () => {
 	afterEach(() => {
 		jest.restoreAllMocks();
 	});
