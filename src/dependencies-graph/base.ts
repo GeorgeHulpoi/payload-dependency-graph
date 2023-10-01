@@ -81,7 +81,7 @@ export abstract class DependenciesGraphBase {
 			});
 
 			for (const doc of find.docs) {
-				this.extractDependenciesFromDoc(
+				await this.extractDependenciesFromDoc(
 					{
 						collection,
 						id: doc.id,
@@ -100,7 +100,7 @@ export abstract class DependenciesGraphBase {
 				depth: 0,
 			});
 
-			this.extractDependenciesFromDoc(
+			await this.extractDependenciesFromDoc(
 				{
 					global,
 				},
@@ -119,11 +119,11 @@ export abstract class DependenciesGraphBase {
 	 * @param doc
 	 * @param schemas
 	 */
-	extractDependenciesFromDoc(
+	async extractDependenciesFromDoc(
 		source: DependencyGraphResource,
 		doc: any,
 		schemas: DependencySchema[],
-	): void | Promise<void> {
+	): Promise<void> {
 		for (const schema of schemas) {
 			const values = getValuesFromPath(schema.path, doc);
 
@@ -131,7 +131,7 @@ export abstract class DependenciesGraphBase {
 				const blocks = values[0];
 
 				for (const block of blocks) {
-					this.extractDependenciesFromDoc(
+					await this.extractDependenciesFromDoc(
 						source,
 						block,
 						this.schema.blocks[block.blockType],
@@ -145,7 +145,7 @@ export abstract class DependenciesGraphBase {
 					 */
 					if (schema.relationTo) {
 						for (const value of values) {
-							this.addDependency(source, {
+							await this.addDependency(source, {
 								collection: schema.relationTo,
 								id:
 									typeof value === 'string' || typeof value === 'number'
@@ -165,7 +165,7 @@ export abstract class DependenciesGraphBase {
 							 *      }
 							 *
 							 */
-							this.addDependency(source, {
+							await this.addDependency(source, {
 								collection: item.relationTo,
 								id:
 									typeof item.value === 'string' || typeof item.value === 'number'

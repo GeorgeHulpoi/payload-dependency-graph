@@ -39,7 +39,7 @@ describe('DependenciesGraphBase', () => {
 		const schema = builder.build();
 		const dependencyGraph = new DummyDependenciesGraph(schema, undefined as any);
 
-		it('should extract dependencies', () => {
+		it('should extract dependencies', async () => {
 			const addDependency = jest.spyOn(dependencyGraph, 'addDependency');
 
 			const doc = {
@@ -80,7 +80,7 @@ describe('DependenciesGraphBase', () => {
 				],
 			};
 
-			dependencyGraph.extractDependenciesFromDoc(
+			await dependencyGraph.extractDependenciesFromDoc(
 				{
 					collection: 'pages',
 					id: '650ac0c148e8ee7e9b7a9c02',
@@ -114,7 +114,7 @@ describe('DependenciesGraphBase', () => {
 			expect(addDependency).toHaveBeenCalledTimes(2);
 		});
 
-		it('should extract dependencies 2', () => {
+		it('should extract dependencies 2', async () => {
 			const addDependency = jest.spyOn(dependencyGraph, 'addDependency');
 
 			const doc = {
@@ -140,7 +140,7 @@ describe('DependenciesGraphBase', () => {
 				],
 			};
 
-			dependencyGraph.extractDependenciesFromDoc(
+			await dependencyGraph.extractDependenciesFromDoc(
 				{
 					global: 'layout',
 				},
