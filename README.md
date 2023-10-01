@@ -1,6 +1,6 @@
 # Payload Dependency Graph Plugin
 
-[![Test](https://github.com/GeorgeHulpoi/payload-dependency-graph/actions/workflows/test.yml/badge.svg)](https://github.com/GeorgeHulpoi/payload-dependency-graph/actions/workflows/test.yml)
+[![npm version](https://badge.fury.io/js/payload-dependency-graph.svg)](https://badge.fury.io/js/payload-dependency-graph) [![Test](https://github.com/GeorgeHulpoi/payload-dependency-graph/actions/workflows/test.yml/badge.svg)](https://github.com/GeorgeHulpoi/payload-dependency-graph/actions/workflows/test.yml) [![Downloads](http://img.shields.io/npm/dw/payload-dependency-graph.svg)](https://www.npmjs.com/package/payload-dependency-graph)
 
 This plugin creates a dependency graph between collections and globals. The graph updates automatically, because the plugin observes the changes made on any collection or globals.
 
