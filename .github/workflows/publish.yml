@@ -1,21 +1,31 @@
 name: Publish New Version
-
 on:
-    release:
-        types: [created]
-
+  release:
+    types:
+      - created
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v2
-              with:
-                  node-version: '16.x'
-                  registry-url: 'https://registry.npmjs.org'
-            - run: npm install
-            - run: npm test
-            - run: npm run build
-            - run: npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          registry-url: https://registry.npmjs.org
+      - name: Install Dev Packages
+        working-directory: ./dev
+        run: npm install
+      - name: Test
+        working-directory: ./dev
+        run: npm run test
+      - name: Install Plugin Packages
+        working-directory: ./
+        run: npm install
+      - name: Build
+        working-directory: ./
+        run: npm run build
+      - name: Publish
+        working-directory: ./
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
