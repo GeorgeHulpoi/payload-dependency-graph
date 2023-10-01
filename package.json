@@ -28,8 +28,6 @@
 		"test": "cd dev && npm run test",
 		"lint": "eslint src",
 		"lint:fix": "eslint --fix --ext .ts,.tsx src",
-		"clean": "rimraf dist && rimraf dev/package-lock.json",
-		"prepublishOnly": "npm run clean && npm run build && cd dev && npm run test",
 		"prepare": "husky install"
 	},
 	"author": {
