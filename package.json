@@ -3,6 +3,9 @@
 	"version": "1.0.0",
 	"repository": "git@github.com:GeorgeHulpoi/payload-dependency-graph.git",
 	"description": "This plugin creates a dependency graph between collections and globals. The graph updates automatically, because the plugin observes the changes made on any collection or globals.",
+	"bugs": {
+		"url": "https://github.com/GeorgeHulpoi/payload-dependency-graph/issues"
+	},
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"keywords": [
@@ -13,6 +16,12 @@
 		"dependencies",
 		"dependency",
 		"graph"
+	],
+	"files": [
+		"dist",
+		"package.json",
+		"README.md",
+		"LICENSE"
 	],
 	"scripts": {
 		"build": "tsc",
