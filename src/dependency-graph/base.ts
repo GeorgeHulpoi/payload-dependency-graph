@@ -145,6 +145,11 @@ export abstract class DependencyGraphBase {
 					 */
 					if (schema.relationTo) {
 						for (const value of values) {
+							if (value === null || value === undefined) {
+								// eslint-disable-next-line no-continue
+								continue;
+							}
+
 							await this.addDependency(source, {
 								collection: schema.relationTo,
 								id:
@@ -156,6 +161,11 @@ export abstract class DependencyGraphBase {
 					} else {
 						// Polymorphic
 						for (const item of values) {
+							if (item === null || item === undefined) {
+								// eslint-disable-next-line no-continue
+								continue;
+							}
+
 							/**
 							 * Value will look like this:
 							 *
