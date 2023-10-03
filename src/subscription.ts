@@ -18,8 +18,8 @@ export class Subscription {
 		this.subject.unsubscribe(this);
 	}
 
-	update(event: Event): void {
-		this.callback(event);
+	update(event: Event): void | Promise<void> {
+		return this.callback(event);
 	}
 
 	compare(subscription: Subscription): boolean {

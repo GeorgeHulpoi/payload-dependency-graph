@@ -68,15 +68,15 @@ class DependencyGraphService extends Subject {
 	async onCollectionDelete(args: OnCollectionDeleteArgs): Promise<void> {
 		const { id, doc, collection } = args;
 
-		await this.dependencyGraph.deleteResource({
-			collection,
-			id: id.toString(),
-		});
-
-		this.notifySubscribers({
+		await this.notifySubscribers({
 			type: 'delete',
 			doc,
 			collection,
+		});
+
+		await this.dependencyGraph.deleteResource({
+			collection,
+			id: id.toString(),
 		});
 	}
 

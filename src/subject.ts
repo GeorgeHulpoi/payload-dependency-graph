@@ -17,9 +17,13 @@ export class Subject {
 		this.subscriptions = this.subscriptions.filter((s) => !subscription.compare(s));
 	}
 
-	notifySubscribers(event: Event): void {
-		this.subscriptions.forEach((subscription) => {
-			subscription.update(event);
+	notifySubscribers(event: Event): Promise<void> {
+		const promises: unknown[] = [];
+
+		this.subscriptions.forEach(async (subscription) => {
+			promises.push(subscription.update(event));
 		});
+
+		return Promise.all(promises).then(() => {});
 	}
 }

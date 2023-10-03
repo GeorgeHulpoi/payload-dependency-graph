@@ -96,4 +96,4 @@ export interface DeleteEvent<T = any> extends BaseEvent<T> {
 
 export type Event = CreateEvent | UpdateEvent | DeleteEvent;
 
-export type SubscriptionCallback = (event: Event) => void;
+export type SubscriptionCallback = (event: Event) => void | Promise<void>;
