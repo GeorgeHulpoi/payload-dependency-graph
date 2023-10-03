@@ -1,7 +1,6 @@
 import express from 'express';
 import type { Server } from 'http';
 import payload from 'payload';
-import { seed } from './seed';
 
 const app = express();
 
@@ -12,8 +11,6 @@ export const start = async (): Promise<Server> => {
 		mongoURL: 'mongodb://127.0.0.1/payload-dependency-graph',
 		express: app,
 	});
-
-	await seed(payload);
 	
 	return app.listen(3000);
 };

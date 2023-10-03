@@ -22,12 +22,7 @@ describe('InMemoryDependencyGraph e2e', () => {
 		process.env.MONGODB_URI = mongod.getUri();
 
 		server = await start();
-		// Need to populate again, it's because that the seeding it's executing
-		// after graph population.
 		graph = DependencyGraphService.dependencyGraph;
-		graph.collections = {};
-		graph.globals = {};
-		await DependencyGraphService.dependencyGraph.populate();
 		globals = graph.globals;
 		collections = graph.collections;
 		DependencyGraphService.subscribe(callback);
@@ -36,6 +31,10 @@ describe('InMemoryDependencyGraph e2e', () => {
 	afterAll(async () => {
 		await mongod.stop();
 		server.close();
+	});
+
+	test('true = true', () => {
+		expect(true).toBe(true);
 	});
 
 	describe('should populate graph on init', () => {

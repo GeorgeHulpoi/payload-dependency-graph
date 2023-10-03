@@ -4,6 +4,7 @@ import { buildConfig } from 'payload/config';
 import { DependencyGraphPlugin } from '../../src';
 import collections from './collections';
 import globals from './globals';
+import { seed } from './seed';
 
 export default buildConfig({
 	serverURL: 'http://localhost:3000',
@@ -19,4 +20,7 @@ export default buildConfig({
 		disable: true,
 	},
 	plugins: [DependencyGraphPlugin()],
+	onInit: async (payload) => {
+		await seed(payload);
+	}
 });
