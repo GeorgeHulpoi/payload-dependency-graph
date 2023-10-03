@@ -722,6 +722,48 @@ describe('InMemoryDependencyGraph e2e', () => {
 		});
 	});
 
+	it('isDependency should return true when deletion', async () => {
+		await payload.create({
+			collection: 'cats',
+			data: {
+				id: 'cat_rex',
+				name: 'Rex',
+				toys: [
+					{
+						degreeOfLove: '1',
+						toy: 'feathers_wand',
+					},
+				],
+			},
+		});
+
+		const sub = DependencyGraphService.subscribe((event) => {
+			expect(event.type).toBe('delete');
+			expect(event.collection).toBe('cats');
+			expect(event.doc.id).toBe('cat_rex');
+
+			expect(
+				graph.isDependency(
+					{
+						collection: 'cats',
+						id: 'cat_rex',
+					},
+					{
+						collection: 'toys',
+						id: 'feathers_wand',
+					},
+				),
+			).toBeTruthy();
+		});
+
+		await payload.delete({
+			collection: 'cats',
+			id: 'cat_rex',
+		});
+
+		sub.unsubscribe();
+	});
+
 	describe('isDependencyForAnyResourceOfCollection', () => {
 		it('should return true', () => {
 			const result = graph.isDependencyForAnyResourceOfCollection(
