@@ -14,17 +14,18 @@ class DummyDependencyGraph extends DependencyGraphBase {
 
 	purgeDependentOn(resource: DependencyGraphResource): void | Promise<void> {}
 
-	isDirectDependency(
-		source: DependencyGraphResource,
-		target: DependencyGraphResource,
-	): boolean | Promise<boolean> {
+	isDirectDependency(source: DependencyGraphResource, target: DependencyGraphResource): boolean {
 		return true;
 	}
 
-	isDependency(
-		source: DependencyGraphResource,
+	isDependency(source: DependencyGraphResource, target: DependencyGraphResource): boolean {
+		return true;
+	}
+
+	isDependencyForAnyResourceOfCollection(
 		target: DependencyGraphResource,
-	): boolean | Promise<boolean> {
+		collection: string,
+	): boolean {
 		return true;
 	}
 }

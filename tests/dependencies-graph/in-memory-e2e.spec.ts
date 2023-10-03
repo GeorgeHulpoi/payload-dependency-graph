@@ -721,4 +721,49 @@ describe('InMemoryDependencyGraph e2e', () => {
 			id: 'elsa_brylee',
 		});
 	});
+
+	describe('isDependencyForAnyResourceOfCollection', () => {
+		it('should return true', () => {
+			const result = graph.isDependencyForAnyResourceOfCollection(
+				{
+					collection: 'dogs',
+					id: 'dog_charlie',
+				},
+				'pages',
+			);
+
+			expect(result).toBeTruthy();
+		});
+
+		it('should return false', async () => {
+			await payload.create({
+				collection: 'cats',
+				data: {
+					id: 'cat_rex',
+					name: 'Rex',
+					toys: [
+						{
+							degreeOfLove: '1',
+							toy: 'feathers_wand',
+						},
+					],
+				},
+			});
+
+			const result = graph.isDependencyForAnyResourceOfCollection(
+				{
+					collection: 'cats',
+					id: 'cat_rex',
+				},
+				'pages',
+			);
+
+			expect(result).toBeFalsy();
+
+			await payload.delete({
+				collection: 'cats',
+				id: 'cat_rex',
+			});
+		});
+	});
 });
