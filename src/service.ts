@@ -20,7 +20,7 @@ class DependencyGraphService extends Subject {
 	/**
 	 * The concrete instance of the dependency graph
 	 */
-	dependencyGraph!: DependencyGraphBase;
+	dependencyGraph?: DependencyGraphBase;
 
 	/**
 	 * Function called exclusively by the `afterChange` hook in each collection.
@@ -28,6 +28,10 @@ class DependencyGraphService extends Subject {
 	 * @param args
 	 */
 	async onCollectionChange(args: OnCollectionChangeArgs): Promise<void> {
+		if (!this.dependencyGraph) {
+			return;
+		}
+
 		const { doc, previousDoc, collection, operation } = args;
 
 		await this.dependencyGraph.purgeDependentOn({
@@ -66,6 +70,10 @@ class DependencyGraphService extends Subject {
 	 * @param args
 	 */
 	async onCollectionDelete(args: OnCollectionDeleteArgs): Promise<void> {
+		if (!this.dependencyGraph) {
+			return;
+		}
+
 		const { id, doc, collection } = args;
 
 		await this.notifySubscribers({
@@ -86,6 +94,10 @@ class DependencyGraphService extends Subject {
 	 * @param args
 	 */
 	async onGlobalChange(args: OnGlobalChangeArgs): Promise<void> {
+		if (!this.dependencyGraph) {
+			return;
+		}
+
 		const { doc, previousDoc } = args;
 		const resource = {
 			global: doc.globalType,
