@@ -194,4 +194,29 @@ export class InMemoryDependencyGraph extends DependencyGraphBase {
 		}
 		return false;
 	}
+
+	isDependencyForAnyResourceOfCollection(
+		target: DependencyGraphResource,
+		collection: string,
+	): boolean {
+		if (target.collection === collection) {
+			return true;
+		}
+
+		const node = this.getDependencyGraphNode(target);
+
+		if (node === undefined) {
+			return false;
+		}
+
+		if (node.dependencyFor.length > 0) {
+			return node.dependencyFor.reduce(
+				(result, dep) =>
+					result || this.isDependencyForAnyResourceOfCollection(dep, collection),
+				false,
+			);
+		}
+
+		return false;
+	}
 }

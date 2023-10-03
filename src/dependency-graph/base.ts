@@ -64,6 +64,16 @@ export abstract class DependencyGraphBase {
 	): boolean | Promise<boolean>;
 
 	/**
+	 * Is target a dependency for any resource of collection given?
+	 * @param target
+	 * @param collection
+	 */
+	abstract isDependencyForAnyResourceOfCollection(
+		target: DependencyGraphResource,
+		collection: string,
+	): boolean | Promise<boolean>;
+
+	/**
 	 * Used at Payload initialization to populate the dependency graph.
 	 * You shouldn't call this function by yourself.
 	 */
