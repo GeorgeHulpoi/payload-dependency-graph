@@ -33,10 +33,6 @@ describe('InMemoryDependencyGraph e2e', () => {
 		server.close();
 	});
 
-	test('true = true', () => {
-		expect(true).toBe(true);
-	});
-
 	describe('should populate graph on init', () => {
 		it('should populate layout global', () => {
 			expect(globals).toEqual(
@@ -434,7 +430,7 @@ describe('InMemoryDependencyGraph e2e', () => {
 	});
 
 	it('should add resource in graph', async () => {
-		callback.mockClear();
+		callback.mockReset();
 
 		await payload.create({
 			collection: 'cats',
@@ -586,7 +582,7 @@ describe('InMemoryDependencyGraph e2e', () => {
 	});
 
 	it('should delete resource from graph', async () => {
-		callback.mockClear();
+		callback.mockReset();
 
 		await payload.delete({
 			collection: 'people',
@@ -648,7 +644,7 @@ describe('InMemoryDependencyGraph e2e', () => {
 	});
 
 	it('should update graph', async () => {
-		callback.mockClear();
+		callback.mockReset();
 
 		await payload.update({
 			collection: 'people',
