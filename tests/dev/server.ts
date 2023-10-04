@@ -14,8 +14,3 @@ export const start = async (): Promise<Server> => {
 	
 	return app.listen(3000);
 };
-
-// when build.js is launched directly
-if (module.id === require.main?.id) {
-	start();
-}
