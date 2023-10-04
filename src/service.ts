@@ -49,13 +49,13 @@ class DependencyGraphService extends Subject {
 		);
 
 		if (operation === 'create') {
-			this.notifySubscribers({
+			await this.notifySubscribers({
 				type: 'create',
 				doc,
 				collection,
 			});
 		} else if (operation === 'update') {
-			this.notifySubscribers({
+			await this.notifySubscribers({
 				type: 'update',
 				doc,
 				previousDoc,
@@ -111,7 +111,7 @@ class DependencyGraphService extends Subject {
 			this.schema.globals[doc.globalType] || [],
 		);
 
-		this.notifySubscribers({
+		await this.notifySubscribers({
 			type: 'update',
 			doc,
 			previousDoc,
