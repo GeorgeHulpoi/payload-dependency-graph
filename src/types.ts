@@ -31,7 +31,7 @@ export interface DependencySchemaSlug {
 
 export interface DependencySchema {
 	relationTo?: string;
-	type: 'relationship' | 'blocks';
+	type: 'relationship' | 'blocks' | 'richText';
 	path: string;
 }
 

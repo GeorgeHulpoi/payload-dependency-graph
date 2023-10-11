@@ -8,6 +8,7 @@ import { Pages } from './dev/collections/Pages';
 import { People } from './dev/collections/People';
 import { DiscoverMeBlock } from './dev/blocks/discover-me';
 import { DependencyGraphSchema } from '../src/schema';
+import { ContentBlock } from './dev/blocks/content';
 
 describe('DependencySchemaBuilder', () => {
 	describe('formatBaseName', () => {
@@ -79,28 +80,35 @@ describe('DependencySchemaBuilder', () => {
 		it('should get dependencies for Pages', () => {
 			const dependencies = builder.getDependencies(Pages.fields);
 
-			expect(dependencies).toHaveLength(1);
+			expect(dependencies).toHaveLength(2);
 			expect(dependencies).toContainEqual({
 				relationTo: undefined,
 				type: 'blocks',
 				path: 'content',
+			});
+			expect(dependencies).toContainEqual({
+				relationTo: undefined,
+				type: 'richText',
+				path: 'description',
 			});
 		});
 
 		it('should populate blocks', () => {
 			const blocks = (builder as any).blocks;
 
-			expect(blocks.size).toEqual(5);
+			expect(blocks.size).toEqual(6);
 			expect(blocks.has('cats-section')).toBeTruthy();
 			expect(blocks.has('dogs-section')).toBeTruthy();
 			expect(blocks.has('people-section')).toBeTruthy();
 			expect(blocks.has('discover-me')).toBeTruthy();
 			expect(blocks.has('recursive-content')).toBeTruthy();
+			expect(blocks.has('content')).toBeTruthy();
 
 			expect(blocks.get('cats-section')).toEqual(CatsSectionBlock);
 			expect(blocks.get('dogs-section')).toEqual(DogsSectionBlock);
 			expect(blocks.get('people-section')).toEqual(PeopleSectionBlock);
 			expect(blocks.get('discover-me')).toEqual(DiscoverMeBlock);
+			expect(blocks.get('content')).toEqual(ContentBlock);
 		});
 	});
 
@@ -142,10 +150,16 @@ describe('DependencySchemaBuilder', () => {
 
 		it('should contain dependencies for Pages', () => {
 			expect(schema.collections.pages).toBeDefined();
+			expect(schema.collections.pages).toHaveLength(2);
 			expect(schema.collections.pages).toContainEqual({
 				relationTo: undefined,
 				type: 'blocks',
 				path: 'content',
+			});
+			expect(schema.collections.pages).toContainEqual({
+				relationTo: undefined,
+				type: 'richText',
+				path: 'description',
 			});
 		});
 
