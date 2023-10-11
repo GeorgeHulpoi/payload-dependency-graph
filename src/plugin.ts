@@ -5,8 +5,8 @@ import afterCollectionChange from './hooks/afterCollectionChange';
 import afterCollectionDelete from './hooks/afterCollectionDelete';
 import afterGlobalChange from './hooks/afterGlobalChange';
 import service from './service';
-import { SchemaBuilder } from './schema-builder/schema-builder';
 import type { DependencyGraphPluginConfig } from './types';
+import { DependencyGraphSchema } from './schema';
 
 const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig) => Plugin =
 	(
@@ -17,7 +17,9 @@ const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig) => Plu
 	(incomingConfig: Config): Config => {
 		const { globals, collections, onInit, ...restOfConfig } = incomingConfig;
 
-		const builder = new SchemaBuilder(collections || [], globals || []);
+		const builder = new DependencyGraphSchema.Builder()
+			.setCollections(collections || [])
+			.setGlobals(globals || []);
 		const schema = builder.build();
 		service.schema = schema;
 

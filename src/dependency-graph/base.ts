@@ -1,16 +1,17 @@
 import type { Payload } from 'payload';
 
-import type { DependenciesSchema, DependencyGraphResource, DependencySchema } from '../types';
+import type { DependencyGraphResource, DependencySchema } from '../types';
 import getValuesFromPath from '../utils/get-values-from-path';
+import type { DependencyGraphSchema } from '../schema';
 
 /**
  * Represents the base class for implementing a concrete dependency graph.
  */
 export abstract class DependencyGraphBase {
-	protected readonly schema: DependenciesSchema;
+	protected readonly schema: DependencyGraphSchema;
 	protected readonly payload: Payload;
 
-	constructor(schema: DependenciesSchema, payload: Payload) {
+	constructor(schema: DependencyGraphSchema, payload: Payload) {
 		this.schema = schema;
 		this.payload = payload;
 	}
