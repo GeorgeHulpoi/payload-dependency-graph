@@ -1,4 +1,4 @@
-import { InMemoryDependencyGraph } from '../../src/dependency-graph/in-memory';
+import { InMemoryDependencyGraph } from '../../../src/dependency-graph/in-memory';
 
 describe('InMemoryDependencyGraph', () => {
 	describe('compareResources', () => {
@@ -33,7 +33,7 @@ describe('InMemoryDependencyGraph', () => {
 	});
 
 	describe('safeGetDependencyGraphNode', () => {
-		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph();
 
 		afterEach(() => {
 			(graph as any).collections = {};
@@ -120,7 +120,7 @@ describe('InMemoryDependencyGraph', () => {
 	});
 
 	describe('addDependency', () => {
-		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph();
 
 		afterEach(() => {
 			(graph as any).collections = {};
@@ -375,7 +375,7 @@ describe('InMemoryDependencyGraph', () => {
 	});
 
 	describe('purgeDependentOn', () => {
-		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph();
 
 		afterEach(() => {
 			(graph as any).collections = {};
@@ -527,7 +527,7 @@ describe('InMemoryDependencyGraph', () => {
 	});
 
 	describe('isDirectDependency', () => {
-		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph();
 
 		afterEach(() => {
 			(graph as any).collections = {};
@@ -625,7 +625,7 @@ describe('InMemoryDependencyGraph', () => {
 	});
 
 	describe('isDependency', () => {
-		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph();
 
 		afterEach(() => {
 			(graph as any).collections = {};
@@ -868,7 +868,7 @@ describe('InMemoryDependencyGraph', () => {
 	});
 
 	describe('deleteResource', () => {
-		const graph = new InMemoryDependencyGraph(undefined as any, undefined as any);
+		const graph = new InMemoryDependencyGraph();
 
 		afterEach(() => {
 			(graph as any).collections = {};

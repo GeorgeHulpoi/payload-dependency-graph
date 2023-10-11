@@ -40,7 +40,7 @@ describe('DependencyGraphBase', () => {
 			.setCollections(collections)
 			.setGlobals(globals);
 		const schema = builder.build();
-		const dependencyGraph = new DummyDependencyGraph(schema, undefined as any);
+		const dependencyGraph = new DummyDependencyGraph().setSchema(schema);
 
 		it('should extract dependencies', async () => {
 			const addDependency = jest.spyOn(dependencyGraph, 'addDependency');

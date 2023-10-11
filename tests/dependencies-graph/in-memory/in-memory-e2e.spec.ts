@@ -3,8 +3,9 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import path from 'path';
 import payload from 'payload';
 
-import { DependencyGraphService } from '../../src';
-import { start } from '../dev/server';
+import { DependencyGraphService } from '../../../src';
+import { start } from '../../dev/server';
+import { editorExtractor } from './payload.config';
 
 describe('InMemoryDependencyGraph e2e', () => {
 	let mongod: MongoMemoryServer;
@@ -18,7 +19,7 @@ describe('InMemoryDependencyGraph e2e', () => {
 	beforeAll(async () => {
 		mongod = await MongoMemoryServer.create();
 
-		process.env.PAYLOAD_CONFIG_PATH = path.join(__dirname, '..', 'dev', 'payload.config.ts');
+		process.env.PAYLOAD_CONFIG_PATH = path.join(__dirname, 'payload.config.ts');
 		process.env.MONGODB_URI = mongod.getUri();
 
 		server = await start();
@@ -802,5 +803,52 @@ describe('InMemoryDependencyGraph e2e', () => {
 				id: 'cat_rex',
 			});
 		});
+	});
+
+	it('should call editorExtractor on init', () => {
+		expect(editorExtractor).toHaveBeenCalledTimes(3); // because there are 3 pages
+		editorExtractor.mockReset();
+	});
+
+	it('should call editorExtractor when adding resource with richText', async () => {
+		await payload.create({
+			collection: 'pages',
+			data: {
+				id: 'page_test',
+				description: [
+					{
+						children: [{ text: 'Test description' }],
+					},
+				],
+				content: [],
+			},
+		});
+
+		expect(editorExtractor).toHaveBeenCalledTimes(1);
+		editorExtractor.mockReset();
+
+		await payload.delete({
+			collection: 'pages',
+			id: 'page_test',
+		});
+
+		expect(editorExtractor).toHaveBeenCalledTimes(0);
+	});
+
+	it('should call editorExtractor when updating resource with richText', async () => {
+		await payload.update({
+			collection: 'pages',
+			id: 'home',
+			data: {
+				description: [
+					{
+						children: [{ text: 'blah blah' }],
+					},
+				],
+			},
+		});
+
+		expect(editorExtractor).toHaveBeenCalledTimes(1);
+		editorExtractor.mockReset();
 	});
 });

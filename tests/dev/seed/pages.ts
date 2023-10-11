@@ -5,6 +5,11 @@ export const seedPages = async (payload: Payload): Promise<void> => {
 		collection: 'pages',
 		data: {
 			id: 'cats_page',
+			description: [
+				{
+				  children: [{ text: 'Cats description' }],
+				},
+			],
 			content: [
 				{
 					content: [
@@ -36,6 +41,11 @@ export const seedPages = async (payload: Payload): Promise<void> => {
 		collection: 'pages',
 		data: {
 			id: 'dogs_page',
+			description: [
+				{
+				  children: [{ text: 'Dogs description' }],
+				},
+			],
 			content: [
 				{
 					content: [
@@ -67,6 +77,11 @@ export const seedPages = async (payload: Payload): Promise<void> => {
 		collection: 'pages',
 		data: {
 			id: 'home',
+			description: [
+				{
+				  children: [{ text: 'Home description' }],
+				},
+			],
 			content: [
 				{
 					heading: 'Our Cats',
