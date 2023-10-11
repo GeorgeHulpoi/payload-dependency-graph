@@ -1,9 +1,10 @@
 import type { Payload } from 'payload';
 
 import type { DependencyGraphBase } from './dependency-graph/base';
+import type { DependencyGraphSchema } from './schema';
 
 export interface DependencyGraphPluginConfig {
-	factory: (schema: DependenciesSchema, payload: Payload) => DependencyGraphBase;
+	factory: (schema: DependencyGraphSchema, payload: Payload) => DependencyGraphBase;
 }
 
 export interface OnCollectionChangeArgs<T = any> {
@@ -24,16 +25,8 @@ export interface OnGlobalChangeArgs<T = any> {
 	doc: T;
 }
 
-export interface DependenciesSchema {
-	collections: {
-		[slug: string]: DependencySchema[];
-	};
-	globals: {
-		[slug: string]: DependencySchema[];
-	};
-	blocks: {
-		[slug: string]: DependencySchema[];
-	};
+export interface DependencySchemaSlug {
+	[slug: string]: DependencySchema[];
 }
 
 export interface DependencySchema {
@@ -55,7 +48,7 @@ export interface DependencyGraphGlobalResource {
 export interface DependencyGraphCollectionResource {
 	global?: never;
 	collection: string;
-	id: string;
+	id: string | number;
 }
 
 export interface DependencyGraphNode {

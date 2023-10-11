@@ -1,18 +1,18 @@
-import { CatsSectionBlock } from '../dev/blocks/cats-section';
-import { DogsSectionBlock } from '../dev/blocks/dogs-section';
-import { PeopleSectionBlock } from '../dev/blocks/people-section';
-import collections from '../dev/collections';
-import globals from '../dev/globals';
-import { Cats } from '../dev/collections/Cats';
-import { Pages } from '../dev/collections/Pages';
-import { People } from '../dev/collections/People';
-import { SchemaBuilder } from '../../src/schema-builder/schema-builder';
-import { DiscoverMeBlock } from '../dev/blocks/discover-me';
+import { CatsSectionBlock } from './dev/blocks/cats-section';
+import { DogsSectionBlock } from './dev/blocks/dogs-section';
+import { PeopleSectionBlock } from './dev/blocks/people-section';
+import collections from './dev/collections';
+import globals from './dev/globals';
+import { Cats } from './dev/collections/Cats';
+import { Pages } from './dev/collections/Pages';
+import { People } from './dev/collections/People';
+import { DiscoverMeBlock } from './dev/blocks/discover-me';
+import { DependencyGraphSchema } from '../src/schema';
 
 describe('DependencySchemaBuilder', () => {
 	describe('formatBaseName', () => {
 		it('should generate right field path (simple field)', () => {
-			const fieldPath = SchemaBuilder.formatFieldPath('', {
+			const fieldPath = DependencyGraphSchema.Builder.formatFieldPath('', {
 				name: 'category',
 				type: 'text',
 			});
@@ -21,7 +21,7 @@ describe('DependencySchemaBuilder', () => {
 		});
 
 		it('should generate right field path (nested)', () => {
-			const fieldPath = SchemaBuilder.formatFieldPath('meta.og', {
+			const fieldPath = DependencyGraphSchema.Builder.formatFieldPath('meta.og', {
 				name: 'title',
 				type: 'text',
 			});
@@ -30,7 +30,7 @@ describe('DependencySchemaBuilder', () => {
 		});
 
 		it('should generate right field path (nested and array)', () => {
-			const fieldPath = SchemaBuilder.formatFieldPath('meta', {
+			const fieldPath = DependencyGraphSchema.Builder.formatFieldPath('meta', {
 				name: 'items',
 				type: 'array',
 			});
@@ -39,7 +39,7 @@ describe('DependencySchemaBuilder', () => {
 		});
 
 		it('should generate right field path (field from array)', () => {
-			const fieldPath = SchemaBuilder.formatFieldPath('meta.items.*', {
+			const fieldPath = DependencyGraphSchema.Builder.formatFieldPath('meta.items.*', {
 				name: 'property',
 				type: 'text',
 			});
@@ -49,7 +49,7 @@ describe('DependencySchemaBuilder', () => {
 	});
 
 	describe('getDependencies', () => {
-		const builder = new SchemaBuilder([], []);
+		const builder = new DependencyGraphSchema.Builder().setCollections([]).setGlobals([]);
 
 		it('should get dependencies for People', () => {
 			const dependencies = builder.getDependencies(People.fields);
@@ -105,7 +105,9 @@ describe('DependencySchemaBuilder', () => {
 	});
 
 	describe('build', () => {
-		const builder = new SchemaBuilder(collections, globals);
+		const builder = new DependencyGraphSchema.Builder()
+			.setCollections(collections)
+			.setGlobals(globals);
 		const schema = builder.build();
 
 		it('should generate schema', () => {
