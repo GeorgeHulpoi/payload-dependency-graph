@@ -11,7 +11,8 @@ import { DependencyGraphSchema } from './schema';
 const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig) => Plugin =
 	(
 		pluginConfig: DependencyGraphPluginConfig = {
-			factory: (schema, payload) => new InMemoryDependencyGraph(schema, payload),
+			factory: (schema, payload) =>
+				new InMemoryDependencyGraph().setSchema(schema).setPayload(payload),
 		},
 	) =>
 	(incomingConfig: Config): Config => {
@@ -61,6 +62,9 @@ const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig) => Plu
 				}
 
 				service.dependencyGraph = pluginConfig.factory(schema, payload);
+				if (pluginConfig.editorExtractor) {
+					service.dependencyGraph.setEditorExtractor(pluginConfig.editorExtractor);
+				}
 				await service.dependencyGraph.populate();
 			},
 			...restOfConfig,
