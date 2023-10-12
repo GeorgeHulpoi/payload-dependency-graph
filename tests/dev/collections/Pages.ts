@@ -12,6 +12,10 @@ export const Pages: CollectionConfig = {
 			required: true,
 		},
 		{
+			name: 'description',
+			type: 'richText'
+		},
+		{
 			type: 'tabs',
 			tabs: [
 				{

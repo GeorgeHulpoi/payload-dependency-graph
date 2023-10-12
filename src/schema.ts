@@ -201,6 +201,11 @@ export class DependencyGraphSchema {
 								(field.hasMany ? '.*' : ''),
 						});
 					}
+				} else if (field.type === 'richText') {
+					dependencies.push({
+						type: 'richText',
+						path: DependencyGraphSchemaBuilder.formatFieldPath(baseName, field),
+					});
 				} else if (field.type === 'blocks') {
 					/**
 					 * You can't know exactly what will be here.

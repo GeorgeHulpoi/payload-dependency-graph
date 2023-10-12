@@ -3,8 +3,16 @@ import type { Payload } from 'payload';
 import type { DependencyGraphBase } from './dependency-graph/base';
 import type { DependencyGraphSchema } from './schema';
 
+export type EditorExtractor = (args: {
+	dependencyGraph: DependencyGraphBase;
+	source: DependencyGraphResource;
+	doc: any;
+	value: any;
+}) => void | Promise<void>;
+
 export interface DependencyGraphPluginConfig {
 	factory: (schema: DependencyGraphSchema, payload: Payload) => DependencyGraphBase;
+	editorExtractor?: EditorExtractor;
 }
 
 export interface OnCollectionChangeArgs<T = any> {
@@ -31,7 +39,7 @@ export interface DependencySchemaSlug {
 
 export interface DependencySchema {
 	relationTo?: string;
-	type: 'relationship' | 'blocks';
+	type: 'relationship' | 'blocks' | 'richText';
 	path: string;
 }
 

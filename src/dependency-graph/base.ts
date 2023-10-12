@@ -1,6 +1,6 @@
 import type { Payload } from 'payload';
 
-import type { DependencyGraphResource, DependencySchema } from '../types';
+import type { DependencyGraphResource, DependencySchema, EditorExtractor } from '../types';
 import getValuesFromPath from '../utils/get-values-from-path';
 import type { DependencyGraphSchema } from '../schema';
 
@@ -8,12 +8,34 @@ import type { DependencyGraphSchema } from '../schema';
  * Represents the base class for implementing a concrete dependency graph.
  */
 export abstract class DependencyGraphBase {
-	protected readonly schema: DependencyGraphSchema;
-	protected readonly payload: Payload;
+	/**
+	 * Schema of the dependency graph
+	 */
+	protected schema!: DependencyGraphSchema;
 
-	constructor(schema: DependencyGraphSchema, payload: Payload) {
+	/**
+	 * Payload instance
+	 */
+	protected payload!: Payload;
+
+	/**
+	 * The function that takes care of extracting the dependencies from a field of type `richText`.
+	 */
+	protected editorExtractor?: EditorExtractor;
+
+	setSchema(schema: DependencyGraphSchema): DependencyGraphBase {
 		this.schema = schema;
+		return this;
+	}
+
+	setPayload(payload: Payload): DependencyGraphBase {
 		this.payload = payload;
+		return this;
+	}
+
+	setEditorExtractor(editorExtractor: EditorExtractor): DependencyGraphBase {
+		this.editorExtractor = editorExtractor;
+		return this;
 	}
 
 	/**
@@ -201,6 +223,15 @@ export abstract class DependencyGraphBase {
 							});
 						}
 					}
+				}
+			} else if (schema.type === 'richText') {
+				if (this.editorExtractor) {
+					await this.editorExtractor({
+						dependencyGraph: this,
+						source,
+						doc,
+						value: values[0],
+					});
 				}
 			}
 		}
