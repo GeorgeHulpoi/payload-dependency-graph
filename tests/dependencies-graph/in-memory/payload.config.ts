@@ -31,8 +31,7 @@ export default buildConfig({
 	plugins: [
 		DependencyGraphPlugin({
 			editorExtractor,
-			factory: (schema, payload) =>
-				new InMemoryDependencyGraph().setSchema(schema).setPayload(payload),
+			factory: () => new InMemoryDependencyGraph(),
 		}),
 	],
 	onInit: async (payload) => {
