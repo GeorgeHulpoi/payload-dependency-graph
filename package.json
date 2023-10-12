@@ -1,6 +1,6 @@
 {
 	"name": "payload-dependency-graph",
-	"version": "1.1.0",
+	"version": "2.0.0",
 	"repository": "git@github.com:GeorgeHulpoi/payload-dependency-graph.git",
 	"description": "This plugin creates a dependency graph between collections and globals. The graph updates automatically, because the plugin observes the changes made on any collection or globals.",
 	"bugs": {
@@ -36,10 +36,12 @@
 	},
 	"license": "MIT",
 	"peerDependencies": {
-		"payload": "^1.0.0"
+		"payload": "^2.0.2"
 	},
 	"devDependencies": {
+		"@payloadcms/db-mongodb": "^1.0.2",
 		"@payloadcms/eslint-config": "^0.0.1",
+		"@payloadcms/richtext-slate": "^1.0.1",
 		"@swc/jest": "^0.2.28",
 		"@types/express": "^4.17.18",
 		"@types/jest": "^29.5.5",
@@ -56,7 +58,7 @@
 		"jest": "^29.7.0",
 		"lint-staged": "^14.0.1",
 		"mongodb-memory-server": "^8.15.1",
-		"payload": "^1.8.2",
+		"payload": "^2.0.2",
 		"prettier": "^2.7.1",
 		"react": "^18.0.0",
 		"ts-jest": "^29.1.1",

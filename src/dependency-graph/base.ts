@@ -225,7 +225,14 @@ export abstract class DependencyGraphBase {
 					}
 				}
 			} else if (schema.type === 'richText') {
-				if (this.editorExtractor) {
+				if (schema.editorExtractor) {
+					await schema.editorExtractor({
+						dependencyGraph: this,
+						source,
+						doc,
+						value: values[0],
+					});
+				} else if (this.editorExtractor) {
 					await this.editorExtractor({
 						dependencyGraph: this,
 						source,

@@ -1,6 +1,8 @@
 import type { CollectionConfig } from 'payload/types';
 import blocks from '../blocks';
 
+export const pageEditorExtractorDescription = jest.fn((args) => {});
+
 export const Pages: CollectionConfig = {
 	slug: 'pages',
 	fields: [
@@ -13,7 +15,10 @@ export const Pages: CollectionConfig = {
 		},
 		{
 			name: 'description',
-			type: 'richText'
+			type: 'richText',
+			custom: {
+				editorExtractor: pageEditorExtractorDescription
+			}
 		},
 		{
 			type: 'tabs',

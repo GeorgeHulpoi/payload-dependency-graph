@@ -1,4 +1,7 @@
 import path from 'path';
+
+import { mongooseAdapter } from '@payloadcms/db-mongodb';
+import { slateEditor } from '@payloadcms/richtext-slate';
 import { buildConfig } from 'payload/config';
 
 import { DependencyGraphPlugin, InMemoryDependencyGraph } from '../../../src';
@@ -21,11 +24,14 @@ export default buildConfig({
 	graphQL: {
 		disable: true,
 	},
+	db: mongooseAdapter({
+		url: process.env.MONGODB_URI!,
+	}),
+	editor: slateEditor({}),
 	plugins: [
 		DependencyGraphPlugin({
 			editorExtractor,
-			factory: (schema, payload) =>
-				new InMemoryDependencyGraph().setSchema(schema).setPayload(payload),
+			factory: () => new InMemoryDependencyGraph(),
 		}),
 	],
 	onInit: async (payload) => {

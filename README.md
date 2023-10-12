@@ -41,21 +41,89 @@ export default config;
 
 By default, the plugin uses the `InMemoryDependencyGraph`, but you can use another way to manage dependencies as long as you extend the [DependencyGraphBase](#dependencygraphbase) class. You can do this using the `factory` property.
 
-| Property                       | Type                                                                                                                                                                                                                                                                                       |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `factory` (optional)         | (`schema`: [DependenciesSchema](https://github.com/GeorgeHulpoi/payload-dependency-graph/blob/e99365aeb527e8cbe7b2cbcbf40f8b2d14d5aedd/src/types.ts#L27), `payload`:[Payload](https://github.com/payloadcms/payload/blob/master/src/payload.ts)) =>[DependencyGraphBase](#dependencygraphbase) |
-| `editorExtractor` (optional) | [EditorExtractor](#editor-extractor)                                                                                                                                                                                                                                                          |
+| Property                       | Type                                          |
+| ------------------------------ | --------------------------------------------- |
+| `factory` (optional)         | () =>[DependencyGraphBase](#dependencygraphbase) |
+| `editorExtractor` (optional) | [EditorExtractor](#editor-extractor)             |
 
 If you're dealing with a lot of documents, a better approach is to use a database-oriented implementation because the in-memory approach will increase the RAM. In the next versions, the plugin will provide it by default for MongoDB and PostgreSQL.
 
 #### Editor Extractor
 
+```ts
+type EditorExtractor = (args: {
+	dependencyGraph: DependencyGraphBase;
+	source: DependencyGraphResource;
+	doc: any;
+	value: any;
+}) => void | Promise<void>;
+```
+
 You might be wondering what's up with this property. The problem is that versions lower than 1.1.0 of the plugin do not parse a Rich Text fields at all. It wasn't intentional, I completely forgot that Rich Text can have relationships with other documents. Even so, it is difficult to extract the relations from a Rich Text for several reasons:
 
 * You cannot extract an exact schema of what is in Rich Text.
 * Rich text is highly customizable, this means that the developer can add whatever he wants to it, even relationships.
+* From Payload 2.x.x you can choose the editor you want to use, meaning that the structure of the value can differ.
 
 Therefore `editorExtractor` is a function that gives you the ability to parse the Rich Text value and extract its dependencies.
+
+##### Payload v2.x.x
+
+If you are using version 2.x.x, you should be aware that each Rich Text field can customize its editor settings. In response, I added the option to customize the EditorExtractor for each field.
+
+```ts
+import { CollectionConfig } from 'payload/types';
+import { lexicalEditor } from '@payloadcms/richtext-lexical';
+
+export const Pages: CollectionConfig = {
+    slug: 'pages',
+    fields: [
+        {
+            name: 'content',
+            type: 'richText',
+            editor: lexicalEditor({
+                // ... your settings
+            }),
+            custom: {
+                editorExtractor: (args) => {
+                    // ... your editor extractor implementation
+                }
+            }
+        }
+    ]
+}
+```
+
+##### Example
+
+```ts
+import { buildConfig } from 'payload/config';
+import { DependencyGraphPlugin } from 'payload-dependency-graph';
+
+const extract = async (nodes: any[], source, dependencyGraph) => {
+    for (let node of nodes) {
+        if ('children' in node) {
+            await extract(node.children);
+        } else if (node.type === 'image') {
+            await dependencyGraph.addDependency(source, {
+                collection: node.collection,
+                id: node.doc.id
+            });
+        }
+    }
+}
+
+const config = buildConfig({
+    // ... rest of your config
+    plugins: [DependencyGraphPlugin({
+        editorExtractor: async ({source, value, dependencyGraph}) => {
+            await extract(value, source, dependencyGraph);
+        },
+    })],
+});
+
+export default config;
+```
 
 ### 2. Listen for events
 

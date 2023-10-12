@@ -4,7 +4,7 @@ import { PeopleSectionBlock } from './dev/blocks/people-section';
 import collections from './dev/collections';
 import globals from './dev/globals';
 import { Cats } from './dev/collections/Cats';
-import { Pages } from './dev/collections/Pages';
+import { Pages, pageEditorExtractorDescription } from './dev/collections/Pages';
 import { People } from './dev/collections/People';
 import { DiscoverMeBlock } from './dev/blocks/discover-me';
 import { DependencyGraphSchema } from '../src/schema';
@@ -90,6 +90,7 @@ describe('DependencySchemaBuilder', () => {
 				relationTo: undefined,
 				type: 'richText',
 				path: 'description',
+				editorExtractor: pageEditorExtractorDescription,
 			});
 		});
 
@@ -160,6 +161,7 @@ describe('DependencySchemaBuilder', () => {
 				relationTo: undefined,
 				type: 'richText',
 				path: 'description',
+				editorExtractor: pageEditorExtractorDescription,
 			});
 		});
 

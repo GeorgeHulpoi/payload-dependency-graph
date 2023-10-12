@@ -8,7 +8,6 @@ export const start = async (): Promise<Server> => {
 	await payload.init({
 		local: true,
 		secret: 'here-is-a-secret',
-		mongoURL: 'mongodb://127.0.0.1/payload-dependency-graph',
 		express: app,
 	});
 	

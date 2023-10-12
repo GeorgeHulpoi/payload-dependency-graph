@@ -5,7 +5,7 @@ import payload from 'payload';
 
 import { DependencyGraphService } from '../../../src';
 import { start } from '../../dev/server';
-import { editorExtractor } from './payload.config';
+import { pageEditorExtractorDescription } from '../../dev/collections/Pages';
 
 describe('InMemoryDependencyGraph e2e', () => {
 	let mongod: MongoMemoryServer;
@@ -805,13 +805,13 @@ describe('InMemoryDependencyGraph e2e', () => {
 		});
 	});
 
-	it('should call editorExtractor on init', () => {
-		expect(editorExtractor).toHaveBeenCalledTimes(3); // because there are 3 pages
-		editorExtractor.mockReset();
+	it('should call pageEditorExtractorDescription on init', () => {
+		expect(pageEditorExtractorDescription).toHaveBeenCalledTimes(3); // because there are 3 pages
+		pageEditorExtractorDescription.mockReset();
 	});
 
-	it('should call editorExtractor when adding resource with richText', async () => {
-		editorExtractor.mockReset();
+	it('should call pageEditorExtractorDescription when adding resource with richText', async () => {
+		pageEditorExtractorDescription.mockReset();
 
 		await payload.create({
 			collection: 'pages',
@@ -826,8 +826,8 @@ describe('InMemoryDependencyGraph e2e', () => {
 			},
 		});
 
-		expect(editorExtractor).toHaveBeenCalledTimes(1);
-		expect(editorExtractor).toHaveBeenCalledWith(
+		expect(pageEditorExtractorDescription).toHaveBeenCalledTimes(1);
+		expect(pageEditorExtractorDescription).toHaveBeenCalledWith(
 			expect.objectContaining({
 				dependencyGraph: graph,
 				source: {
@@ -850,18 +850,18 @@ describe('InMemoryDependencyGraph e2e', () => {
 				],
 			}),
 		);
-		editorExtractor.mockReset();
+		pageEditorExtractorDescription.mockReset();
 
 		await payload.delete({
 			collection: 'pages',
 			id: 'page_test',
 		});
 
-		expect(editorExtractor).toHaveBeenCalledTimes(0);
+		expect(pageEditorExtractorDescription).toHaveBeenCalledTimes(0);
 	});
 
-	it('should call editorExtractor when updating resource with richText', async () => {
-		editorExtractor.mockReset();
+	it('should call pageEditorExtractorDescription when updating resource with richText', async () => {
+		pageEditorExtractorDescription.mockReset();
 
 		await payload.update({
 			collection: 'pages',
@@ -875,8 +875,8 @@ describe('InMemoryDependencyGraph e2e', () => {
 			},
 		});
 
-		expect(editorExtractor).toHaveBeenCalledTimes(1);
-		expect(editorExtractor).toHaveBeenCalledWith(
+		expect(pageEditorExtractorDescription).toHaveBeenCalledTimes(1);
+		expect(pageEditorExtractorDescription).toHaveBeenCalledWith(
 			expect.objectContaining({
 				dependencyGraph: graph,
 				source: {
@@ -898,6 +898,6 @@ describe('InMemoryDependencyGraph e2e', () => {
 				],
 			}),
 		);
-		editorExtractor.mockReset();
+		pageEditorExtractorDescription.mockReset();
 	});
 });
