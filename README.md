@@ -21,7 +21,9 @@ npm i payload-dependency-graph
 
 ## Usage
 
-1. In the `plugins` array of your [Payload config](https://payloadcms.com/docs/configuration/overview), call the plugin with [options](#plugin-options):
+### 1. Import Plugin
+
+In the `plugins` array of your [Payload config](https://payloadcms.com/docs/configuration/overview), call the plugin with [options](#plugin-options):
 
 ```ts
 import { buildConfig } from 'payload/config';
@@ -35,17 +37,29 @@ const config = buildConfig({
 export default config;
 ```
 
-### Plugin Options
+#### Plugin Options
 
 By default, the plugin uses the `InMemoryDependencyGraph`, but you can use another way to manage dependencies as long as you extend the [DependencyGraphBase](#dependencygraphbase) class. You can do this using the `factory` property.
 
-| Property               | Type                                                                                                                                                                                                                                                                                       |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `factory` (optional) | (`schema`: [DependenciesSchema](https://github.com/GeorgeHulpoi/payload-dependency-graph/blob/e99365aeb527e8cbe7b2cbcbf40f8b2d14d5aedd/src/types.ts#L27), `payload`:[Payload](https://github.com/payloadcms/payload/blob/master/src/payload.ts)) =>[DependencyGraphBase](#dependencygraphbase) |
+| Property                       | Type                                                                                                                                                                                                                                                                                       |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `factory` (optional)         | (`schema`: [DependenciesSchema](https://github.com/GeorgeHulpoi/payload-dependency-graph/blob/e99365aeb527e8cbe7b2cbcbf40f8b2d14d5aedd/src/types.ts#L27), `payload`:[Payload](https://github.com/payloadcms/payload/blob/master/src/payload.ts)) =>[DependencyGraphBase](#dependencygraphbase) |
+| `editorExtractor` (optional) | [EditorExtractor](#editor-extractor)                                                                                                                                                                                                                                                          |
 
 If you're dealing with a lot of documents, a better approach is to use a database-oriented implementation because the in-memory approach will increase the RAM. In the next versions, the plugin will provide it by default for MongoDB and PostgreSQL.
 
-2. If you want to listen for changes, call the `subscribe` function from [DependencyGraphService](#dependencygraphservice). The [DependencyGraphService](#dependencygraphservice) is a singletone instance.
+#### Editor Extractor
+
+You might be wondering what's up with this property. The problem is that versions lower than 1.1.0 of the plugin do not parse a Rich Text fields at all. It wasn't intentional, I completely forgot that Rich Text can have relationships with other documents. Even so, it is difficult to extract the relations from a Rich Text for several reasons:
+
+* You cannot extract an exact schema of what is in Rich Text.
+* Rich text is highly customizable, this means that the developer can add whatever he wants to it, even relationships.
+
+Therefore `editorExtractor` is a function that gives you the ability to parse the Rich Text value and extract its dependencies.
+
+### 2. Listen for events
+
+If you want to listen for changes, call the `subscribe` function from [DependencyGraphService](#dependencygraphservice). The [DependencyGraphService](#dependencygraphservice) is a singletone instance.
 
 ```ts
 import { buildConfig } from 'payload/config';
@@ -64,7 +78,9 @@ const config = buildConfig({
 export default config;
 ```
 
-3. To check if a resource is a dependency for another resource use the `dependencyGraph` from [DependencyGraphService](#dependencygraphservice):
+### 3. Check dependencies
+
+To check if a resource is a dependency for another resource use the `dependencyGraph` from [DependencyGraphService](#dependencygraphservice):
 
 ```ts
 import { buildConfig } from 'payload/config';
