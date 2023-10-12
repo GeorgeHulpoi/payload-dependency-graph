@@ -4,9 +4,9 @@ import { InMemoryDependencyGraph } from './dependency-graph/in-memory';
 import afterCollectionChange from './hooks/afterCollectionChange';
 import afterCollectionDelete from './hooks/afterCollectionDelete';
 import afterGlobalChange from './hooks/afterGlobalChange';
+import { DependencyGraphSchema } from './schema';
 import service from './service';
 import type { DependencyGraphPluginConfig } from './types';
-import { DependencyGraphSchema } from './schema';
 
 const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig) => Plugin =
 	(

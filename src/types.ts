@@ -36,6 +36,7 @@ export interface DependencySchemaSlug {
 
 export interface DependencySchema {
 	relationTo?: string;
+	editorExtractor?: EditorExtractor;
 	type: 'relationship' | 'blocks' | 'richText';
 	path: string;
 }

@@ -205,6 +205,7 @@ export class DependencyGraphSchema {
 					dependencies.push({
 						type: 'richText',
 						path: DependencyGraphSchemaBuilder.formatFieldPath(baseName, field),
+						editorExtractor: field.custom?.editorExtractor,
 					});
 				} else if (field.type === 'blocks') {
 					/**
