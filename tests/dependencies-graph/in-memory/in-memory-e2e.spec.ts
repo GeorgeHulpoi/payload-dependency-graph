@@ -811,6 +811,8 @@ describe('InMemoryDependencyGraph e2e', () => {
 	});
 
 	it('should call editorExtractor when adding resource with richText', async () => {
+		editorExtractor.mockReset();
+
 		await payload.create({
 			collection: 'pages',
 			data: {
@@ -825,6 +827,29 @@ describe('InMemoryDependencyGraph e2e', () => {
 		});
 
 		expect(editorExtractor).toHaveBeenCalledTimes(1);
+		expect(editorExtractor).toHaveBeenCalledWith(
+			expect.objectContaining({
+				dependencyGraph: graph,
+				source: {
+					collection: 'pages',
+					id: 'page_test',
+				},
+				doc: expect.objectContaining({
+					id: 'page_test',
+					description: [
+						{
+							children: [{ text: 'Test description' }],
+						},
+					],
+					content: [],
+				}),
+				value: [
+					{
+						children: [{ text: 'Test description' }],
+					},
+				],
+			}),
+		);
 		editorExtractor.mockReset();
 
 		await payload.delete({
@@ -836,6 +861,8 @@ describe('InMemoryDependencyGraph e2e', () => {
 	});
 
 	it('should call editorExtractor when updating resource with richText', async () => {
+		editorExtractor.mockReset();
+
 		await payload.update({
 			collection: 'pages',
 			id: 'home',
@@ -849,6 +876,28 @@ describe('InMemoryDependencyGraph e2e', () => {
 		});
 
 		expect(editorExtractor).toHaveBeenCalledTimes(1);
+		expect(editorExtractor).toHaveBeenCalledWith(
+			expect.objectContaining({
+				dependencyGraph: graph,
+				source: {
+					collection: 'pages',
+					id: 'home',
+				},
+				doc: expect.objectContaining({
+					id: 'home',
+					description: [
+						{
+							children: [{ text: 'blah blah' }],
+						},
+					],
+				}),
+				value: [
+					{
+						children: [{ text: 'blah blah' }],
+					},
+				],
+			}),
+		);
 		editorExtractor.mockReset();
 	});
 });
