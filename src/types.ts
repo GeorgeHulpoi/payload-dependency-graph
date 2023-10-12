@@ -1,9 +1,18 @@
 import type { Payload } from 'payload';
 
 import type { DependencyGraphBase } from './dependency-graph/base';
+import type { DependencyGraphSchema } from './schema';
+
+export type EditorExtractor = (args: {
+	dependencyGraph: DependencyGraphBase;
+	source: DependencyGraphResource;
+	doc: any;
+	value: any;
+}) => void | Promise<void>;
 
 export interface DependencyGraphPluginConfig {
-	factory: (schema: DependenciesSchema, payload: Payload) => DependencyGraphBase;
+	factory: (schema: DependencyGraphSchema, payload: Payload) => DependencyGraphBase;
+	editorExtractor?: EditorExtractor;
 }
 
 export interface OnCollectionChangeArgs<T = any> {
@@ -24,21 +33,13 @@ export interface OnGlobalChangeArgs<T = any> {
 	doc: T;
 }
 
-export interface DependenciesSchema {
-	collections: {
-		[slug: string]: DependencySchema[];
-	};
-	globals: {
-		[slug: string]: DependencySchema[];
-	};
-	blocks: {
-		[slug: string]: DependencySchema[];
-	};
+export interface DependencySchemaSlug {
+	[slug: string]: DependencySchema[];
 }
 
 export interface DependencySchema {
 	relationTo?: string;
-	type: 'relationship' | 'blocks';
+	type: 'relationship' | 'blocks' | 'richText';
 	path: string;
 }
 
@@ -55,7 +56,7 @@ export interface DependencyGraphGlobalResource {
 export interface DependencyGraphCollectionResource {
 	global?: never;
 	collection: string;
-	id: string;
+	id: string | number;
 }
 
 export interface DependencyGraphNode {

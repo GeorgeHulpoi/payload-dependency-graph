@@ -1,8 +1,8 @@
 import collections from '../dev/collections';
 import globals from '../dev/globals';
-import { SchemaBuilder } from '../../src/schema-builder/schema-builder';
 import type { DependencyGraphResource } from '../../src/types';
 import { DependencyGraphBase } from '../../src/dependency-graph/base';
+import { DependencyGraphSchema } from '../../src/schema';
 
 class DummyDependencyGraph extends DependencyGraphBase {
 	deleteResource(resource: DependencyGraphResource): void | Promise<void> {}
@@ -36,9 +36,11 @@ describe('DependencyGraphBase', () => {
 	});
 
 	describe('extractDependenciesFromDoc', () => {
-		const builder = new SchemaBuilder(collections, globals);
+		const builder = new DependencyGraphSchema.Builder()
+			.setCollections(collections)
+			.setGlobals(globals);
 		const schema = builder.build();
-		const dependencyGraph = new DummyDependencyGraph(schema, undefined as any);
+		const dependencyGraph = new DummyDependencyGraph().setSchema(schema);
 
 		it('should extract dependencies', async () => {
 			const addDependency = jest.spyOn(dependencyGraph, 'addDependency');

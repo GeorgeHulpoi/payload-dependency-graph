@@ -1,18 +1,19 @@
-import { CatsSectionBlock } from '../dev/blocks/cats-section';
-import { DogsSectionBlock } from '../dev/blocks/dogs-section';
-import { PeopleSectionBlock } from '../dev/blocks/people-section';
-import collections from '../dev/collections';
-import globals from '../dev/globals';
-import { Cats } from '../dev/collections/Cats';
-import { Pages } from '../dev/collections/Pages';
-import { People } from '../dev/collections/People';
-import { SchemaBuilder } from '../../src/schema-builder/schema-builder';
-import { DiscoverMeBlock } from '../dev/blocks/discover-me';
+import { CatsSectionBlock } from './dev/blocks/cats-section';
+import { DogsSectionBlock } from './dev/blocks/dogs-section';
+import { PeopleSectionBlock } from './dev/blocks/people-section';
+import collections from './dev/collections';
+import globals from './dev/globals';
+import { Cats } from './dev/collections/Cats';
+import { Pages } from './dev/collections/Pages';
+import { People } from './dev/collections/People';
+import { DiscoverMeBlock } from './dev/blocks/discover-me';
+import { DependencyGraphSchema } from '../src/schema';
+import { ContentBlock } from './dev/blocks/content';
 
 describe('DependencySchemaBuilder', () => {
 	describe('formatBaseName', () => {
 		it('should generate right field path (simple field)', () => {
-			const fieldPath = SchemaBuilder.formatFieldPath('', {
+			const fieldPath = DependencyGraphSchema.Builder.formatFieldPath('', {
 				name: 'category',
 				type: 'text',
 			});
@@ -21,7 +22,7 @@ describe('DependencySchemaBuilder', () => {
 		});
 
 		it('should generate right field path (nested)', () => {
-			const fieldPath = SchemaBuilder.formatFieldPath('meta.og', {
+			const fieldPath = DependencyGraphSchema.Builder.formatFieldPath('meta.og', {
 				name: 'title',
 				type: 'text',
 			});
@@ -30,7 +31,7 @@ describe('DependencySchemaBuilder', () => {
 		});
 
 		it('should generate right field path (nested and array)', () => {
-			const fieldPath = SchemaBuilder.formatFieldPath('meta', {
+			const fieldPath = DependencyGraphSchema.Builder.formatFieldPath('meta', {
 				name: 'items',
 				type: 'array',
 			});
@@ -39,7 +40,7 @@ describe('DependencySchemaBuilder', () => {
 		});
 
 		it('should generate right field path (field from array)', () => {
-			const fieldPath = SchemaBuilder.formatFieldPath('meta.items.*', {
+			const fieldPath = DependencyGraphSchema.Builder.formatFieldPath('meta.items.*', {
 				name: 'property',
 				type: 'text',
 			});
@@ -49,7 +50,7 @@ describe('DependencySchemaBuilder', () => {
 	});
 
 	describe('getDependencies', () => {
-		const builder = new SchemaBuilder([], []);
+		const builder = new DependencyGraphSchema.Builder().setCollections([]).setGlobals([]);
 
 		it('should get dependencies for People', () => {
 			const dependencies = builder.getDependencies(People.fields);
@@ -79,33 +80,42 @@ describe('DependencySchemaBuilder', () => {
 		it('should get dependencies for Pages', () => {
 			const dependencies = builder.getDependencies(Pages.fields);
 
-			expect(dependencies).toHaveLength(1);
+			expect(dependencies).toHaveLength(2);
 			expect(dependencies).toContainEqual({
 				relationTo: undefined,
 				type: 'blocks',
 				path: 'content',
+			});
+			expect(dependencies).toContainEqual({
+				relationTo: undefined,
+				type: 'richText',
+				path: 'description',
 			});
 		});
 
 		it('should populate blocks', () => {
 			const blocks = (builder as any).blocks;
 
-			expect(blocks.size).toEqual(5);
+			expect(blocks.size).toEqual(6);
 			expect(blocks.has('cats-section')).toBeTruthy();
 			expect(blocks.has('dogs-section')).toBeTruthy();
 			expect(blocks.has('people-section')).toBeTruthy();
 			expect(blocks.has('discover-me')).toBeTruthy();
 			expect(blocks.has('recursive-content')).toBeTruthy();
+			expect(blocks.has('content')).toBeTruthy();
 
 			expect(blocks.get('cats-section')).toEqual(CatsSectionBlock);
 			expect(blocks.get('dogs-section')).toEqual(DogsSectionBlock);
 			expect(blocks.get('people-section')).toEqual(PeopleSectionBlock);
 			expect(blocks.get('discover-me')).toEqual(DiscoverMeBlock);
+			expect(blocks.get('content')).toEqual(ContentBlock);
 		});
 	});
 
 	describe('build', () => {
-		const builder = new SchemaBuilder(collections, globals);
+		const builder = new DependencyGraphSchema.Builder()
+			.setCollections(collections)
+			.setGlobals(globals);
 		const schema = builder.build();
 
 		it('should generate schema', () => {
@@ -140,10 +150,16 @@ describe('DependencySchemaBuilder', () => {
 
 		it('should contain dependencies for Pages', () => {
 			expect(schema.collections.pages).toBeDefined();
+			expect(schema.collections.pages).toHaveLength(2);
 			expect(schema.collections.pages).toContainEqual({
 				relationTo: undefined,
 				type: 'blocks',
 				path: 'content',
+			});
+			expect(schema.collections.pages).toContainEqual({
+				relationTo: undefined,
+				type: 'richText',
+				path: 'description',
 			});
 		});
 
