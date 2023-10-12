@@ -1,7 +1,4 @@
-import type { Payload } from 'payload';
-
 import type { DependencyGraphBase } from './dependency-graph/base';
-import type { DependencyGraphSchema } from './schema';
 
 export type EditorExtractor = (args: {
 	dependencyGraph: DependencyGraphBase;
@@ -11,7 +8,7 @@ export type EditorExtractor = (args: {
 }) => void | Promise<void>;
 
 export interface DependencyGraphPluginConfig {
-	factory: (schema: DependencyGraphSchema, payload: Payload) => DependencyGraphBase;
+	factory: () => DependencyGraphBase;
 	editorExtractor?: EditorExtractor;
 }
 
