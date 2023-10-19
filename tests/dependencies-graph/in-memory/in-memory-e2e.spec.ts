@@ -2,6 +2,7 @@ import type { Server } from 'http';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import path from 'path';
 import payload from 'payload';
+import * as fs from 'fs/promises';
 
 import { DependencyGraphService } from '../../../src';
 import { start } from '../../dev/server';
@@ -32,6 +33,7 @@ describe('InMemoryDependencyGraph e2e', () => {
 	afterAll(async () => {
 		await mongod.stop();
 		server.close();
+		await fs.rm(path.join(__dirname, '..', 'public'), { recursive: true });
 	});
 
 	describe('should populate graph on init', () => {
@@ -62,6 +64,12 @@ describe('InMemoryDependencyGraph e2e', () => {
 		it('should populate collections', () => {
 			expect(collections).toEqual(
 				expect.objectContaining({
+					media: {
+						val_gabby_picture: {
+							dependentOn: expect.anything(),
+							dependencyFor: expect.anything(),
+						},
+					},
 					toys: {
 						rubber_ball: {
 							dependentOn: expect.anything(),
@@ -268,7 +276,7 @@ describe('InMemoryDependencyGraph e2e', () => {
 		});
 
 		it('should populate val gabby', () => {
-			expect(collections.people.val_gabby.dependentOn).toHaveLength(2);
+			expect(collections.people.val_gabby.dependentOn).toHaveLength(3);
 			expect(collections.people.val_gabby.dependentOn).toContainEqual({
 				collection: 'cats',
 				id: 'cat_coco',
@@ -276,6 +284,10 @@ describe('InMemoryDependencyGraph e2e', () => {
 			expect(collections.people.val_gabby.dependentOn).toContainEqual({
 				collection: 'dogs',
 				id: 'dog_charlie',
+			});
+			expect(collections.people.val_gabby.dependentOn).toContainEqual({
+				collection: 'media',
+				id: 'val_gabby_picture',
 			});
 			expect(collections.people.val_gabby.dependencyFor).toHaveLength(1);
 			expect(collections.people.val_gabby.dependencyFor).toContainEqual({
