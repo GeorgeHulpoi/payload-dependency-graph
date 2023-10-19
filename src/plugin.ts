@@ -5,10 +5,10 @@ import afterCollectionChange from './hooks/afterCollectionChange';
 import afterCollectionDelete from './hooks/afterCollectionDelete';
 import afterGlobalChange from './hooks/afterGlobalChange';
 import { DependencyGraphSchema } from './schema';
-import service from './service';
+import { DependencyGraphService } from '.';
 import type { DependencyGraphPluginConfig } from './types';
 
-const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig) => Plugin =
+export const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig) => Plugin =
 	(
 		pluginConfig: DependencyGraphPluginConfig = {
 			factory: () => new InMemoryDependencyGraph(),
@@ -21,7 +21,7 @@ const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig) => Plu
 			.setCollections(collections || [])
 			.setGlobals(globals || []);
 		const schema = builder.build();
-		service.schema = schema;
+		DependencyGraphService.schema = schema;
 
 		return {
 			globals: (globals || []).map((global) => {
@@ -60,17 +60,17 @@ const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig) => Plu
 					await incomingConfig.onInit(payload);
 				}
 
-				service.dependencyGraph = pluginConfig
+				DependencyGraphService.dependencyGraph = pluginConfig
 					.factory()
 					.setSchema(schema)
 					.setPayload(payload);
 				if (pluginConfig.editorExtractor) {
-					service.dependencyGraph.setEditorExtractor(pluginConfig.editorExtractor);
+					DependencyGraphService.dependencyGraph.setEditorExtractor(
+						pluginConfig.editorExtractor,
+					);
 				}
-				await service.dependencyGraph.populate();
+				await DependencyGraphService.dependencyGraph.populate();
 			},
 			...restOfConfig,
 		};
 	};
-
-export default DependencyGraphPlugin;

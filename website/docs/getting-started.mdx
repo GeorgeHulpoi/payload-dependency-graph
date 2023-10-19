@@ -1,0 +1,182 @@
+---
+description: How to install and use Payload Dependency Graph Plugin
+---
+
+# Getting Started
+
+## Installation
+
+:::caution
+
+The major version of the plugin must match the major version of the Payload.
+
+:::
+
+```bash npm2yarn
+npm install payload-dependency-graph
+```
+
+## Configuration
+
+In the `plugins` array of your [Payload config](https://payloadcms.com/docs/configuration/overview), call the plugin with [options](#plugin-options):
+
+```ts title="src/payload.config.ts"
+import { buildConfig } from 'payload/config';
+import { DependencyGraphPlugin } from 'payload-dependency-graph';
+
+const config = buildConfig({
+	// ... rest of your config
+	plugins: [DependencyGraphPlugin()],
+});
+
+export default config;
+```
+
+### Plugin Options
+
+Plugin Options are available [here](/api/interfaces/DependencyGraphPluginConfig).
+
+#### Factory
+
+By default, the plugin uses the [InMemoryDependencyGraph](/api/classes/InMemoryDependencyGraph), but you can use another way to manage dependencies as long as you extend the [DependencyGraphBase](/api/classes/DependencyGraphBase) class. You can do this using the [factory](/api/interfaces/DependencyGraphPluginConfig#factory) property.
+
+If you're dealing with a lot of documents, a better approach is to use a database-oriented implementation because the in-memory approach will increase the RAM. In the next versions, the plugin will provide it by default for MongoDB and PostgreSQL.
+
+#### Editor Extractor
+
+Rich Text Fields can have relationships with other documents. The only problem is that the Payload Editor is highly customizable, therefore you can have editor features that use relationships. This can be difficult to extract relations for several reasons:
+
+-   You cannot extract an exact schema of what is in Rich Text.
+-   From **Payload 2.x.x** you can choose the editor you want to use, meaning that the structure of the value can differ.
+
+Therefore [editorExtractor](/api/interfaces/DependencyGraphPluginConfig#editorextractor) is a function that gives you the ability to parse the Rich Text value and extract its dependencies.
+
+:::info
+
+If you are using **Payload 2.x.x**, you should be aware that each Rich Text field can customize its editor settings. In response, I added the option to customize the EditorExtractor for each field.
+
+```ts
+import { CollectionConfig } from 'payload/types';
+import { lexicalEditor } from '@payloadcms/richtext-lexical';
+
+export const Pages: CollectionConfig = {
+	slug: 'pages',
+	fields: [
+		{
+			name: 'content',
+			type: 'richText',
+			editor: lexicalEditor({
+				// ... your settings
+			}),
+			custom: {
+				editorExtractor: (args) => {
+					// ... your editor extractor implementation
+				},
+			},
+		},
+	],
+};
+```
+
+:::
+
+##### Example
+
+```ts
+import { buildConfig } from 'payload/config';
+import { DependencyGraphPlugin } from 'payload-dependency-graph';
+
+const extract = async (nodes: any[], source, dependencyGraph) => {
+	for (let node of nodes) {
+		if ('children' in node) {
+			await extract(node.children);
+		} else if (node.type === 'image') {
+			await dependencyGraph.addDependency(source, {
+				collection: node.collection,
+				id: node.doc.id,
+			});
+		}
+	}
+};
+
+const config = buildConfig({
+	// ... rest of your config
+	plugins: [
+		DependencyGraphPlugin({
+			editorExtractor: async ({ source, value, dependencyGraph }) => {
+				await extract(value, source, dependencyGraph);
+			},
+		}),
+	],
+});
+
+export default config;
+```
+
+## Usage
+
+The utility of this plugin lies in listening to events on collections or globals and determining resource dependencies.
+
+### Listening
+
+If you want to listen for changes, call the [subscribe](/api/classes/DependencyGraphServiceImpl#subscribe) from [DependencyGraphService](/api/overview#dependencygraphservice). The `DependencyGraphService` is a singletone instance.
+
+```ts
+import { buildConfig } from 'payload/config';
+import { DependencyGraphPlugin, DependencyGraphService } from 'payload-dependency-graph';
+
+const config = buildConfig({
+	// ... rest of your config
+	plugins: [DependencyGraphPlugin()],
+	onInit: (payload) => {
+		DependencyGraphService.subscribe((event) => {
+			// write your own logic
+		});
+	},
+});
+
+export default config;
+```
+
+### Determine Dependencies
+
+To determine if a resource is a dependency for another resource use the [dependencyGraph](/api/classes/DependencyGraphServiceImpl#dependencyGraph) from [DependencyGraphService](/api/overview#dependencygraphservice):
+
+```ts
+import { buildConfig } from 'payload/config';
+import { DependencyGraphPlugin, DependencyGraphService } from 'payload-dependency-graph';
+
+const config = buildConfig({
+	// ... rest of your config
+	plugins: [DependencyGraphPlugin()],
+	onInit: (payload) => {
+		DependencyGraphService.subscribe((event) => {
+			if (event.type === 'update' && event.collection) {
+				const graph = DependencyGraphService.dependencyGraph;
+				const resource = {
+					collection: event.collection,
+					id: event.doc.id,
+				};
+
+				if (event.collection === 'pages' && event.doc.id === 'home') {
+					// regenerate home page
+				} else {
+					if (
+						graph.isDependency(
+							{
+								collection: 'pages',
+								id: 'home',
+							},
+							resource,
+						)
+					) {
+						// regenerate home page
+					}
+				}
+			}
+		});
+	},
+});
+
+export default config;
+```
