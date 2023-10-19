@@ -55,8 +55,14 @@ describe('DependencySchemaBuilder', () => {
 		it('should get dependencies for People', () => {
 			const dependencies = builder.getDependencies(People.fields);
 
-			expect(dependencies).toHaveLength(1);
+			expect(dependencies).toHaveLength(2);
 			expect(dependencies[0]).toEqual(
+				expect.objectContaining({
+					type: 'relationship',
+					path: 'picture',
+				}),
+			);
+			expect(dependencies[1]).toEqual(
 				expect.objectContaining({
 					type: 'relationship',
 					path: 'owns.*',
