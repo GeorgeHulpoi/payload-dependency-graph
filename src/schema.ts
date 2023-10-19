@@ -141,6 +141,12 @@ export class DependencyGraphSchema {
 							),
 						);
 					});
+				} else if (field.type === 'upload') {
+					dependencies.push({
+						relationTo: field.relationTo,
+						type: 'relationship',
+						path: DependencyGraphSchemaBuilder.formatFieldPath(baseName, field),
+					});
 				} else if (field.type === 'relationship') {
 					/**
 					 * https://payloadcms.com/docs/fields/relationship#how-the-data-is-saved
