@@ -246,4 +246,4 @@ dist
 
 dev/src/uploads
 
-package-lock.json
+/package-lock.json
