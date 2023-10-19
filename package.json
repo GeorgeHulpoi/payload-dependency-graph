@@ -2,6 +2,7 @@
 	"name": "payload-dependency-graph",
 	"version": "2.0.1",
 	"repository": "git@github.com:GeorgeHulpoi/payload-dependency-graph.git",
+	"homepage": "https://georgehulpoi.github.io/payload-dependency-graph",
 	"description": "This plugin creates a dependency graph between collections and globals. The graph updates automatically, because the plugin observes the changes made on any collection or globals.",
 	"bugs": {
 		"url": "https://github.com/GeorgeHulpoi/payload-dependency-graph/issues"
