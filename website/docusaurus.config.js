@@ -10,14 +10,14 @@ const config = {
 	favicon: 'img/favicon.svg',
 
 	// Set the production url of your site here
-	url: 'https://your-docusaurus-test-site.com',
+	url: 'https://georgehulpoi.github.io',
 	// Set the /<baseUrl>/ pathname under which your site is served
 	// For GitHub pages deployment, it is often '/<projectName>/'
-	baseUrl: '/',
+	baseUrl: '/payload-dependency-graph/',
 
 	// GitHub pages deployment config.
 	// If you aren't using GitHub pages, you don't need these.
-	organizationName: 'George-Valentin Hulpoi', // Usually your GitHub org/user name.
+	organizationName: 'GeorgeHulpoi', // Usually your GitHub org/user name.
 	projectName: 'payload-dependency-graph', // Usually your repo name.
 
 	onBrokenLinks: 'throw',
