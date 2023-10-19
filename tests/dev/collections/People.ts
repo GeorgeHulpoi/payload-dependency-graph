@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types';
 
 import { Dogs } from './Dogs';
 import { Cats } from './Cats';
+import { Media } from './Media';
 
 export const People: CollectionConfig = {
 	slug: 'people',
@@ -20,6 +21,11 @@ export const People: CollectionConfig = {
 		{
 			name: 'lastname',
 			type: 'text',
+		},
+		{
+			name: 'picture',
+			type: 'upload',
+			relationTo: Media.slug
 		},
 		{
 			name: 'owns',
