@@ -1,6 +1,6 @@
 import type { CollectionAfterChangeHook } from 'payload/types';
 
-import DependencyGraphService from '../service';
+import { DependencyGraphService } from '..';
 
 const afterCollectionChange: (collection: string) => CollectionAfterChangeHook =
 	(collection: string) =>

@@ -1,6 +1,6 @@
 import type { GlobalAfterChangeHook } from 'payload/types';
 
-import DependencyGraphService from '../service';
+import { DependencyGraphService } from '..';
 
 const afterGlobalChange: GlobalAfterChangeHook = async ({ doc, previousDoc }) => {
 	return DependencyGraphService.onGlobalChange({
