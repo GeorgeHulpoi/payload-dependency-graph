@@ -8,15 +8,14 @@ on:
 permissions:
   contents: write
 
-defaults:
-  run:
-    shell: bash
-    working-directory: ./website
-
 jobs:
   deploy:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./website
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
