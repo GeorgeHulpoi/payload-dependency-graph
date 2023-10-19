@@ -7,6 +7,7 @@ export const seedPeople = async (payload: Payload): Promise<void> => {
 			id: 'val_gabby',
 			firstname: 'Val',
 			lastname: 'Gabby',
+			picture: 'val_gabby_picture',
 			owns: [
 				{
 					relationTo: 'cats',
