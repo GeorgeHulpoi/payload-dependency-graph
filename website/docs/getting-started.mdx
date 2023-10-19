@@ -34,11 +34,11 @@ export default config;
 
 ### Plugin Options
 
-Plugin Options are available [here](/docs/api/interfaces/DependencyGraphPluginConfig).
+Plugin Options are available [here](/api/interfaces/DependencyGraphPluginConfig).
 
 #### Factory
 
-By default, the plugin uses the [InMemoryDependencyGraph](/docs/api/classes/InMemoryDependencyGraph), but you can use another way to manage dependencies as long as you extend the [DependencyGraphBase](/docs/api/classes/DependencyGraphBase) class. You can do this using the [factory](/docs/api/interfaces/DependencyGraphPluginConfig#factory) property.
+By default, the plugin uses the [InMemoryDependencyGraph](/api/classes/InMemoryDependencyGraph), but you can use another way to manage dependencies as long as you extend the [DependencyGraphBase](/api/classes/DependencyGraphBase) class. You can do this using the [factory](/api/interfaces/DependencyGraphPluginConfig#factory) property.
 
 If you're dealing with a lot of documents, a better approach is to use a database-oriented implementation because the in-memory approach will increase the RAM. In the next versions, the plugin will provide it by default for MongoDB and PostgreSQL.
 
@@ -49,7 +49,7 @@ Rich Text Fields can have relationships with other documents. The only problem i
 -   You cannot extract an exact schema of what is in Rich Text.
 -   From **Payload 2.x.x** you can choose the editor you want to use, meaning that the structure of the value can differ.
 
-Therefore [editorExtractor](/docs/api/interfaces/DependencyGraphPluginConfig#editorextractor) is a function that gives you the ability to parse the Rich Text value and extract its dependencies.
+Therefore [editorExtractor](/api/interfaces/DependencyGraphPluginConfig#editorextractor) is a function that gives you the ability to parse the Rich Text value and extract its dependencies.
 
 :::info
 
@@ -119,7 +119,7 @@ The utility of this plugin lies in listening to events on collections or globals
 
 ### Listening
 
-If you want to listen for changes, call the [subscribe](/docs/api/classes/DependencyGraphServiceImpl#subscribe) from [DependencyGraphService](/api/overview#dependencygraphservice). The `DependencyGraphService` is a singletone instance.
+If you want to listen for changes, call the [subscribe](/api/classes/DependencyGraphServiceImpl#subscribe) from [DependencyGraphService](/api/overview#dependencygraphservice). The `DependencyGraphService` is a singletone instance.
 
 ```ts
 import { buildConfig } from 'payload/config';
@@ -140,7 +140,7 @@ export default config;
 
 ### Determine Dependencies
 
-To determine if a resource is a dependency for another resource use the [dependencyGraph](/docs/api/classes/DependencyGraphServiceImpl#dependencyGraph) from [DependencyGraphService](/api/overview#dependencygraphservice):
+To determine if a resource is a dependency for another resource use the [dependencyGraph](/api/classes/DependencyGraphServiceImpl#dependencyGraph) from [DependencyGraphService](/api/overview#dependencygraphservice):
 
 ```ts
 import { buildConfig } from 'payload/config';
