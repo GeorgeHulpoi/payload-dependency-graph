@@ -19,6 +19,7 @@ const config = {
 	// If you aren't using GitHub pages, you don't need these.
 	organizationName: 'GeorgeHulpoi', // Usually your GitHub org/user name.
 	projectName: 'payload-dependency-graph', // Usually your repo name.
+	trailingSlash: false,
 
 	onBrokenLinks: 'throw',
 	onBrokenMarkdownLinks: 'warn',
