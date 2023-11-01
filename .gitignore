@@ -245,5 +245,3 @@ dev/generated-schema.graphql
 dist
 
 dev/src/uploads
-
-/package-lock.json
