@@ -1091,44 +1091,44 @@ describe('MongoDBDependencyGraph', () => {
 		expect(pageEditorExtractorDescription).toHaveBeenCalledTimes(0);
 	});
 
-	// it('should call pageEditorExtractorDescription when updating resource with richText', async () => {
-	// 	pageEditorExtractorDescription.mockReset();
+	it('should call pageEditorExtractorDescription when updating resource with richText', async () => {
+		pageEditorExtractorDescription.mockReset();
 
-	// 	await payload.update({
-	// 		collection: 'pages',
-	// 		id: 'home',
-	// 		data: {
-	// 			description: [
-	// 				{
-	// 					children: [{ text: 'blah blah' }],
-	// 				},
-	// 			],
-	// 		},
-	// 	});
+		await payload.update({
+			collection: 'pages',
+			id: 'home',
+			data: {
+				description: [
+					{
+						children: [{ text: 'blah blah' }],
+					},
+				],
+			},
+		});
 
-	// 	expect(pageEditorExtractorDescription).toHaveBeenCalledTimes(1);
-	// 	expect(pageEditorExtractorDescription).toHaveBeenCalledWith(
-	// 		expect.objectContaining({
-	// 			dependencyGraph: dependencyGraph,
-	// 			source: {
-	// 				collection: 'pages',
-	// 				id: 'home',
-	// 			},
-	// 			doc: expect.objectContaining({
-	// 				id: 'home',
-	// 				description: [
-	// 					{
-	// 						children: [{ text: 'blah blah' }],
-	// 					},
-	// 				],
-	// 			}),
-	// 			value: [
-	// 				{
-	// 					children: [{ text: 'blah blah' }],
-	// 				},
-	// 			],
-	// 		}),
-	// 	);
-	// 	pageEditorExtractorDescription.mockReset();
-	// });
+		expect(pageEditorExtractorDescription).toHaveBeenCalledTimes(1);
+		expect(pageEditorExtractorDescription).toHaveBeenCalledWith(
+			expect.objectContaining({
+				dependencyGraph: dependencyGraph,
+				source: {
+					collection: 'pages',
+					id: 'home',
+				},
+				doc: expect.objectContaining({
+					id: 'home',
+					description: [
+						{
+							children: [{ text: 'blah blah' }],
+						},
+					],
+				}),
+				value: [
+					{
+						children: [{ text: 'blah blah' }],
+					},
+				],
+			}),
+		);
+		pageEditorExtractorDescription.mockReset();
+	});
 });
