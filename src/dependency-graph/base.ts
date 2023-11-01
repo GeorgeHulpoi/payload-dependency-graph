@@ -101,8 +101,6 @@ export abstract class DependencyGraphBase {
 	 * You shouldn't call this function by yourself.
 	 */
 	async populate(): Promise<void> {
-		this.payload.logger.info('Starting to populate the Dependency Graph');
-
 		for (const collection of Object.keys(this.payload.collections)) {
 			const collectionSchemas = this.schema.collections[collection] || [];
 
@@ -141,8 +139,6 @@ export abstract class DependencyGraphBase {
 				globalSchemas,
 			);
 		}
-
-		this.payload.logger.info('The Dependency Graph have been populated successfully.');
 	}
 
 	/**
