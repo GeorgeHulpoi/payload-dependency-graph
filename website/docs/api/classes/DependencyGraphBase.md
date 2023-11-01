@@ -8,6 +8,8 @@ Represents the base class for implementing a concrete dependency graph.
 
   ↳ [`InMemoryDependencyGraph`](InMemoryDependencyGraph.md)
 
+  ↳ [`MongoDBDependencyGraph`](MongoDBDependencyGraph.md)
+
 ## Table of contents
 
 ### Constructors
@@ -38,7 +40,11 @@ Represents the base class for implementing a concrete dependency graph.
 
 ### constructor
 
-• **new DependencyGraphBase**()
+• **new DependencyGraphBase**(): [`DependencyGraphBase`](DependencyGraphBase.md)
+
+#### Returns
+
+[`DependencyGraphBase`](DependencyGraphBase.md)
 
 ## Properties
 
@@ -50,7 +56,7 @@ The function that takes care of extracting the dependencies from a field of type
 
 #### Defined in
 
-[src/dependency-graph/base.ts:24](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L24)
+[src/dependency-graph/base.ts:24](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L24)
 
 ___
 
@@ -62,7 +68,7 @@ Payload instance
 
 #### Defined in
 
-[src/dependency-graph/base.ts:19](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L19)
+[src/dependency-graph/base.ts:19](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L19)
 
 ___
 
@@ -74,13 +80,13 @@ Schema of the dependency graph
 
 #### Defined in
 
-[src/dependency-graph/base.ts:14](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L14)
+[src/dependency-graph/base.ts:14](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L14)
 
 ## Methods
 
 ### addDependency
 
-▸ `Abstract` **addDependency**(`source`, `target`): `void` \| `Promise`<`void`\>
+▸ **addDependency**(`source`, `target`): `void` \| `Promise`\<`void`\>
 
 Add target as a direct dependency of source.
 
@@ -93,17 +99,17 @@ Add target as a direct dependency of source.
 
 #### Returns
 
-`void` \| `Promise`<`void`\>
+`void` \| `Promise`\<`void`\>
 
 #### Defined in
 
-[src/dependency-graph/base.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L54)
+[src/dependency-graph/base.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L54)
 
 ___
 
 ### deleteResource
 
-▸ `Abstract` **deleteResource**(`resource`): `void` \| `Promise`<`void`\>
+▸ **deleteResource**(`resource`): `void` \| `Promise`\<`void`\>
 
 Deletes a resource from the dependency graph.
 
@@ -115,17 +121,17 @@ Deletes a resource from the dependency graph.
 
 #### Returns
 
-`void` \| `Promise`<`void`\>
+`void` \| `Promise`\<`void`\>
 
 #### Defined in
 
-[src/dependency-graph/base.ts:46](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L46)
+[src/dependency-graph/base.ts:46](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L46)
 
 ___
 
 ### extractDependenciesFromDoc
 
-▸ **extractDependenciesFromDoc**(`source`, `doc`, `schemas`): `Promise`<`void`\>
+▸ **extractDependenciesFromDoc**(`source`, `doc`, `schemas`): `Promise`\<`void`\>
 
 Used to extract dependencies from a document based on schemas. The function will automatically populate the dependency graph.
 
@@ -139,17 +145,17 @@ Used to extract dependencies from a document based on schemas. The function will
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/dependency-graph/base.ts:155](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L155)
+[src/dependency-graph/base.ts:155](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L155)
 
 ___
 
 ### isDependency
 
-▸ `Abstract` **isDependency**(`source`, `target`): `boolean` \| `Promise`<`boolean`\>
+▸ **isDependency**(`source`, `target`): `boolean` \| `Promise`\<`boolean`\>
 
 Is target a dependency for source?
 
@@ -162,17 +168,17 @@ Is target a dependency for source?
 
 #### Returns
 
-`boolean` \| `Promise`<`boolean`\>
+`boolean` \| `Promise`\<`boolean`\>
 
 #### Defined in
 
-[src/dependency-graph/base.ts:84](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L84)
+[src/dependency-graph/base.ts:84](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L84)
 
 ___
 
 ### isDependencyForAnyResourceOfCollection
 
-▸ `Abstract` **isDependencyForAnyResourceOfCollection**(`target`, `collection`): `boolean` \| `Promise`<`boolean`\>
+▸ **isDependencyForAnyResourceOfCollection**(`target`, `collection`): `boolean` \| `Promise`\<`boolean`\>
 
 Is target a dependency for any resource of collection given?
 
@@ -185,17 +191,17 @@ Is target a dependency for any resource of collection given?
 
 #### Returns
 
-`boolean` \| `Promise`<`boolean`\>
+`boolean` \| `Promise`\<`boolean`\>
 
 #### Defined in
 
-[src/dependency-graph/base.ts:94](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L94)
+[src/dependency-graph/base.ts:94](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L94)
 
 ___
 
 ### isDirectDependency
 
-▸ `Abstract` **isDirectDependency**(`source`, `target`): `boolean` \| `Promise`<`boolean`\>
+▸ **isDirectDependency**(`source`, `target`): `boolean` \| `Promise`\<`boolean`\>
 
 Is target a direct dependency for source?
 
@@ -208,34 +214,34 @@ Is target a direct dependency for source?
 
 #### Returns
 
-`boolean` \| `Promise`<`boolean`\>
+`boolean` \| `Promise`\<`boolean`\>
 
 #### Defined in
 
-[src/dependency-graph/base.ts:73](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L73)
+[src/dependency-graph/base.ts:73](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L73)
 
 ___
 
 ### populate
 
-▸ **populate**(): `Promise`<`void`\>
+▸ **populate**(): `Promise`\<`void`\>
 
 Used at Payload initialization to populate the dependency graph.
 You shouldn't call this function by yourself.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/dependency-graph/base.ts:103](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L103)
+[src/dependency-graph/base.ts:103](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L103)
 
 ___
 
 ### purgeDependentOn
 
-▸ `Abstract` **purgeDependentOn**(`resource`): `void` \| `Promise`<`void`\>
+▸ **purgeDependentOn**(`resource`): `void` \| `Promise`\<`void`\>
 
 The function purges the dependentsOn for a resource and removes for that
 dependencies the dependencyFor.
@@ -248,11 +254,11 @@ dependencies the dependencyFor.
 
 #### Returns
 
-`void` \| `Promise`<`void`\>
+`void` \| `Promise`\<`void`\>
 
 #### Defined in
 
-[src/dependency-graph/base.ts:65](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L65)
+[src/dependency-graph/base.ts:65](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L65)
 
 ___
 
@@ -272,7 +278,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:36](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L36)
+[src/dependency-graph/base.ts:36](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L36)
 
 ___
 
@@ -292,7 +298,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:31](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L31)
+[src/dependency-graph/base.ts:31](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L31)
 
 ___
 
@@ -312,4 +318,4 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:26](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L26)
+[src/dependency-graph/base.ts:26](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L26)

@@ -1,4 +1,4 @@
-# Interface: OnCollectionChangeArgs<T\>
+# Interface: OnCollectionChangeArgs\<T\>
 
 ## Type parameters
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/types.ts:18](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L18)
+[src/types.ts:18](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/types.ts#L18)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:17](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L17)
+[src/types.ts:17](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/types.ts#L17)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:19](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L19)
+[src/types.ts:19](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/types.ts#L19)
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:16](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L16)
+[src/types.ts:16](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/types.ts#L16)
