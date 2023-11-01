@@ -9,6 +9,12 @@ slug: /
 
 This plugin creates a dependency graph between collections and globals. The graph updates automatically, because the plugin observes the changes made on any collection or globals.
 
+Currently this plugin supports different types of implementations:
+
+-   ✅ In Memory Dependency Graph
+-   ✅ MongoDB Dependency Graph
+-   ❌ PostgreSQL Dependency Graph (currently beta in Payload 2.x)
+
 ## Use Cases
 
 The plugin is useful when it comes to cached content or relationship-based changes.

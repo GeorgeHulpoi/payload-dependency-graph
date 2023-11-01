@@ -28,7 +28,11 @@ A simplistic implementation of the Observer design pattern. You can understand m
 
 ### constructor
 
-• **new Subject**()
+• **new Subject**(): [`Subject`](Subject.md)
+
+#### Returns
+
+[`Subject`](Subject.md)
 
 ## Properties
 
@@ -38,13 +42,13 @@ A simplistic implementation of the Observer design pattern. You can understand m
 
 #### Defined in
 
-[src/subject.ts:8](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/subject.ts#L8)
+[src/subject.ts:8](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/subject.ts#L8)
 
 ## Methods
 
 ### notifySubscribers
 
-▸ **notifySubscribers**(`event`): `Promise`<`void`\>
+▸ **notifySubscribers**(`event`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -54,11 +58,11 @@ A simplistic implementation of the Observer design pattern. You can understand m
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/subject.ts:20](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/subject.ts#L20)
+[src/subject.ts:20](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/subject.ts#L20)
 
 ___
 
@@ -78,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/subject.ts:10](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/subject.ts#L10)
+[src/subject.ts:10](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/subject.ts#L10)
 
 ___
 
@@ -98,4 +102,4 @@ ___
 
 #### Defined in
 
-[src/subject.ts:16](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/subject.ts#L16)
+[src/subject.ts:16](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/subject.ts#L16)

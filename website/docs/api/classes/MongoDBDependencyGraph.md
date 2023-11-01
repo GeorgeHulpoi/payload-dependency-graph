@@ -1,4 +1,4 @@
-# Class: InMemoryDependencyGraph
+# Class: MongoDBDependencyGraph
 
 Represents the base class for implementing a concrete dependency graph.
 
@@ -6,64 +6,54 @@ Represents the base class for implementing a concrete dependency graph.
 
 - [`DependencyGraphBase`](DependencyGraphBase.md)
 
-  ↳ **`InMemoryDependencyGraph`**
+  ↳ **`MongoDBDependencyGraph`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InMemoryDependencyGraph.md#constructor)
+- [constructor](MongoDBDependencyGraph.md#constructor)
 
 ### Properties
 
-- [collections](InMemoryDependencyGraph.md#collections)
-- [editorExtractor](InMemoryDependencyGraph.md#editorextractor)
-- [globals](InMemoryDependencyGraph.md#globals)
-- [payload](InMemoryDependencyGraph.md#payload)
-- [schema](InMemoryDependencyGraph.md#schema)
+- [editorExtractor](MongoDBDependencyGraph.md#editorextractor)
+- [payload](MongoDBDependencyGraph.md#payload)
+- [schema](MongoDBDependencyGraph.md#schema)
+
+### Accessors
+
+- [collection](MongoDBDependencyGraph.md#collection)
 
 ### Methods
 
-- [addDependency](InMemoryDependencyGraph.md#adddependency)
-- [deleteResource](InMemoryDependencyGraph.md#deleteresource)
-- [extractDependenciesFromDoc](InMemoryDependencyGraph.md#extractdependenciesfromdoc)
-- [getDependencyGraphNode](InMemoryDependencyGraph.md#getdependencygraphnode)
-- [isDependency](InMemoryDependencyGraph.md#isdependency)
-- [isDependencyForAnyResourceOfCollection](InMemoryDependencyGraph.md#isdependencyforanyresourceofcollection)
-- [isDirectDependency](InMemoryDependencyGraph.md#isdirectdependency)
-- [populate](InMemoryDependencyGraph.md#populate)
-- [purgeDependentOn](InMemoryDependencyGraph.md#purgedependenton)
-- [safeGetDependencyGraphNode](InMemoryDependencyGraph.md#safegetdependencygraphnode)
-- [setEditorExtractor](InMemoryDependencyGraph.md#seteditorextractor)
-- [setPayload](InMemoryDependencyGraph.md#setpayload)
-- [setSchema](InMemoryDependencyGraph.md#setschema)
-- [compareResources](InMemoryDependencyGraph.md#compareresources)
+- [addDependency](MongoDBDependencyGraph.md#adddependency)
+- [deleteResource](MongoDBDependencyGraph.md#deleteresource)
+- [extractDependenciesFromDoc](MongoDBDependencyGraph.md#extractdependenciesfromdoc)
+- [isDependency](MongoDBDependencyGraph.md#isdependency)
+- [isDependencyForAnyResourceOfCollection](MongoDBDependencyGraph.md#isdependencyforanyresourceofcollection)
+- [isDirectDependency](MongoDBDependencyGraph.md#isdirectdependency)
+- [populate](MongoDBDependencyGraph.md#populate)
+- [purgeDependentOn](MongoDBDependencyGraph.md#purgedependenton)
+- [safeFindOne](MongoDBDependencyGraph.md#safefindone)
+- [setEditorExtractor](MongoDBDependencyGraph.md#seteditorextractor)
+- [setPayload](MongoDBDependencyGraph.md#setpayload)
+- [setSchema](MongoDBDependencyGraph.md#setschema)
 
 ## Constructors
 
 ### constructor
 
-• **new InMemoryDependencyGraph**(): [`InMemoryDependencyGraph`](InMemoryDependencyGraph.md)
+• **new MongoDBDependencyGraph**(): [`MongoDBDependencyGraph`](MongoDBDependencyGraph.md)
 
 #### Returns
 
-[`InMemoryDependencyGraph`](InMemoryDependencyGraph.md)
+[`MongoDBDependencyGraph`](MongoDBDependencyGraph.md)
 
 #### Inherited from
 
 [DependencyGraphBase](DependencyGraphBase.md).[constructor](DependencyGraphBase.md#constructor)
 
 ## Properties
-
-### collections
-
-• `Private` **collections**: [`DependencyGraphCollections`](../interfaces/DependencyGraphCollections.md) = `{}`
-
-#### Defined in
-
-[src/dependency-graph/in-memory.ts:10](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/in-memory.ts#L10)
-
-___
 
 ### editorExtractor
 
@@ -78,16 +68,6 @@ The function that takes care of extracting the dependencies from a field of type
 #### Defined in
 
 [src/dependency-graph/base.ts:24](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L24)
-
-___
-
-### globals
-
-• `Private` **globals**: [`DependencyGraphGlobals`](../interfaces/DependencyGraphGlobals.md) = `{}`
-
-#### Defined in
-
-[src/dependency-graph/in-memory.ts:11](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/in-memory.ts#L11)
 
 ___
 
@@ -121,11 +101,27 @@ Schema of the dependency graph
 
 [src/dependency-graph/base.ts:14](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L14)
 
+## Accessors
+
+### collection
+
+• `get` **collection**(): `Collection`\<`AnyObject`\>
+
+Get collection and if doesn't exist, it will create it
+
+#### Returns
+
+`Collection`\<`AnyObject`\>
+
+#### Defined in
+
+[src/dependency-graph/mongodb.ts:205](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L205)
+
 ## Methods
 
 ### addDependency
 
-▸ **addDependency**(`source`, `target`): `void`
+▸ **addDependency**(`source`, `target`): `Promise`\<`void`\>
 
 Add target as a direct dependency of source.
 
@@ -138,7 +134,7 @@ Add target as a direct dependency of source.
 
 #### Returns
 
-`void`
+`Promise`\<`void`\>
 
 #### Overrides
 
@@ -146,13 +142,13 @@ Add target as a direct dependency of source.
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:125](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/in-memory.ts#L125)
+[src/dependency-graph/mongodb.ts:28](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L28)
 
 ___
 
 ### deleteResource
 
-▸ **deleteResource**(`resource`): `void`
+▸ **deleteResource**(`resource`): `Promise`\<`void`\>
 
 Deletes a resource from the dependency graph.
 
@@ -164,7 +160,7 @@ Deletes a resource from the dependency graph.
 
 #### Returns
 
-`void`
+`Promise`\<`void`\>
 
 #### Overrides
 
@@ -172,7 +168,7 @@ Deletes a resource from the dependency graph.
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:93](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/in-memory.ts#L93)
+[src/dependency-graph/mongodb.ts:9](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L9)
 
 ___
 
@@ -204,33 +200,9 @@ Used to extract dependencies from a document based on schemas. The function will
 
 ___
 
-### getDependencyGraphNode
-
-▸ **getDependencyGraphNode**(`resource`): `undefined` \| [`DependencyGraphNode`](../interfaces/DependencyGraphNode.md)
-
-Extracts the node from the dependency graph.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `resource` | [`DependencyGraphResource`](../overview.md#dependencygraphresource) |
-
-#### Returns
-
-`undefined` \| [`DependencyGraphNode`](../interfaces/DependencyGraphNode.md)
-
-`DependencyGraphNode`, if doesn't exists it will be `undefined`
-
-#### Defined in
-
-[src/dependency-graph/in-memory.ts:37](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/in-memory.ts#L37)
-
-___
-
 ### isDependency
 
-▸ **isDependency**(`source`, `target`): `boolean`
+▸ **isDependency**(`source`, `target`): `Promise`\<`boolean`\>
 
 Is target a dependency for source?
 
@@ -243,7 +215,7 @@ Is target a dependency for source?
 
 #### Returns
 
-`boolean`
+`Promise`\<`boolean`\>
 
 #### Overrides
 
@@ -251,13 +223,13 @@ Is target a dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:179](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/in-memory.ts#L179)
+[src/dependency-graph/mongodb.ts:109](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L109)
 
 ___
 
 ### isDependencyForAnyResourceOfCollection
 
-▸ **isDependencyForAnyResourceOfCollection**(`target`, `collection`): `boolean`
+▸ **isDependencyForAnyResourceOfCollection**(`target`, `collection`): `Promise`\<`boolean`\>
 
 Is target a dependency for any resource of collection given?
 
@@ -270,7 +242,7 @@ Is target a dependency for any resource of collection given?
 
 #### Returns
 
-`boolean`
+`Promise`\<`boolean`\>
 
 #### Overrides
 
@@ -278,13 +250,13 @@ Is target a dependency for any resource of collection given?
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:198](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/in-memory.ts#L198)
+[src/dependency-graph/mongodb.ts:155](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L155)
 
 ___
 
 ### isDirectDependency
 
-▸ **isDirectDependency**(`source`, `target`): `boolean`
+▸ **isDirectDependency**(`source`, `target`): `Promise`\<`boolean`\>
 
 Is target a direct dependency for source?
 
@@ -297,7 +269,7 @@ Is target a direct dependency for source?
 
 #### Returns
 
-`boolean`
+`Promise`\<`boolean`\>
 
 #### Overrides
 
@@ -305,7 +277,7 @@ Is target a direct dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:165](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/in-memory.ts#L165)
+[src/dependency-graph/mongodb.ts:90](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L90)
 
 ___
 
@@ -332,7 +304,7 @@ ___
 
 ### purgeDependentOn
 
-▸ **purgeDependentOn**(`resource`): `void`
+▸ **purgeDependentOn**(`resource`): `Promise`\<`void`\>
 
 The function purges the dependentsOn for a resource and removes for that
 dependencies the dependencyFor.
@@ -345,7 +317,7 @@ dependencies the dependencyFor.
 
 #### Returns
 
-`void`
+`Promise`\<`void`\>
 
 #### Overrides
 
@@ -353,15 +325,15 @@ dependencies the dependencyFor.
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:145](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/in-memory.ts#L145)
+[src/dependency-graph/mongodb.ts:62](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L62)
 
 ___
 
-### safeGetDependencyGraphNode
+### safeFindOne
 
-▸ **safeGetDependencyGraphNode**(`resource`): [`DependencyGraphNode`](../interfaces/DependencyGraphNode.md)
+▸ **safeFindOne**(`resource`): `Promise`\<`WithId`\<`AnyObject`\>\>
 
-Extracts dependency graph node, and if it doesn't exist, it will create it.
+Find a resource and if doesn't exist, it will create it
 
 #### Parameters
 
@@ -371,11 +343,11 @@ Extracts dependency graph node, and if it doesn't exist, it will create it.
 
 #### Returns
 
-[`DependencyGraphNode`](../interfaces/DependencyGraphNode.md)
+`Promise`\<`WithId`\<`AnyObject`\>\>
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:62](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/in-memory.ts#L62)
+[src/dependency-graph/mongodb.ts:214](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L214)
 
 ___
 
@@ -448,28 +420,3 @@ ___
 #### Defined in
 
 [src/dependency-graph/base.ts:26](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L26)
-
-___
-
-### compareResources
-
-▸ **compareResources**(`first`, `second`): `boolean`
-
-Compares two resources with each other
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `first` | [`DependencyGraphResource`](../overview.md#dependencygraphresource) |
-| `second` | [`DependencyGraphResource`](../overview.md#dependencygraphresource) |
-
-#### Returns
-
-`boolean`
-
-`true` if the resources are the same, `false` otherwise
-
-#### Defined in
-
-[src/dependency-graph/in-memory.ts:20](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/in-memory.ts#L20)
