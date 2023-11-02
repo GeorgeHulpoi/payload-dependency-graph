@@ -38,6 +38,7 @@ Represents the base class for implementing a concrete dependency graph.
 - [setEditorExtractor](MongoDBDependencyGraph.md#seteditorextractor)
 - [setPayload](MongoDBDependencyGraph.md#setpayload)
 - [setSchema](MongoDBDependencyGraph.md#setschema)
+- [compareResources](MongoDBDependencyGraph.md#compareresources)
 
 ## Constructors
 
@@ -67,7 +68,7 @@ The function that takes care of extracting the dependencies from a field of type
 
 #### Defined in
 
-[src/dependency-graph/base.ts:24](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L24)
+[src/dependency-graph/base.ts:42](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L42)
 
 ___
 
@@ -83,7 +84,7 @@ Payload instance
 
 #### Defined in
 
-[src/dependency-graph/base.ts:19](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L19)
+[src/dependency-graph/base.ts:37](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L37)
 
 ___
 
@@ -99,7 +100,7 @@ Schema of the dependency graph
 
 #### Defined in
 
-[src/dependency-graph/base.ts:14](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L14)
+[src/dependency-graph/base.ts:32](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L32)
 
 ## Accessors
 
@@ -115,7 +116,7 @@ Get collection and if doesn't exist, it will create it
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:205](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L205)
+[src/dependency-graph/mongodb.ts:205](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/mongodb.ts#L205)
 
 ## Methods
 
@@ -142,7 +143,7 @@ Add target as a direct dependency of source.
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:28](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L28)
+[src/dependency-graph/mongodb.ts:28](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/mongodb.ts#L28)
 
 ___
 
@@ -168,7 +169,7 @@ Deletes a resource from the dependency graph.
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:9](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L9)
+[src/dependency-graph/mongodb.ts:9](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/mongodb.ts#L9)
 
 ___
 
@@ -196,7 +197,7 @@ Used to extract dependencies from a document based on schemas. The function will
 
 #### Defined in
 
-[src/dependency-graph/base.ts:155](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L155)
+[src/dependency-graph/base.ts:169](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L169)
 
 ___
 
@@ -223,7 +224,7 @@ Is target a dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:109](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L109)
+[src/dependency-graph/mongodb.ts:109](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/mongodb.ts#L109)
 
 ___
 
@@ -250,7 +251,7 @@ Is target a dependency for any resource of collection given?
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:155](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L155)
+[src/dependency-graph/mongodb.ts:155](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/mongodb.ts#L155)
 
 ___
 
@@ -277,7 +278,7 @@ Is target a direct dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:90](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L90)
+[src/dependency-graph/mongodb.ts:90](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/mongodb.ts#L90)
 
 ___
 
@@ -298,7 +299,7 @@ You shouldn't call this function by yourself.
 
 #### Defined in
 
-[src/dependency-graph/base.ts:103](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L103)
+[src/dependency-graph/base.ts:121](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L121)
 
 ___
 
@@ -325,7 +326,7 @@ dependencies the dependencyFor.
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:62](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L62)
+[src/dependency-graph/mongodb.ts:62](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/mongodb.ts#L62)
 
 ___
 
@@ -347,7 +348,7 @@ Find a resource and if doesn't exist, it will create it
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:214](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/mongodb.ts#L214)
+[src/dependency-graph/mongodb.ts:214](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/mongodb.ts#L214)
 
 ___
 
@@ -371,7 +372,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:36](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L36)
+[src/dependency-graph/base.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L54)
 
 ___
 
@@ -395,7 +396,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:31](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L31)
+[src/dependency-graph/base.ts:49](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L49)
 
 ___
 
@@ -419,4 +420,33 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:26](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L26)
+[src/dependency-graph/base.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L44)
+
+___
+
+### compareResources
+
+▸ **compareResources**(`first`, `second`): `boolean`
+
+Compares two resources with each other
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `first` | [`DependencyGraphResource`](../overview.md#dependencygraphresource) |
+| `second` | [`DependencyGraphResource`](../overview.md#dependencygraphresource) |
+
+#### Returns
+
+`boolean`
+
+`true` if the resources are the same, `false` otherwise
+
+#### Inherited from
+
+[DependencyGraphBase](DependencyGraphBase.md).[compareResources](DependencyGraphBase.md#compareresources)
+
+#### Defined in
+
+[src/dependency-graph/base.ts:18](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L18)

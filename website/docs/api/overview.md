@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/types.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/types.ts#L44)
+[src/types.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L44)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:3](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/types.ts#L3)
+[src/types.ts:3](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L3)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:96](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/types.ts#L96)
+[src/types.ts:96](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L96)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:98](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/types.ts#L98)
+[src/types.ts:98](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L98)
 
 ## Variables
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:9](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/index.ts#L9)
+[src/index.ts:9](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/index.ts#L9)
 
 ## Functions
 
@@ -144,4 +144,4 @@ ___
 
 #### Defined in
 
-[src/plugin.ts:11](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/plugin.ts#L11)
+[src/plugin.ts:11](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/plugin.ts#L11)

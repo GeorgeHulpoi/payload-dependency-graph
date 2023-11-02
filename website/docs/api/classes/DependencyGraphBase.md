@@ -35,6 +35,7 @@ Represents the base class for implementing a concrete dependency graph.
 - [setEditorExtractor](DependencyGraphBase.md#seteditorextractor)
 - [setPayload](DependencyGraphBase.md#setpayload)
 - [setSchema](DependencyGraphBase.md#setschema)
+- [compareResources](DependencyGraphBase.md#compareresources)
 
 ## Constructors
 
@@ -56,7 +57,7 @@ The function that takes care of extracting the dependencies from a field of type
 
 #### Defined in
 
-[src/dependency-graph/base.ts:24](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L24)
+[src/dependency-graph/base.ts:42](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L42)
 
 ___
 
@@ -68,7 +69,7 @@ Payload instance
 
 #### Defined in
 
-[src/dependency-graph/base.ts:19](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L19)
+[src/dependency-graph/base.ts:37](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L37)
 
 ___
 
@@ -80,7 +81,7 @@ Schema of the dependency graph
 
 #### Defined in
 
-[src/dependency-graph/base.ts:14](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L14)
+[src/dependency-graph/base.ts:32](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L32)
 
 ## Methods
 
@@ -103,7 +104,7 @@ Add target as a direct dependency of source.
 
 #### Defined in
 
-[src/dependency-graph/base.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L54)
+[src/dependency-graph/base.ts:72](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L72)
 
 ___
 
@@ -125,7 +126,7 @@ Deletes a resource from the dependency graph.
 
 #### Defined in
 
-[src/dependency-graph/base.ts:46](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L46)
+[src/dependency-graph/base.ts:64](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L64)
 
 ___
 
@@ -149,7 +150,7 @@ Used to extract dependencies from a document based on schemas. The function will
 
 #### Defined in
 
-[src/dependency-graph/base.ts:155](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L155)
+[src/dependency-graph/base.ts:169](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L169)
 
 ___
 
@@ -172,7 +173,7 @@ Is target a dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/base.ts:84](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L84)
+[src/dependency-graph/base.ts:102](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L102)
 
 ___
 
@@ -195,7 +196,7 @@ Is target a dependency for any resource of collection given?
 
 #### Defined in
 
-[src/dependency-graph/base.ts:94](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L94)
+[src/dependency-graph/base.ts:112](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L112)
 
 ___
 
@@ -218,7 +219,7 @@ Is target a direct dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/base.ts:73](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L73)
+[src/dependency-graph/base.ts:91](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L91)
 
 ___
 
@@ -235,7 +236,7 @@ You shouldn't call this function by yourself.
 
 #### Defined in
 
-[src/dependency-graph/base.ts:103](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L103)
+[src/dependency-graph/base.ts:121](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L121)
 
 ___
 
@@ -258,7 +259,7 @@ dependencies the dependencyFor.
 
 #### Defined in
 
-[src/dependency-graph/base.ts:65](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L65)
+[src/dependency-graph/base.ts:83](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L83)
 
 ___
 
@@ -278,7 +279,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:36](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L36)
+[src/dependency-graph/base.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L54)
 
 ___
 
@@ -298,7 +299,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:31](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L31)
+[src/dependency-graph/base.ts:49](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L49)
 
 ___
 
@@ -318,4 +319,29 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:26](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/099b8df/src/dependency-graph/base.ts#L26)
+[src/dependency-graph/base.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L44)
+
+___
+
+### compareResources
+
+▸ **compareResources**(`first`, `second`): `boolean`
+
+Compares two resources with each other
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `first` | [`DependencyGraphResource`](../overview.md#dependencygraphresource) |
+| `second` | [`DependencyGraphResource`](../overview.md#dependencygraphresource) |
+
+#### Returns
+
+`boolean`
+
+`true` if the resources are the same, `false` otherwise
+
+#### Defined in
+
+[src/dependency-graph/base.ts:18](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L18)
