@@ -9,6 +9,24 @@ import type { DependencyGraphSchema } from '../schema';
  */
 export abstract class DependencyGraphBase {
 	/**
+	 * Compares two resources with each other
+	 *
+	 * @param first
+	 * @param second
+	 * @returns `true` if the resources are the same, `false` otherwise
+	 */
+	static compareResources(
+		first: DependencyGraphResource,
+		second: DependencyGraphResource,
+	): boolean {
+		return (
+			first.global === second.global &&
+			first.collection === second.collection &&
+			first.id === second.id
+		);
+	}
+
+	/**
 	 * Schema of the dependency graph
 	 */
 	protected schema!: DependencyGraphSchema;

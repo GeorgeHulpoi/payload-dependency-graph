@@ -35,6 +35,37 @@ describe('DependencyGraphBase', () => {
 		jest.restoreAllMocks();
 	});
 
+	describe('compareResources', () => {
+		it('should return true', () => {
+			const result = DependencyGraphBase.compareResources(
+				{
+					collection: 'pages',
+					id: '1',
+				},
+				{
+					collection: 'pages',
+					id: '1',
+				},
+			);
+
+			expect(result).toEqual(true);
+		});
+
+		it('should return false', () => {
+			const result = DependencyGraphBase.compareResources(
+				{
+					global: 'layout',
+				},
+				{
+					collection: 'pages',
+					id: '1',
+				},
+			);
+
+			expect(result).toEqual(false);
+		});
+	});
+
 	describe('extractDependenciesFromDoc', () => {
 		const builder = new DependencyGraphSchema.Builder()
 			.setCollections(collections)
