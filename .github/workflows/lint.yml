@@ -1,9 +1,6 @@
 name: Lint
 
-on:
-    pull_request:
-        types: [opened, reopened]
-        branches: '**'
+on: [pull_request]
 
 jobs:
     build:

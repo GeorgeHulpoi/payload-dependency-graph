@@ -1,8 +1,7 @@
 name: Test deployment
 
-on:
-    pull_request:
-        types: [opened, reopened]
+on: [pull_request]
+
 jobs:
     test-deploy:
         name: Test Docs Deployment
