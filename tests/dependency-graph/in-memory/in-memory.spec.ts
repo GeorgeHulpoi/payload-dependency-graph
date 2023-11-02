@@ -1,37 +1,6 @@
 import { InMemoryDependencyGraph } from '../../../src/dependency-graph/in-memory';
 
 describe('InMemoryDependencyGraph', () => {
-	describe('compareResources', () => {
-		it('should return true', () => {
-			const result = InMemoryDependencyGraph.compareResources(
-				{
-					collection: 'pages',
-					id: '1',
-				},
-				{
-					collection: 'pages',
-					id: '1',
-				},
-			);
-
-			expect(result).toEqual(true);
-		});
-
-		it('should return false', () => {
-			const result = InMemoryDependencyGraph.compareResources(
-				{
-					global: 'layout',
-				},
-				{
-					collection: 'pages',
-					id: '1',
-				},
-			);
-
-			expect(result).toEqual(false);
-		});
-	});
-
 	describe('safeGetDependencyGraphNode', () => {
 		const graph = new InMemoryDependencyGraph();
 

@@ -26,6 +26,11 @@ const sidebars = {
 				},
 				{
 					type: 'doc',
+					label: 'MongoDBDependencyGraph',
+					id: 'api/classes/MongoDBDependencyGraph',
+				},
+				{
+					type: 'doc',
 					label: 'DependencyGraphServiceImpl',
 					id: 'api/classes/DependencyGraphServiceImpl',
 				},

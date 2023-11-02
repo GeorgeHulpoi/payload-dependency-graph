@@ -2,4 +2,4 @@
 
 ## Indexable
 
-▪ [slug: `string`]: { `[id: string]`: [`DependencyGraphNode`](DependencyGraphNode.md);  }
+▪ [slug: `string`]: \{ `[id: string]`: [`DependencyGraphNode`](DependencyGraphNode.md);  }

@@ -2,4 +2,5 @@
 
 -   Test when a relationship is null
 -   Test when a block doesn't contain any relationship
--   MongoDBDependencyGraph
+-   Refactor tests in shared tests
+-   Tests for DependencyGraphResourceSet

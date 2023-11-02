@@ -40,7 +40,13 @@ Plugin Options are available [here](/api/interfaces/DependencyGraphPluginConfig)
 
 By default, the plugin uses the [InMemoryDependencyGraph](/api/classes/InMemoryDependencyGraph), but you can use another way to manage dependencies as long as you extend the [DependencyGraphBase](/api/classes/DependencyGraphBase) class. You can do this using the [factory](/api/interfaces/DependencyGraphPluginConfig#factory) property.
 
-If you're dealing with a lot of documents, a better approach is to use a database-oriented implementation because the in-memory approach will increase the RAM. In the next versions, the plugin will provide it by default for MongoDB and PostgreSQL.
+If you're dealing with a lot of documents, a better approach is to use a database-oriented implementation because the in-memory approach will increase the RAM. The only available database-oriented implementation is [MongoDB Dependency Graph](/api/classes/MongoDBDependencyGraph) and in the future minor versions it will be added a implementation for PostgreSQL which is currently beta.
+
+:::caution
+
+[**MongoDB Dependency Graph**](/api/classes/MongoDBDependencyGraph) is available for versions greater than or equal to **2.1.x**.
+
+:::
 
 #### Editor Extractor
 

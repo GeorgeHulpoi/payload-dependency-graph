@@ -7,6 +7,7 @@
 - [DependencyGraphBase](classes/DependencyGraphBase.md)
 - [DependencyGraphServiceImpl](classes/DependencyGraphServiceImpl.md)
 - [InMemoryDependencyGraph](classes/InMemoryDependencyGraph.md)
+- [MongoDBDependencyGraph](classes/MongoDBDependencyGraph.md)
 - [Subject](classes/Subject.md)
 - [Subscription](classes/Subscription.md)
 
@@ -51,17 +52,17 @@
 
 #### Defined in
 
-[src/types.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L44)
+[src/types.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L44)
 
 ___
 
 ### EditorExtractor
 
-Ƭ **EditorExtractor**: (`args`: { `dependencyGraph`: [`DependencyGraphBase`](classes/DependencyGraphBase.md) ; `doc`: `any` ; `source`: [`DependencyGraphResource`](overview.md#dependencygraphresource) ; `value`: `any`  }) => `void` \| `Promise`<`void`\>
+Ƭ **EditorExtractor**: (`args`: \{ `dependencyGraph`: [`DependencyGraphBase`](classes/DependencyGraphBase.md) ; `doc`: `any` ; `source`: [`DependencyGraphResource`](overview.md#dependencygraphresource) ; `value`: `any`  }) => `void` \| `Promise`\<`void`\>
 
 #### Type declaration
 
-▸ (`args`): `void` \| `Promise`<`void`\>
+▸ (`args`): `void` \| `Promise`\<`void`\>
 
 ##### Parameters
 
@@ -75,11 +76,11 @@ ___
 
 ##### Returns
 
-`void` \| `Promise`<`void`\>
+`void` \| `Promise`\<`void`\>
 
 #### Defined in
 
-[src/types.ts:3](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L3)
+[src/types.ts:3](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L3)
 
 ___
 
@@ -89,17 +90,17 @@ ___
 
 #### Defined in
 
-[src/types.ts:96](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L96)
+[src/types.ts:96](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L96)
 
 ___
 
 ### SubscriptionCallback
 
-Ƭ **SubscriptionCallback**: (`event`: [`Event`](overview.md#event)) => `void` \| `Promise`<`void`\>
+Ƭ **SubscriptionCallback**: (`event`: [`Event`](overview.md#event)) => `void` \| `Promise`\<`void`\>
 
 #### Type declaration
 
-▸ (`event`): `void` \| `Promise`<`void`\>
+▸ (`event`): `void` \| `Promise`\<`void`\>
 
 ##### Parameters
 
@@ -109,11 +110,11 @@ ___
 
 ##### Returns
 
-`void` \| `Promise`<`void`\>
+`void` \| `Promise`\<`void`\>
 
 #### Defined in
 
-[src/types.ts:98](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L98)
+[src/types.ts:98](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L98)
 
 ## Variables
 
@@ -123,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:9](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/index.ts#L9)
+[src/index.ts:9](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/index.ts#L9)
 
 ## Functions
 
@@ -143,4 +144,4 @@ ___
 
 #### Defined in
 
-[src/plugin.ts:11](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/plugin.ts#L11)
+[src/plugin.ts:11](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/plugin.ts#L11)

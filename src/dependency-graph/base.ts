@@ -9,6 +9,24 @@ import type { DependencyGraphSchema } from '../schema';
  */
 export abstract class DependencyGraphBase {
 	/**
+	 * Compares two resources with each other
+	 *
+	 * @param first
+	 * @param second
+	 * @returns `true` if the resources are the same, `false` otherwise
+	 */
+	static compareResources(
+		first: DependencyGraphResource,
+		second: DependencyGraphResource,
+	): boolean {
+		return (
+			first.global === second.global &&
+			first.collection === second.collection &&
+			first.id === second.id
+		);
+	}
+
+	/**
 	 * Schema of the dependency graph
 	 */
 	protected schema!: DependencyGraphSchema;
@@ -101,8 +119,6 @@ export abstract class DependencyGraphBase {
 	 * You shouldn't call this function by yourself.
 	 */
 	async populate(): Promise<void> {
-		this.payload.logger.info('Starting to populate the Dependency Graph');
-
 		for (const collection of Object.keys(this.payload.collections)) {
 			const collectionSchemas = this.schema.collections[collection] || [];
 
@@ -141,8 +157,6 @@ export abstract class DependencyGraphBase {
 				globalSchemas,
 			);
 		}
-
-		this.payload.logger.info('The Dependency Graph have been populated successfully.');
 	}
 
 	/**

@@ -15,7 +15,7 @@
 
 #### Defined in
 
-[src/types.ts:12](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L12)
+[src/types.ts:12](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L12)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:11](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L11)
+[src/types.ts:11](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L11)

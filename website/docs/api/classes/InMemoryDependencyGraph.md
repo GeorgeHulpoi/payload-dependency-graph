@@ -43,7 +43,11 @@ Represents the base class for implementing a concrete dependency graph.
 
 ### constructor
 
-• **new InMemoryDependencyGraph**()
+• **new InMemoryDependencyGraph**(): [`InMemoryDependencyGraph`](InMemoryDependencyGraph.md)
+
+#### Returns
+
+[`InMemoryDependencyGraph`](InMemoryDependencyGraph.md)
 
 #### Inherited from
 
@@ -57,7 +61,7 @@ Represents the base class for implementing a concrete dependency graph.
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:10](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/in-memory.ts#L10)
+[src/dependency-graph/in-memory.ts:10](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/in-memory.ts#L10)
 
 ___
 
@@ -73,7 +77,7 @@ The function that takes care of extracting the dependencies from a field of type
 
 #### Defined in
 
-[src/dependency-graph/base.ts:24](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L24)
+[src/dependency-graph/base.ts:42](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L42)
 
 ___
 
@@ -83,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:11](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/in-memory.ts#L11)
+[src/dependency-graph/in-memory.ts:11](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/in-memory.ts#L11)
 
 ___
 
@@ -99,7 +103,7 @@ Payload instance
 
 #### Defined in
 
-[src/dependency-graph/base.ts:19](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L19)
+[src/dependency-graph/base.ts:37](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L37)
 
 ___
 
@@ -115,7 +119,7 @@ Schema of the dependency graph
 
 #### Defined in
 
-[src/dependency-graph/base.ts:14](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L14)
+[src/dependency-graph/base.ts:32](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L32)
 
 ## Methods
 
@@ -142,7 +146,7 @@ Add target as a direct dependency of source.
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:125](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/in-memory.ts#L125)
+[src/dependency-graph/in-memory.ts:107](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/in-memory.ts#L107)
 
 ___
 
@@ -168,13 +172,13 @@ Deletes a resource from the dependency graph.
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:93](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/in-memory.ts#L93)
+[src/dependency-graph/in-memory.ts:75](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/in-memory.ts#L75)
 
 ___
 
 ### extractDependenciesFromDoc
 
-▸ **extractDependenciesFromDoc**(`source`, `doc`, `schemas`): `Promise`<`void`\>
+▸ **extractDependenciesFromDoc**(`source`, `doc`, `schemas`): `Promise`\<`void`\>
 
 Used to extract dependencies from a document based on schemas. The function will automatically populate the dependency graph.
 
@@ -188,7 +192,7 @@ Used to extract dependencies from a document based on schemas. The function will
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Inherited from
 
@@ -196,7 +200,7 @@ Used to extract dependencies from a document based on schemas. The function will
 
 #### Defined in
 
-[src/dependency-graph/base.ts:155](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L155)
+[src/dependency-graph/base.ts:169](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L169)
 
 ___
 
@@ -220,7 +224,7 @@ Extracts the node from the dependency graph.
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:37](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/in-memory.ts#L37)
+[src/dependency-graph/in-memory.ts:19](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/in-memory.ts#L19)
 
 ___
 
@@ -247,7 +251,7 @@ Is target a dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:179](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/in-memory.ts#L179)
+[src/dependency-graph/in-memory.ts:158](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/in-memory.ts#L158)
 
 ___
 
@@ -274,7 +278,7 @@ Is target a dependency for any resource of collection given?
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:198](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/in-memory.ts#L198)
+[src/dependency-graph/in-memory.ts:177](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/in-memory.ts#L177)
 
 ___
 
@@ -301,20 +305,20 @@ Is target a direct dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:165](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/in-memory.ts#L165)
+[src/dependency-graph/in-memory.ts:145](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/in-memory.ts#L145)
 
 ___
 
 ### populate
 
-▸ **populate**(): `Promise`<`void`\>
+▸ **populate**(): `Promise`\<`void`\>
 
 Used at Payload initialization to populate the dependency graph.
 You shouldn't call this function by yourself.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Inherited from
 
@@ -322,7 +326,7 @@ You shouldn't call this function by yourself.
 
 #### Defined in
 
-[src/dependency-graph/base.ts:103](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L103)
+[src/dependency-graph/base.ts:121](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L121)
 
 ___
 
@@ -349,7 +353,7 @@ dependencies the dependencyFor.
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:145](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/in-memory.ts#L145)
+[src/dependency-graph/in-memory.ts:125](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/in-memory.ts#L125)
 
 ___
 
@@ -371,7 +375,7 @@ Extracts dependency graph node, and if it doesn't exist, it will create it.
 
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:62](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/in-memory.ts#L62)
+[src/dependency-graph/in-memory.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/in-memory.ts#L44)
 
 ___
 
@@ -395,7 +399,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:36](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L36)
+[src/dependency-graph/base.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L54)
 
 ___
 
@@ -419,7 +423,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:31](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L31)
+[src/dependency-graph/base.ts:49](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L49)
 
 ___
 
@@ -443,13 +447,13 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:26](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/base.ts#L26)
+[src/dependency-graph/base.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L44)
 
 ___
 
 ### compareResources
 
-▸ `Static` **compareResources**(`first`, `second`): `boolean`
+▸ **compareResources**(`first`, `second`): `boolean`
 
 Compares two resources with each other
 
@@ -466,6 +470,10 @@ Compares two resources with each other
 
 `true` if the resources are the same, `false` otherwise
 
+#### Inherited from
+
+[DependencyGraphBase](DependencyGraphBase.md).[compareResources](DependencyGraphBase.md#compareresources)
+
 #### Defined in
 
-[src/dependency-graph/in-memory.ts:20](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/dependency-graph/in-memory.ts#L20)
+[src/dependency-graph/base.ts:18](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/dependency-graph/base.ts#L18)

@@ -1,4 +1,4 @@
-# Interface: UpdateEvent<T\>
+# Interface: UpdateEvent\<T\>
 
 ## Type parameters
 
@@ -8,7 +8,7 @@
 
 ## Hierarchy
 
-- [`BaseEvent`](BaseEvent.md)<`T`\>
+- [`BaseEvent`](BaseEvent.md)\<`T`\>
 
   ↳ **`UpdateEvent`**
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/types.ts:78](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L78)
+[src/types.ts:78](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L78)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:77](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L77)
+[src/types.ts:77](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L77)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:79](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L79)
+[src/types.ts:79](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L79)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:89](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L89)
+[src/types.ts:89](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L89)
 
 ___
 
@@ -86,4 +86,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:88](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/e996cfd/src/types.ts#L88)
+[src/types.ts:88](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/02eaae1/src/types.ts#L88)
