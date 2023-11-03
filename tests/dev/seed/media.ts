@@ -9,8 +9,4 @@ export const seedMedia = async (payload: Payload): Promise<void> => {
 		},
         filePath: path.resolve(__dirname, '..', 'images', 'val_gabby.jpg'),
 	});
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> fab6bec1f642f4cd26150cfb760da24004485b33
