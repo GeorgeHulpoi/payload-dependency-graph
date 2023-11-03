@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import type { Config, Plugin } from 'payload/config';
 
+import type { IncomingGlobalVersions } from 'payload/dist/versions/types';
 import { InMemoryDependencyGraph } from './dependency-graph/in-memory';
 import afterCollectionChange from './hooks/afterCollectionChange';
 import afterCollectionDelete from './hooks/afterCollectionDelete';
@@ -8,7 +10,6 @@ import beforeCollectionOperation from './hooks/beforeCollectionOperation';
 import service from './service';
 import { SchemaBuilder } from './schema-builder/schema-builder';
 import type { DependencyGraphPluginConfig } from './types';
-import { IncomingGlobalVersions } from 'payload/dist/versions/types';
 
 const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig) => Plugin =
 	(
