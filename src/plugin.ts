@@ -1,9 +1,11 @@
 import type { Config, Plugin } from 'payload/config';
+import { IncomingGlobalVersions } from 'payload/dist/versions/types';
 
 import { InMemoryDependencyGraph } from './dependency-graph/in-memory';
 import afterCollectionChange from './hooks/afterCollectionChange';
 import afterCollectionDelete from './hooks/afterCollectionDelete';
 import afterGlobalChange from './hooks/afterGlobalChange';
+import beforeCollectionOperation from './hooks/beforeCollectionOperation';
 import { DependencyGraphSchema } from './schema';
 import { DependencyGraphService } from '.';
 import type { DependencyGraphPluginConfig } from './types';
@@ -28,20 +30,33 @@ export const DependencyGraphPlugin: (pluginConfig?: DependencyGraphPluginConfig)
 				const { hooks, ...restOfGlobal } = global;
 				const { afterChange, ...restOfHooks } = hooks || {};
 
-				return {
+				const newGlobal = {
 					hooks: {
 						afterChange: [afterGlobalChange, ...(afterChange || [])],
 						...restOfHooks,
 					},
 					...restOfGlobal,
 				};
+
+				if (
+					(newGlobal.versions as boolean) === true ||
+					(newGlobal.versions as IncomingGlobalVersions)?.drafts === true
+				) {
+					console.warn("Don't use globals with drafts, it can break Dependency Graph.");
+					console.warn(
+						'Issue: https://github.com/GeorgeHulpoi/payload-dependency-graph/issues/9',
+					);
+				}
+
+				return newGlobal;
 			}),
 			collections: (collections || []).map((collection) => {
 				const { hooks, ...restOfCollection } = collection;
-				const { afterChange, afterDelete, ...restOfHooks } = hooks || {};
+				const { afterChange, afterDelete, beforeOperation, ...restOfHooks } = hooks || {};
 
 				return {
 					hooks: {
+						beforeOperation: [beforeCollectionOperation, ...(beforeOperation || [])],
 						afterChange: [
 							afterCollectionChange(collection.slug),
 							...(afterChange || []),
