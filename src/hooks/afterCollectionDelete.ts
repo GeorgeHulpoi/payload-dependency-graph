@@ -4,8 +4,8 @@ import DependencyGraphService from '../service';
 
 const afterCollectionDelete: (collection: string) => CollectionAfterDeleteHook =
 	(collection: string) =>
-	({ doc, id }) => {
-		return DependencyGraphService.onCollectionDelete({
+	async ({ doc, id }) => {
+		await DependencyGraphService.onCollectionDelete({
 			doc,
 			id,
 			collection,
