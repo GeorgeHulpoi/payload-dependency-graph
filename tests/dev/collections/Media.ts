@@ -23,4 +23,8 @@ export const Media: CollectionConfig = {
 			required: true,
 		},
     ]
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> fab6bec1f642f4cd26150cfb760da24004485b33
