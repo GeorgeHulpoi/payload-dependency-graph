@@ -4,20 +4,22 @@ import { DependencyGraphService } from '..';
 
 const afterCollectionChange: (collection: string) => CollectionAfterChangeHook =
 	(collection: string) =>
-	({ doc, previousDoc, operation, req, context }) => {
+	async ({ doc, previousDoc, operation, req, context }) => {
 		const { draft = false } = context;
 		const shouldSaveDraft = Boolean(
 			draft && req.payload.collections[collection].config.versions.drafts,
 		);
 
 		if (!shouldSaveDraft) {
-			return DependencyGraphService.onCollectionChange({
+			await DependencyGraphService.onCollectionChange({
 				doc,
 				previousDoc,
 				operation,
 				collection,
 			});
 		}
+
+		return doc;
 	};
 
 export default afterCollectionChange;

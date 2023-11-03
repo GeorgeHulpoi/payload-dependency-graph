@@ -10,7 +10,8 @@ const beforeCollectionOperation: CollectionBeforeOperationHook = ({ operation, a
 		};
 
 		return clone;
-	} else return args;
+	}
+	return args;
 };
 
 export default beforeCollectionOperation;

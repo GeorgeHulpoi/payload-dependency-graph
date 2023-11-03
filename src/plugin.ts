@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import type { Config, Plugin } from 'payload/config';
-import { IncomingGlobalVersions } from 'payload/dist/versions/types';
+import type { IncomingGlobalVersions } from 'payload/dist/versions/types';
 
 import { DependencyGraphService } from '.';
 import { InMemoryDependencyGraph } from './dependency-graph/in-memory';
