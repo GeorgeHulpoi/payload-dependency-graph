@@ -27,7 +27,9 @@ Represents the base class for implementing a concrete dependency graph.
 - [addDependency](DependencyGraphBase.md#adddependency)
 - [deleteResource](DependencyGraphBase.md#deleteresource)
 - [extractDependenciesFromDoc](DependencyGraphBase.md#extractdependenciesfromdoc)
+- [getDependenciesForCollection](DependencyGraphBase.md#getdependenciesforcollection)
 - [getDependenciesOfCollection](DependencyGraphBase.md#getdependenciesofcollection)
+- [getDependsOnCollection](DependencyGraphBase.md#getdependsoncollection)
 - [isDependency](DependencyGraphBase.md#isdependency)
 - [isDependencyForAnyResourceOfCollection](DependencyGraphBase.md#isdependencyforanyresourceofcollection)
 - [isDirectDependency](DependencyGraphBase.md#isdirectdependency)
@@ -58,7 +60,7 @@ The function that takes care of extracting the dependencies from a field of type
 
 #### Defined in
 
-[src/dependency-graph/base.ts:42](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L42)
+[src/dependency-graph/base.ts:42](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L42)
 
 ___
 
@@ -70,7 +72,7 @@ Payload instance
 
 #### Defined in
 
-[src/dependency-graph/base.ts:37](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L37)
+[src/dependency-graph/base.ts:37](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L37)
 
 ___
 
@@ -82,7 +84,7 @@ Schema of the dependency graph
 
 #### Defined in
 
-[src/dependency-graph/base.ts:32](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L32)
+[src/dependency-graph/base.ts:32](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L32)
 
 ## Methods
 
@@ -105,7 +107,7 @@ Add target as a direct dependency of source.
 
 #### Defined in
 
-[src/dependency-graph/base.ts:72](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L72)
+[src/dependency-graph/base.ts:72](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L72)
 
 ___
 
@@ -127,7 +129,7 @@ Deletes a resource from the dependency graph.
 
 #### Defined in
 
-[src/dependency-graph/base.ts:64](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L64)
+[src/dependency-graph/base.ts:64](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L64)
 
 ___
 
@@ -151,7 +153,30 @@ Used to extract dependencies from a document based on schemas. The function will
 
 #### Defined in
 
-[src/dependency-graph/base.ts:179](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L179)
+[src/dependency-graph/base.ts:199](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L199)
+
+___
+
+### getDependenciesForCollection
+
+▸ **getDependenciesForCollection**(`resource`, `collection`): [`DependencyGraphResource`](../overview.md#dependencygraphresource)[] \| `Promise`\<[`DependencyGraphResource`](../overview.md#dependencygraphresource)[]\>
+
+Get dependencies from `resource` that is of `collection`. This function traverses from bottom to up, using `dependecyFor`.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `resource` | [`DependencyGraphResource`](../overview.md#dependencygraphresource) |
+| `collection` | `string` |
+
+#### Returns
+
+[`DependencyGraphResource`](../overview.md#dependencygraphresource)[] \| `Promise`\<[`DependencyGraphResource`](../overview.md#dependencygraphresource)[]\>
+
+#### Defined in
+
+[src/dependency-graph/base.ts:132](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L132)
 
 ___
 
@@ -174,7 +199,30 @@ Get dependencies of `resource` that is of `collection`
 
 #### Defined in
 
-[src/dependency-graph/base.ts:122](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L122)
+[src/dependency-graph/base.ts:122](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L122)
+
+___
+
+### getDependsOnCollection
+
+▸ **getDependsOnCollection**(`resource`, `collection`): [`DependencyGraphResource`](../overview.md#dependencygraphresource)[] \| `Promise`\<[`DependencyGraphResource`](../overview.md#dependencygraphresource)[]\>
+
+Get dependencies from `resource` that is of `collection`. This function traverses from up to bottom, using `dependentOn`.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `resource` | [`DependencyGraphResource`](../overview.md#dependencygraphresource) |
+| `collection` | `string` |
+
+#### Returns
+
+[`DependencyGraphResource`](../overview.md#dependencygraphresource)[] \| `Promise`\<[`DependencyGraphResource`](../overview.md#dependencygraphresource)[]\>
+
+#### Defined in
+
+[src/dependency-graph/base.ts:142](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L142)
 
 ___
 
@@ -197,7 +245,7 @@ Is target a dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/base.ts:102](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L102)
+[src/dependency-graph/base.ts:102](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L102)
 
 ___
 
@@ -220,7 +268,7 @@ Is target a dependency for any resource of collection given?
 
 #### Defined in
 
-[src/dependency-graph/base.ts:112](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L112)
+[src/dependency-graph/base.ts:112](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L112)
 
 ___
 
@@ -243,7 +291,7 @@ Is target a direct dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/base.ts:91](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L91)
+[src/dependency-graph/base.ts:91](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L91)
 
 ___
 
@@ -260,7 +308,7 @@ You shouldn't call this function by yourself.
 
 #### Defined in
 
-[src/dependency-graph/base.ts:131](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L131)
+[src/dependency-graph/base.ts:151](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L151)
 
 ___
 
@@ -283,7 +331,7 @@ dependencies the dependencyFor.
 
 #### Defined in
 
-[src/dependency-graph/base.ts:83](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L83)
+[src/dependency-graph/base.ts:83](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L83)
 
 ___
 
@@ -303,7 +351,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L54)
+[src/dependency-graph/base.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L54)
 
 ___
 
@@ -323,7 +371,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:49](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L49)
+[src/dependency-graph/base.ts:49](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L49)
 
 ___
 
@@ -343,7 +391,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L44)
+[src/dependency-graph/base.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L44)
 
 ___
 
@@ -368,4 +416,4 @@ Compares two resources with each other
 
 #### Defined in
 
-[src/dependency-graph/base.ts:18](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L18)
+[src/dependency-graph/base.ts:18](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L18)

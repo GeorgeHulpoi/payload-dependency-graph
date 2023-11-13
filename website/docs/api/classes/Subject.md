@@ -42,7 +42,7 @@ A simplistic implementation of the Observer design pattern. You can understand m
 
 #### Defined in
 
-[src/subject.ts:8](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/subject.ts#L8)
+[src/subject.ts:8](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/subject.ts#L8)
 
 ## Methods
 
@@ -62,7 +62,7 @@ A simplistic implementation of the Observer design pattern. You can understand m
 
 #### Defined in
 
-[src/subject.ts:20](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/subject.ts#L20)
+[src/subject.ts:20](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/subject.ts#L20)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/subject.ts:10](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/subject.ts#L10)
+[src/subject.ts:10](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/subject.ts#L10)
 
 ___
 
@@ -102,4 +102,4 @@ ___
 
 #### Defined in
 
-[src/subject.ts:16](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/subject.ts#L16)
+[src/subject.ts:16](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/subject.ts#L16)
