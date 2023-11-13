@@ -45,7 +45,7 @@ The `DependencyGraphResourceSet` object lets you store unique dependency graph r
 
 #### Defined in
 
-[src/utils/set.ts:11](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/utils/set.ts#L11)
+[src/utils/set.ts:11](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/utils/set.ts#L11)
 
 ## Properties
 
@@ -55,7 +55,7 @@ The `DependencyGraphResourceSet` object lets you store unique dependency graph r
 
 #### Defined in
 
-[src/utils/set.ts:9](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/utils/set.ts#L9)
+[src/utils/set.ts:9](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/utils/set.ts#L9)
 
 ## Accessors
 
@@ -71,7 +71,7 @@ The size accessor property of `DependencyGraphResourceSet` instances returns the
 
 #### Defined in
 
-[src/utils/set.ts:28](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/utils/set.ts#L28)
+[src/utils/set.ts:28](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/utils/set.ts#L28)
 
 ## Methods
 
@@ -85,7 +85,7 @@ The size accessor property of `DependencyGraphResourceSet` instances returns the
 
 #### Defined in
 
-[src/utils/set.ts:33](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/utils/set.ts#L33)
+[src/utils/set.ts:33](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/utils/set.ts#L33)
 
 ___
 
@@ -109,7 +109,7 @@ The `DependencyGraphResourceSet` object with added resource.
 
 #### Defined in
 
-[src/utils/set.ts:43](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/utils/set.ts#L43)
+[src/utils/set.ts:43](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/utils/set.ts#L43)
 
 ___
 
@@ -125,7 +125,7 @@ This method removes all resources from this set.
 
 #### Defined in
 
-[src/utils/set.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/utils/set.ts#L54)
+[src/utils/set.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/utils/set.ts#L54)
 
 ___
 
@@ -149,7 +149,7 @@ Returns `true` if `resource` was already in `DependencyGraphResourceSet`; otherw
 
 #### Defined in
 
-[src/utils/set.ts:64](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/utils/set.ts#L64)
+[src/utils/set.ts:64](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/utils/set.ts#L64)
 
 ___
 
@@ -172,7 +172,7 @@ Executes a provided function once per each resource in the `DependencyGraphResou
 
 #### Defined in
 
-[src/utils/set.ts:78](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/utils/set.ts#L78)
+[src/utils/set.ts:78](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/utils/set.ts#L78)
 
 ___
 
@@ -192,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/utils/set.ts:110](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/utils/set.ts#L110)
+[src/utils/set.ts:110](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/utils/set.ts#L110)
 
 ___
 
@@ -216,7 +216,7 @@ This method returns a boolean indicating whether a resource exists in this `Depe
 
 #### Defined in
 
-[src/utils/set.ts:97](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/utils/set.ts#L97)
+[src/utils/set.ts:97](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/utils/set.ts#L97)
 
 ___
 
@@ -234,4 +234,4 @@ A new [iterable iterator object](https://developer.mozilla.org/en-US/docs/Web/Ja
 
 #### Defined in
 
-[src/utils/set.ts:106](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/utils/set.ts#L106)
+[src/utils/set.ts:106](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/utils/set.ts#L106)

@@ -29,7 +29,9 @@ Represents the base class for implementing a concrete dependency graph.
 - [addDependency](MongoDBDependencyGraph.md#adddependency)
 - [deleteResource](MongoDBDependencyGraph.md#deleteresource)
 - [extractDependenciesFromDoc](MongoDBDependencyGraph.md#extractdependenciesfromdoc)
+- [getDependenciesForCollection](MongoDBDependencyGraph.md#getdependenciesforcollection)
 - [getDependenciesOfCollection](MongoDBDependencyGraph.md#getdependenciesofcollection)
+- [getDependsOnCollection](MongoDBDependencyGraph.md#getdependsoncollection)
 - [isDependency](MongoDBDependencyGraph.md#isdependency)
 - [isDependencyForAnyResourceOfCollection](MongoDBDependencyGraph.md#isdependencyforanyresourceofcollection)
 - [isDirectDependency](MongoDBDependencyGraph.md#isdirectdependency)
@@ -69,7 +71,7 @@ The function that takes care of extracting the dependencies from a field of type
 
 #### Defined in
 
-[src/dependency-graph/base.ts:42](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L42)
+[src/dependency-graph/base.ts:42](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L42)
 
 ___
 
@@ -85,7 +87,7 @@ Payload instance
 
 #### Defined in
 
-[src/dependency-graph/base.ts:37](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L37)
+[src/dependency-graph/base.ts:37](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L37)
 
 ___
 
@@ -101,7 +103,7 @@ Schema of the dependency graph
 
 #### Defined in
 
-[src/dependency-graph/base.ts:32](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L32)
+[src/dependency-graph/base.ts:32](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L32)
 
 ## Accessors
 
@@ -117,7 +119,7 @@ Get collection and if doesn't exist, it will create it
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:307](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/mongodb.ts#L307)
+[src/dependency-graph/mongodb.ts:328](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/mongodb.ts#L328)
 
 ## Methods
 
@@ -144,7 +146,7 @@ Add target as a direct dependency of source.
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:29](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/mongodb.ts#L29)
+[src/dependency-graph/mongodb.ts:29](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/mongodb.ts#L29)
 
 ___
 
@@ -170,7 +172,7 @@ Deletes a resource from the dependency graph.
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:10](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/mongodb.ts#L10)
+[src/dependency-graph/mongodb.ts:10](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/mongodb.ts#L10)
 
 ___
 
@@ -198,7 +200,34 @@ Used to extract dependencies from a document based on schemas. The function will
 
 #### Defined in
 
-[src/dependency-graph/base.ts:179](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L179)
+[src/dependency-graph/base.ts:199](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L199)
+
+___
+
+### getDependenciesForCollection
+
+▸ **getDependenciesForCollection**(`resource`, `collection`): `Promise`\<[`DependencyGraphResource`](../overview.md#dependencygraphresource)[]\>
+
+Get dependencies from `resource` that is of `collection`. This function traverses from bottom to up, using `dependecyFor`.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `resource` | [`DependencyGraphResource`](../overview.md#dependencygraphresource) |
+| `collection` | `string` |
+
+#### Returns
+
+`Promise`\<[`DependencyGraphResource`](../overview.md#dependencygraphresource)[]\>
+
+#### Overrides
+
+[DependencyGraphBase](DependencyGraphBase.md).[getDependenciesForCollection](DependencyGraphBase.md#getdependenciesforcollection)
+
+#### Defined in
+
+[src/dependency-graph/mongodb.ts:216](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/mongodb.ts#L216)
 
 ___
 
@@ -225,7 +254,34 @@ Get dependencies of `resource` that is of `collection`
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:202](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/mongodb.ts#L202)
+[src/dependency-graph/mongodb.ts:202](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/mongodb.ts#L202)
+
+___
+
+### getDependsOnCollection
+
+▸ **getDependsOnCollection**(`resource`, `collection`): `Promise`\<[`DependencyGraphResource`](../overview.md#dependencygraphresource)[]\>
+
+Get dependencies from `resource` that is of `collection`. This function traverses from up to bottom, using `dependentOn`.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `resource` | [`DependencyGraphResource`](../overview.md#dependencygraphresource) |
+| `collection` | `string` |
+
+#### Returns
+
+`Promise`\<[`DependencyGraphResource`](../overview.md#dependencygraphresource)[]\>
+
+#### Overrides
+
+[DependencyGraphBase](DependencyGraphBase.md).[getDependsOnCollection](DependencyGraphBase.md#getdependsoncollection)
+
+#### Defined in
+
+[src/dependency-graph/mongodb.ts:270](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/mongodb.ts#L270)
 
 ___
 
@@ -252,7 +308,7 @@ Is target a dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:110](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/mongodb.ts#L110)
+[src/dependency-graph/mongodb.ts:110](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/mongodb.ts#L110)
 
 ___
 
@@ -279,7 +335,7 @@ Is target a dependency for any resource of collection given?
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:156](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/mongodb.ts#L156)
+[src/dependency-graph/mongodb.ts:156](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/mongodb.ts#L156)
 
 ___
 
@@ -306,7 +362,7 @@ Is target a direct dependency for source?
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:91](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/mongodb.ts#L91)
+[src/dependency-graph/mongodb.ts:91](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/mongodb.ts#L91)
 
 ___
 
@@ -327,7 +383,7 @@ You shouldn't call this function by yourself.
 
 #### Defined in
 
-[src/dependency-graph/base.ts:131](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L131)
+[src/dependency-graph/base.ts:151](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L151)
 
 ___
 
@@ -354,7 +410,7 @@ dependencies the dependencyFor.
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:63](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/mongodb.ts#L63)
+[src/dependency-graph/mongodb.ts:63](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/mongodb.ts#L63)
 
 ___
 
@@ -376,7 +432,7 @@ Find a resource and if doesn't exist, it will create it
 
 #### Defined in
 
-[src/dependency-graph/mongodb.ts:316](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/mongodb.ts#L316)
+[src/dependency-graph/mongodb.ts:337](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/mongodb.ts#L337)
 
 ___
 
@@ -400,7 +456,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L54)
+[src/dependency-graph/base.ts:54](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L54)
 
 ___
 
@@ -424,7 +480,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:49](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L49)
+[src/dependency-graph/base.ts:49](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L49)
 
 ___
 
@@ -448,7 +504,7 @@ ___
 
 #### Defined in
 
-[src/dependency-graph/base.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L44)
+[src/dependency-graph/base.ts:44](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L44)
 
 ___
 
@@ -477,4 +533,4 @@ Compares two resources with each other
 
 #### Defined in
 
-[src/dependency-graph/base.ts:18](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/bf25d07/src/dependency-graph/base.ts#L18)
+[src/dependency-graph/base.ts:18](https://github.com/GeorgeHulpoi/payload-dependencies-graph/blob/410696e/src/dependency-graph/base.ts#L18)
