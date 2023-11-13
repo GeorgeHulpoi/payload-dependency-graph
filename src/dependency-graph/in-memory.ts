@@ -221,19 +221,9 @@ export class InMemoryDependencyGraph extends DependencyGraphBase {
 		return false;
 	}
 
-	getDependenciesOfCollection(
+	getDependenciesForCollection(
 		resource: DependencyGraphResource,
 		collection: string,
-	): DependencyGraphResource[] {
-		const resources = this.getDependenciesOfCollectionRecursive(resource, collection);
-		const set = new DependencyGraphResourceSet(resources);
-		return Array.from(set);
-	}
-
-	private getDependenciesOfCollectionRecursive(
-		resource: DependencyGraphResource,
-		collection: string,
-		direction?: boolean,
 	): DependencyGraphResource[] {
 		if (resource.collection === collection) {
 			return [resource];
@@ -245,32 +235,60 @@ export class InMemoryDependencyGraph extends DependencyGraphBase {
 			return [];
 		}
 
-		const items: DependencyGraphResource[] = [];
+		const resources = [
+			...node.dependencyFor.reduce(
+				(result: DependencyGraphResource[], r: DependencyGraphResource) => [
+					...result,
+					...this.getDependenciesForCollection(r, collection),
+				],
+				[],
+			),
+		];
 
-		if (direction === false || direction === undefined) {
-			items.push(
-				...node.dependencyFor.reduce(
-					(result: DependencyGraphResource[], r: DependencyGraphResource) => [
-						...result,
-						...this.getDependenciesOfCollectionRecursive(r, collection, false),
-					],
-					[],
-				),
-			);
+		const set = new DependencyGraphResourceSet(resources);
+		return Array.from(set);
+	}
+
+	getDependsOnCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): DependencyGraphResource[] {
+		if (resource.collection === collection) {
+			return [resource];
 		}
 
-		if (direction === true || direction === undefined) {
-			items.push(
-				...node.dependentOn.reduce(
-					(result: DependencyGraphResource[], r: DependencyGraphResource) => [
-						...result,
-						...this.getDependenciesOfCollectionRecursive(r, collection, true),
-					],
-					[],
-				),
-			);
+		const node = this.getDependencyGraphNode(resource);
+
+		if (node === undefined) {
+			return [];
 		}
 
-		return items;
+		const resources = [
+			...node.dependentOn.reduce(
+				(result: DependencyGraphResource[], r: DependencyGraphResource) => [
+					...result,
+					...this.getDependsOnCollection(r, collection),
+				],
+				[],
+			),
+		];
+
+		const set = new DependencyGraphResourceSet(resources);
+		return Array.from(set);
+	}
+
+	getDependenciesOfCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): DependencyGraphResource[] {
+		const dependencyFor = this.getDependenciesForCollection(resource, collection);
+		const dependsOn = this.getDependsOnCollection(resource, collection);
+
+		const set = new DependencyGraphResourceSet();
+
+		dependencyFor.forEach((r) => set.add(r));
+		dependsOn.forEach((r) => set.add(r));
+
+		return Array.from(set);
 	}
 }

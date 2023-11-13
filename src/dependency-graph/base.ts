@@ -107,6 +107,26 @@ export abstract class DependencyGraphBase {
 	): DependencyGraphResource[] | Promise<DependencyGraphResource[]>;
 
 	/**
+	 * Get dependencies from `resource` that is of `collection`. This function traverses from bottom to up, using `dependecyFor`.
+	 * @param resource
+	 * @param collection
+	 */
+	abstract getDependenciesForCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): DependencyGraphResource[] | Promise<DependencyGraphResource[]>;
+
+	/**
+	 * Get dependencies from `resource` that is of `collection`. This function traverses from up to bottom, using `dependentOn`.
+	 * @param resource
+	 * @param collection
+	 */
+	abstract getDependsOnCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): DependencyGraphResource[] | Promise<DependencyGraphResource[]>;
+
+	/**
 	 * Used at Payload initialization to populate the dependency graph.
 	 * You shouldn't call this function by yourself.
 	 */
