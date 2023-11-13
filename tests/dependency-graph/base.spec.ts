@@ -28,6 +28,13 @@ class DummyDependencyGraph extends DependencyGraphBase {
 	): boolean {
 		return true;
 	}
+
+	getDependenciesOfCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): DependencyGraphResource[] {
+		return [];
+	}
 }
 
 describe('DependencyGraphBase', () => {

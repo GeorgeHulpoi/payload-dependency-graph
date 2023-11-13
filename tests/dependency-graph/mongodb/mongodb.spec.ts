@@ -649,6 +649,28 @@ describe('MongoDBDependencyGraph', () => {
 		});
 	});
 
+	it('getDependenciesOfCollection should return right resources', async () => {
+		const deps = await dependencyGraph.getDependenciesOfCollection(
+			{
+				id: 'dog_charlie',
+				collection: 'dogs',
+			},
+			'pages',
+		);
+
+		expect(deps).toContainEqual({
+			collection: 'pages',
+			id: 'home',
+		});
+
+		expect(deps).toContainEqual({
+			collection: 'pages',
+			id: 'dogs_page',
+		});
+
+		expect(deps).toHaveLength(2);
+	});
+
 	it('should add resource in graph', async () => {
 		callback.mockReset();
 
