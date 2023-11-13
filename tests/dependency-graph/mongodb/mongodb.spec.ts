@@ -649,6 +649,55 @@ describe('MongoDBDependencyGraph', () => {
 		});
 	});
 
+	it('getDependenciesForCollection should return right resources', async () => {
+		const deps = await dependencyGraph.getDependenciesForCollection(
+			{
+				id: 'dog_charlie',
+				collection: 'dogs',
+			},
+			'pages',
+		);
+
+		expect(deps).toContainEqual({
+			collection: 'pages',
+			id: 'home',
+		});
+
+		expect(deps).toContainEqual({
+			collection: 'pages',
+			id: 'dogs_page',
+		});
+
+		expect(deps).toHaveLength(2);
+	});
+
+	it('getDependsOnCollection should return right resources', async () => {
+		const deps = await dependencyGraph.getDependsOnCollection(
+			{
+				id: 'dog_charlie',
+				collection: 'dogs',
+			},
+			'toys',
+		);
+
+		expect(deps).toContainEqual({
+			collection: 'toys',
+			id: 'feathers_wand',
+		});
+
+		expect(deps).toContainEqual({
+			collection: 'toys',
+			id: 'dog_bone',
+		});
+
+		expect(deps).toContainEqual({
+			collection: 'toys',
+			id: 'rubber_ball',
+		});
+
+		expect(deps).toHaveLength(3);
+	});
+
 	it('getDependenciesOfCollection should return right resources', async () => {
 		const deps = await dependencyGraph.getDependenciesOfCollection(
 			{

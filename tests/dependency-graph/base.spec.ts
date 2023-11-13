@@ -35,6 +35,19 @@ class DummyDependencyGraph extends DependencyGraphBase {
 	): DependencyGraphResource[] {
 		return [];
 	}
+
+	getDependenciesForCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): DependencyGraphResource[] {
+		return [];
+	}
+	getDependsOnCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): DependencyGraphResource[] {
+		return [];
+	}
 }
 
 describe('DependencyGraphBase', () => {
