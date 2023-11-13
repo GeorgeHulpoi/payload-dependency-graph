@@ -8,11 +8,17 @@ import type { DependencyGraphResource } from '../types';
 export class DependencyGraphResourceSet {
 	private readonly _map: Map<string, DependencyGraphResource>;
 
-	constructor(iterable?: DependencyGraphResourceSet) {
-		if (iterable) {
+	constructor(iterable?: DependencyGraphResourceSet | DependencyGraphResource[]) {
+		if (iterable && iterable instanceof DependencyGraphResourceSet) {
 			this._map = new Map(iterable._map);
 		} else {
 			this._map = new Map();
+		}
+
+		if (iterable && !(iterable instanceof DependencyGraphResourceSet)) {
+			for (const r of iterable) {
+				this.add(r);
+			}
 		}
 	}
 

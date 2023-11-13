@@ -4,6 +4,7 @@ import type { Types } from 'mongoose';
 
 import type { DependencyGraphResource } from '../types';
 import { DependencyGraphBase } from './base';
+import { DependencyGraphResourceSet } from '../utils/set';
 
 export class MongoDBDependencyGraph extends DependencyGraphBase {
 	async deleteResource(resource: DependencyGraphResource): Promise<void> {
@@ -196,6 +197,107 @@ export class MongoDBDependencyGraph extends DependencyGraphBase {
 			.then((docs) => {
 				return docs.length > 0;
 			});
+	}
+
+	getDependenciesOfCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): Promise<DependencyGraphResource[]> {
+		const dependencyFor$ = this.collection
+			.aggregate([
+				{
+					$match: resource,
+				},
+				{
+					$graphLookup: {
+						from: '_dependency_graph',
+						startWith: '$dependencyFor',
+						connectFromField: 'dependencyFor',
+						connectToField: '_id',
+						as: 'result',
+					},
+				},
+				{
+					$unwind: {
+						path: '$result',
+					},
+				},
+				{
+					$replaceRoot: {
+						newRoot: '$result',
+					},
+				},
+				{
+					$match: {
+						collection,
+					},
+				},
+				{
+					$project: {
+						_id: 1,
+						id: 1,
+						collection: 1,
+					},
+				},
+			])
+			.toArray()
+			.then((docs) => {
+				return docs.map((doc) => ({
+					id: doc.id,
+					collection: doc.collection,
+				}));
+			});
+
+		const dependentOn$ = this.collection
+			.aggregate([
+				{
+					$match: resource,
+				},
+				{
+					$graphLookup: {
+						from: '_dependency_graph',
+						startWith: '$dependentOn',
+						connectFromField: 'dependentOn',
+						connectToField: '_id',
+						as: 'result',
+					},
+				},
+				{
+					$unwind: {
+						path: '$result',
+					},
+				},
+				{
+					$replaceRoot: {
+						newRoot: '$result',
+					},
+				},
+				{
+					$match: {
+						collection,
+					},
+				},
+				{
+					$project: {
+						_id: 1,
+						id: 1,
+						collection: 1,
+					},
+				},
+			])
+			.toArray()
+			.then((docs) => {
+				return docs.map((doc) => ({
+					id: doc.id,
+					collection: doc.collection,
+				}));
+			});
+
+		return Promise.all([dependencyFor$, dependentOn$]).then(([docs1, docs2]) => {
+			const set = new DependencyGraphResourceSet(docs1);
+			docs2.forEach((r) => set.add(r));
+			return Array.from(set);
+		});
 	}
 
 	/**

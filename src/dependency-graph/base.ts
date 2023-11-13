@@ -115,6 +115,16 @@ export abstract class DependencyGraphBase {
 	): boolean | Promise<boolean>;
 
 	/**
+	 * Get dependencies of `resource` that is from `collection`
+	 * @param resource
+	 * @param collection
+	 */
+	abstract getDependenciesOfCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): DependencyGraphResource[] | Promise<DependencyGraphResource[]>;
+
+	/**
 	 * Used at Payload initialization to populate the dependency graph.
 	 * You shouldn't call this function by yourself.
 	 */
