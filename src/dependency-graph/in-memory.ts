@@ -4,6 +4,7 @@ import type {
 	DependencyGraphNode,
 	DependencyGraphResource,
 } from '../types';
+import { DependencyGraphResourceSet } from '../utils/set';
 import { DependencyGraphBase } from './base';
 
 export class InMemoryDependencyGraph extends DependencyGraphBase {
@@ -218,5 +219,58 @@ export class InMemoryDependencyGraph extends DependencyGraphBase {
 		}
 
 		return false;
+	}
+
+	getDependenciesOfCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): DependencyGraphResource[] {
+		const resources = this.getDependenciesOfCollectionRecursive(resource, collection);
+		const set = new DependencyGraphResourceSet(resources);
+		return Array.from(set);
+	}
+
+	private getDependenciesOfCollectionRecursive(
+		resource: DependencyGraphResource,
+		collection: string,
+		direction?: boolean,
+	): DependencyGraphResource[] {
+		if (resource.collection === collection) {
+			return [resource];
+		}
+
+		const node = this.getDependencyGraphNode(resource);
+
+		if (node === undefined) {
+			return [];
+		}
+
+		const items: DependencyGraphResource[] = [];
+
+		if (direction === false || direction === undefined) {
+			items.push(
+				...node.dependencyFor.reduce(
+					(result: DependencyGraphResource[], r: DependencyGraphResource) => [
+						...result,
+						...this.getDependenciesOfCollectionRecursive(r, collection, false),
+					],
+					[],
+				),
+			);
+		}
+
+		if (direction === true || direction === undefined) {
+			items.push(
+				...node.dependentOn.reduce(
+					(result: DependencyGraphResource[], r: DependencyGraphResource) => [
+						...result,
+						...this.getDependenciesOfCollectionRecursive(r, collection, true),
+					],
+					[],
+				),
+			);
+		}
+
+		return items;
 	}
 }
