@@ -442,6 +442,28 @@ describe('InMemoryDependencyGraph e2e', () => {
 		});
 	});
 
+	it('getDependenciesOfCollection should return right resources', () => {
+		const deps = graph.getDependenciesOfCollection(
+			{
+				id: 'dog_charlie',
+				collection: 'dogs',
+			},
+			'pages',
+		);
+
+		expect(deps).toContainEqual({
+			collection: 'pages',
+			id: 'home',
+		});
+
+		expect(deps).toContainEqual({
+			collection: 'pages',
+			id: 'dogs_page',
+		});
+
+		expect(deps).toHaveLength(2);
+	});
+
 	it('should add resource in graph', async () => {
 		callback.mockReset();
 
