@@ -115,7 +115,7 @@ export abstract class DependencyGraphBase {
 	): boolean | Promise<boolean>;
 
 	/**
-	 * Get dependencies of `resource` that is from `collection`
+	 * Get dependencies of `resource` that is of `collection`
 	 * @param resource
 	 * @param collection
 	 */
