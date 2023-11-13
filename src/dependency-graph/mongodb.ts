@@ -203,7 +203,21 @@ export class MongoDBDependencyGraph extends DependencyGraphBase {
 		resource: DependencyGraphResource,
 		collection: string,
 	): Promise<DependencyGraphResource[]> {
-		const dependencyFor$ = this.collection
+		return Promise.all([
+			this.getDependenciesForCollection(resource, collection),
+			this.getDependsOnCollection(resource, collection),
+		]).then(([docs1, docs2]) => {
+			const set = new DependencyGraphResourceSet(docs1);
+			docs2.forEach((r) => set.add(r));
+			return Array.from(set);
+		});
+	}
+
+	getDependenciesForCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): Promise<DependencyGraphResource[]> {
+		return this.collection
 			.aggregate([
 				{
 					$match: resource,
@@ -242,13 +256,22 @@ export class MongoDBDependencyGraph extends DependencyGraphBase {
 			])
 			.toArray()
 			.then((docs) => {
-				return docs.map((doc) => ({
-					id: doc.id,
-					collection: doc.collection,
-				}));
+				return Array.from(
+					new DependencyGraphResourceSet(
+						docs.map((doc) => ({
+							id: doc.id,
+							collection: doc.collection,
+						})),
+					),
+				);
 			});
+	}
 
-		const dependentOn$ = this.collection
+	getDependsOnCollection(
+		resource: DependencyGraphResource,
+		collection: string,
+	): Promise<DependencyGraphResource[]> {
+		return this.collection
 			.aggregate([
 				{
 					$match: resource,
@@ -287,17 +310,15 @@ export class MongoDBDependencyGraph extends DependencyGraphBase {
 			])
 			.toArray()
 			.then((docs) => {
-				return docs.map((doc) => ({
-					id: doc.id,
-					collection: doc.collection,
-				}));
+				return Array.from(
+					new DependencyGraphResourceSet(
+						docs.map((doc) => ({
+							id: doc.id,
+							collection: doc.collection,
+						})),
+					),
+				);
 			});
-
-		return Promise.all([dependencyFor$, dependentOn$]).then(([docs1, docs2]) => {
-			const set = new DependencyGraphResourceSet(docs1);
-			docs2.forEach((r) => set.add(r));
-			return Array.from(set);
-		});
 	}
 
 	/**
