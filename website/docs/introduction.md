@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 slug: /
+description: This plugin creates a dependency graph between collections and globals in Payload CMS.
 ---
 
 # Introduction
