@@ -4,6 +4,8 @@
 
 This plugin creates a dependency graph between collections and globals. The graph updates automatically, because the plugin observes the changes made on any collection or globals.
 
+This plugin is created and maintained by [gvhdev.com](https://gvhdev.com).
+
 ## Use Cases
 
 The plugin is useful when it comes to cached content or relationship-based changes.
