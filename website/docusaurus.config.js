@@ -32,6 +32,16 @@ const config = {
 		locales: ['en'],
 	},
 
+	plugins: [
+		[
+			'@docusaurus/plugin-google-gtag',
+			{
+				trackingID: 'G-C20NB14GXS',
+				anonymizeIP: true,
+			},
+		],
+	],
+
 	presets: [
 		[
 			'classic',
@@ -77,6 +87,9 @@ const config = {
 						position: 'right',
 					},
 				],
+			},
+			footer: {
+				copyright: `This plugin is created and maintained by <a href="https://gvhdev.com">gvhdev.com</a>.`,
 			},
 			prism: {
 				theme: lightCodeTheme,
